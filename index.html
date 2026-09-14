@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Freedom Institute — Grades for censorship, tests for privacy products</title>
+<meta name="description" content="The Freedom Institute grades country censorship, tests what privacy products actually do, and builds open tools so anyone can repeat the measurement.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..500;1,6..72,200..400&family=Geist:wght@300;400;500&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23011614'/%3E%3Cpath d='M8 22c0-8 3-12 8-12s8 4 8 12' stroke='%2397FCE4' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:#011614;
+  --deep:#002F2B;
+  --green:#17453F;
+  --mint:#97FCE4;
+  --paper:#F3F5F4;
+  --grey:#E5E7E5;
+  --line:#D8DDDB;
+  --white:#FFFFFF;
+  --muted:#5E6C69;
+  --pos:#0E7C5A;
+  --warn:#B4741B;
+  --neg:#B03A2E;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --sans:"Geist","Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --pad:clamp(20px,5vw,88px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-weight:400;font-size:16px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%}
+a{color:inherit}
+.wrap{max-width:1280px;margin:0 auto;padding-inline:var(--pad)}
+.mono{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase}
+
+/* ---------- nav ---------- */
+header{position:sticky;top:0;z-index:60;background:rgba(243,245,244,.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:24px;height:74px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;flex:0 0 auto}
+.mark{width:38px;height:38px;flex:0 0 auto}
+.brand-name{font-family:var(--serif);font-size:19px;font-weight:400;line-height:1.05;letter-spacing:-.01em}
+.brand-name em{font-style:italic}
+.nav-links{display:flex;gap:2px;margin-left:auto;background:var(--white);border:1px solid var(--line);border-radius:2px;padding:4px}
+.nav-links a{padding:8px 14px;text-decoration:none;color:var(--muted);border-radius:1px;transition:.15s}
+.nav-links a:hover{color:var(--ink);background:var(--grey)}
+.nav-links a.on{background:var(--ink);color:var(--mint)}
+.nav-meta{margin-left:auto;text-align:right;line-height:1.5;color:var(--ink)}
+.nav-meta .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--pos);margin-right:6px;vertical-align:middle;animation:pulse 2.4s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+.burger{display:none;margin-left:auto;background:none;border:1px solid var(--line);padding:9px 12px;border-radius:2px;cursor:pointer}
+
+/* ---------- hero ---------- */
+.hero{padding:clamp(56px,9vw,116px) 0 0;position:relative;overflow:hidden}
+.hero h1{
+  font-family:var(--serif);font-weight:300;font-size:clamp(38px,6.6vw,86px);
+  line-height:1.02;letter-spacing:-.025em;margin:26px 0 0;max-width:17ch;
+}
+.hero h1 .soft{color:var(--muted)}
+.hero .lede{font-size:clamp(16px,1.5vw,19px);color:var(--muted);max-width:56ch;margin:30px 0 0;font-weight:300}
+.featured{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:44px;background:var(--white);border:1px solid var(--line);padding:14px 18px;border-radius:2px;text-decoration:none;max-width:760px;transition:.18s}
+.featured:hover{border-color:var(--ink);transform:translateY(-1px)}
+.featured .tag{background:var(--mint);color:var(--deep);padding:4px 8px;border-radius:2px}
+.featured .txt{flex:1;min-width:200px;font-size:14px}
+.featured .date{color:var(--muted)}
+.skyline{margin-top:clamp(48px,7vw,88px);height:clamp(150px,22vw,280px);background:
+  radial-gradient(circle at 1px 1px, rgba(1,22,20,.16) 1px, transparent 0) 0 0/9px 9px;
+  -webkit-mask-image:linear-gradient(to bottom,transparent,#000 35%,#000 70%,transparent);
+  mask-image:linear-gradient(to bottom,transparent,#000 35%,#000 70%,transparent);
+  position:relative}
+.skyline::after{content:"";position:absolute;inset:0;background:
+  radial-gradient(ellipse 40% 70% at 50% 100%, rgba(23,69,63,.18), transparent 70%)}
+
+/* ---------- generic section ---------- */
+section{padding:clamp(56px,8vw,104px) 0}
+.eyebrow{display:flex;align-items:center;gap:10px;color:var(--muted);margin-bottom:22px}
+.eyebrow::before{content:"";width:26px;height:1px;background:currentColor}
+h2{font-family:var(--serif);font-weight:300;font-size:clamp(28px,4.1vw,52px);line-height:1.08;letter-spacing:-.022em;margin:0;max-width:22ch}
+h3{font-family:var(--serif);font-weight:400;font-size:clamp(20px,2.1vw,27px);line-height:1.2;letter-spacing:-.012em;margin:0 0 12px}
+p{margin:0 0 16px}
+.p-lg{font-family:var(--serif);font-weight:300;font-size:clamp(21px,2.6vw,33px);line-height:1.32;letter-spacing:-.015em;max-width:24ch}
+.dim{color:var(--muted)}
+
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 26px;border:1px solid var(--ink);border-radius:100px;text-decoration:none;background:transparent;position:relative;transition:.2s}
+.btn::before{content:"";position:absolute;inset:-6px;border:1px solid var(--line);border-radius:100px;transition:.2s}
+.btn:hover{background:var(--ink);color:var(--mint)}
+.btn:hover::before{inset:-3px;border-color:var(--ink)}
+.btn.on-dark{border-color:var(--mint);color:var(--mint)}
+.btn.on-dark::before{border-color:rgba(151,252,228,.28)}
+.btn.on-dark:hover{background:var(--mint);color:var(--deep)}
+
+/* ---------- mission split ---------- */
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(28px,5vw,72px);align-items:start}
+.mission-list{list-style:none;margin:34px 0 0;padding:0;border-top:1px solid var(--line)}
+.mission-list li{display:grid;grid-template-columns:38px 1fr;gap:18px;padding:20px 0;border-bottom:1px solid var(--line)}
+.mission-list .n{color:var(--muted)}
+
+/* ---------- metric strip ---------- */
+.metrics{background:var(--white);border-block:1px solid var(--line)}
+.metrics .wrap{padding-block:clamp(38px,5vw,58px)}
+.metric-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:34px}
+.flagnote{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--paper);padding:6px 10px;border-radius:2px;color:var(--warn)}
+.metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.metric{background:var(--white);padding:22px}
+.metric .k{color:var(--muted);margin-bottom:10px}
+.metric .v{font-family:var(--serif);font-weight:300;font-size:clamp(30px,3.6vw,44px);line-height:1;letter-spacing:-.03em}
+.metric .d{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.metric .d b{font-weight:500;font-family:var(--mono);font-size:11.5px}
+.up{color:var(--pos)}.down{color:var(--neg)}
+
+/* ---------- data panel ---------- */
+.panel{background:var(--white);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.panel-head{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--line)}
+.panel-head .title{font-family:var(--serif);font-size:21px;font-weight:400;letter-spacing:-.01em}
+.controls{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:8px 13px;border:1px solid var(--line);background:var(--paper);border-radius:2px;cursor:pointer;color:var(--muted);transition:.15s}
+.chip:hover{border-color:var(--ink);color:var(--ink)}
+.chip.on{background:var(--ink);border-color:var(--ink);color:var(--mint)}
+.scroller{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:760px;font-size:14px}
+thead th{
+  font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);text-align:left;padding:12px 16px;background:var(--paper);border-bottom:1px solid var(--line);
+  white-space:nowrap;cursor:pointer;user-select:none}
+thead th:hover{color:var(--ink)}
+thead th.num,tbody td.num{text-align:right;font-variant-numeric:tabular-nums}
+tbody td{padding:14px 16px;border-bottom:1px solid var(--line);vertical-align:middle}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:var(--paper)}
+.rank{color:var(--muted);font-family:var(--mono);font-size:12px;width:44px}
+.entity{display:flex;align-items:center;gap:11px;font-weight:500;white-space:nowrap}
+.flag{width:26px;height:19px;border-radius:2px;flex:0 0 auto;border:1px solid rgba(1,22,20,.12);display:grid;place-items:center;font-family:var(--mono);font-size:9px;font-weight:600;background:var(--grey);color:var(--muted)}
+.grade{display:inline-grid;place-items:center;width:30px;height:26px;border-radius:2px;font-family:var(--mono);font-size:12px;font-weight:600}
+.g-a{background:#DFF4EA;color:#0B5F45}
+.g-b{background:#E7F1DC;color:#4A6B24}
+.g-c{background:#FBF0D6;color:#8A6412}
+.g-d{background:#FAE3D6;color:#9B4A1C}
+.g-f{background:#F7DAD6;color:#9B2C20}
+.bar{display:inline-block;vertical-align:middle;width:84px;height:6px;background:var(--grey);border-radius:100px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--green);border-radius:100px}
+.bar.low i{background:#C6903A}
+.bar.bad i{background:#B0563E}
+.stat{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.stat::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.s-obs{color:var(--pos)}.s-aud{color:var(--green)}.s-claim{color:var(--warn)}.s-unk{color:var(--neg)}
+.panel-foot{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;padding:14px 22px;background:var(--paper);border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
+.panel-foot a{color:var(--green)}
+
+/* ---------- dark block ---------- */
+.dark{background:var(--deep);color:var(--white)}
+.dark h2,.dark .p-lg{color:var(--white)}
+.dark .eyebrow{color:var(--mint)}
+.dark .dim{color:rgba(255,255,255,.62)}
+.dark .card .dim,.dark .card p{color:var(--muted)}
+.cards{display:grid;gap:20px;margin-top:44px}
+.card{background:var(--white);color:var(--ink);border-left:4px solid var(--mint);padding:26px 30px;border-radius:2px}
+.card p:last-child{margin-bottom:0}
+.dark .tape{display:flex;gap:0;margin-bottom:40px}
+.dark .tape span{display:block;height:30px}
+.tape .t1{width:118px;background:var(--grey)}
+.tape .t2{width:212px;background:var(--white)}
+
+/* ---------- activity grid ---------- */
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:52px}
+.cell{background:var(--white);padding:32px}
+.cell .num{color:var(--muted);margin-bottom:20px}
+.cell ul{margin:16px 0 0;padding-left:18px;color:var(--muted);font-size:14.5px}
+.cell li{margin-bottom:7px}
+
+/* ---------- research list ---------- */
+.rlist{border-top:1px solid var(--line);margin-top:44px}
+.ritem{display:grid;grid-template-columns:158px 1fr auto;gap:24px;align-items:baseline;padding:26px 0;border-bottom:1px solid var(--line);text-decoration:none;transition:.15s}
+.ritem:hover{background:var(--white);padding-inline:16px;margin-inline:-16px}
+.ritem .when{color:var(--muted)}
+.ritem h3{margin:0 0 6px}
+.ritem .arrow{font-family:var(--mono);font-size:16px;color:var(--muted)}
+
+/* ---------- independence ---------- */
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.14);margin-top:44px}
+.rule{background:var(--deep);padding:26px}
+.rule .k{color:var(--mint);margin-bottom:12px}
+.rule p{font-size:14.5px;color:rgba(255,255,255,.74);margin:0}
+
+/* ---------- prior art ---------- */
+.priors{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:40px}
+.prior{background:var(--white);padding:22px}
+.prior .k{margin-bottom:10px}
+.prior a{color:var(--green);font-size:13.5px;text-decoration:none;border-bottom:1px solid var(--line)}
+.prior a:hover{border-color:var(--green)}
+.prior p{font-size:13.5px;color:var(--muted);margin:0 0 10px}
+
+/* ---------- footer ---------- */
+footer{background:var(--ink);color:var(--white);padding:clamp(56px,8vw,96px) 0 34px}
+footer .vision{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4.2vw,52px);line-height:1.1;letter-spacing:-.022em;max-width:20ch;margin:34px 0 0}
+.foot-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:36px;margin-top:64px;padding-top:40px;border-top:1px solid rgba(255,255,255,.16)}
+.foot-grid .k{color:var(--mint);margin-bottom:16px}
+.foot-grid a{display:block;color:rgba(255,255,255,.74);text-decoration:none;font-size:14.5px;margin-bottom:9px}
+.foot-grid a:hover{color:var(--white)}
+.signup{display:flex;gap:8px;margin-top:14px;max-width:340px}
+.signup input{flex:1;min-width:0;background:transparent;border:1px solid rgba(255,255,255,.26);color:var(--white);padding:13px 14px;border-radius:2px;font-family:var(--sans);font-size:14px}
+.signup input::placeholder{color:rgba(255,255,255,.4)}
+.signup button{background:var(--mint);color:var(--deep);border:0;padding:0 18px;border-radius:2px;cursor:pointer;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.colophon{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;margin-top:56px;padding-top:22px;border-top:1px solid rgba(255,255,255,.16);color:rgba(255,255,255,.5)}
+
+@media(max-width:900px){
+  .split{grid-template-columns:1fr}
+  .ritem{grid-template-columns:1fr;gap:8px}
+  .ritem .arrow{display:none}
+}
+@media(max-width:760px){
+  .nav-links{display:none;position:absolute;top:74px;left:var(--pad);right:var(--pad);flex-direction:column;padding:8px}
+  .nav-links.open{display:flex}
+  .nav-links a{padding:12px}
+  .burger{display:block}
+  .nav-meta{display:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top">
+      <svg class="mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <circle cx="20" cy="20" r="19" stroke="#011614" stroke-width="1.4"/>
+        <path d="M7 24c0-9 5.8-14 13-14s13 5 13 14" stroke="#011614" stroke-width="1.4"/>
+        <path d="M20 6v28M9.5 13.5h21M9.5 30.5h21" stroke="#011614" stroke-width="1.4" opacity=".35"/>
+      </svg>
+      <span class="brand-name">Freedom<br><em>Institute</em></span>
+    </a>
+    <button class="burger mono" id="burger" aria-label="Menu">Menu</button>
+    <nav class="nav-links" id="menu">
+      <a class="mono on" href="#top">Home</a>
+      <a class="mono" href="#grades">Grades</a>
+      <a class="mono" href="#index">Index</a>
+      <a class="mono" href="#research">Research</a>
+      <a class="mono" href="#independence">About</a>
+    </nav>
+    <div class="nav-meta mono">
+      <div>Global coverage</div>
+      <div><span class="dot"></span><span id="clock">00:00 UTC</span></div>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow mono">Public-interest privacy research</div>
+    <h1>Privacy is a promise until someone <span class="soft">tests it.</span></h1>
+    <p class="lede">The Freedom Institute grades how countries censor, measures what privacy products actually do with your data, and publishes the evidence behind every score. We build the testing tools in the open so anyone can repeat the work.</p>
+    <a class="featured" href="#index">
+      <span class="tag mono">First edition</span>
+      <span class="txt">The Privacy Product Index opens for public methodology review</span>
+      <span class="date mono">Sep 2026</span>
+    </a>
+  </div>
+  <div class="skyline"></div>
+</div>
+
+<!-- MISSION -->
+<section>
+  <div class="wrap split">
+    <div>
+      <div class="eyebrow mono">What we are for</div>
+      <p class="p-lg">If you can be identified, you can be targeted; most people have no way to find out which tools actually stop that.</p>
+    </div>
+    <div>
+      <p class="dim">A VPN says no logs. A messenger says anonymous. A cloud service says deleted. Every one of those is a claim, and almost none of them arrive with evidence a reader can check. Meanwhile a government blocks a protocol on a Tuesday, restores it on a Friday, and the record of what happened is gone by the time anyone writes it up.</p>
+      <p class="dim">We publish country censorship grades and a Privacy Product Index that separate what a provider says from what we observed, what an auditor confirmed, and what nobody knows yet. The unknowns get printed too.</p>
+      <ul class="mission-list">
+        <li><span class="n mono">01</span><span>Advance privacy, freedom of expression, and access to information through evidence, technology, and advocacy.</span></li>
+        <li><span class="n mono">02</span><span>Serve the people choosing privacy tools, the journalists who depend on them, and the civil-society groups working under pressure.</span></li>
+        <li><span class="n mono">03</span><span>Hand policymakers and product teams recommendations specific enough to act on.</span></li>
+      </ul>
+      <div style="margin-top:40px"><a class="btn mono" href="#grades">See the methodology <span>&rarr;</span></a></div>
+    </div>
+  </div>
+</section>
+
+<!-- METRICS -->
+<div class="metrics" id="coverage">
+  <div class="wrap">
+    <div class="metric-head">
+      <div>
+        <div class="eyebrow mono">Coverage at first publication</div>
+        <h2 style="font-size:clamp(24px,3vw,36px)">Every grade ships with its evidence trail</h2>
+      </div>
+      <span class="flagnote mono">Illustrative &middot; pre-launch concept</span>
+    </div>
+    <div class="metric-grid">
+      <div class="metric"><div class="k mono">Countries graded</div><div class="v">72</div><div class="d"><b class="up">&#9650; +12</b> since prior cycle</div></div>
+      <div class="metric"><div class="k mono">Products indexed</div><div class="v">140+</div><div class="d"><b class="up">&#9650; +31</b> since prior cycle</div></div>
+      <div class="metric"><div class="k mono">Evidence records</div><div class="v">18,400</div><div class="d"><b class="up">&#9650; +2,900</b> last 90 days</div></div>
+      <div class="metric"><div class="k mono">Shutdown events</div><div class="v">216</div><div class="d"><b class="down">&#9660; 41</b> still unresolved</div></div>
+      <div class="metric"><div class="k mono">Open-source tests</div><div class="v">9</div><div class="d">Diagnostics published under MIT</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- GRADES -->
+<section id="grades">
+  <div class="wrap">
+    <div class="eyebrow mono">Country censorship grades</div>
+    <h2>A grade is worthless unless you can see what it was built from</h2>
+    <p class="dim" style="max-width:64ch;margin-top:20px">Each country is scored on four axes: blocking of sites and protocols, network shutdowns, restrictions on circumvention tools, and punishment for online expression. Every score carries the measurement window, the number of supporting records, and a confidence level we will argue about in public.</p>
+
+    <div class="panel" style="margin-top:40px">
+      <div class="panel-head">
+        <span class="title">Freedom Grade League Table</span>
+        <div class="controls">
+          <button class="chip on" data-region="all">All regions</button>
+          <button class="chip" data-region="apac">APAC</button>
+          <button class="chip" data-region="emea">EMEA</button>
+          <button class="chip" data-region="americas">Americas</button>
+        </div>
+      </div>
+      <div class="scroller">
+        <table id="gradeTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Country</th>
+              <th>Grade</th>
+              <th class="num" data-sort="num">Blocking</th>
+              <th class="num" data-sort="num">Shutdowns 12M</th>
+              <th>Circumvention</th>
+              <th class="num" data-sort="num">Evidence</th>
+              <th>Confidence</th>
+              <th>Updated</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-region="emea"><td class="rank">1</td><td><span class="entity"><span class="flag">DE</span>Germany</span></td><td><span class="grade g-a">A</span></td><td class="num">Low</td><td class="num">0</td><td>Unrestricted</td><td class="num">612</td><td><span class="bar"><i style="width:92%"></i></span></td><td class="mono dim">Sep 2026</td></tr>
+            <tr data-region="apac"><td class="rank">2</td><td><span class="entity"><span class="flag">JP</span>Japan</span></td><td><span class="grade g-a">A</span></td><td class="num">Low</td><td class="num">0</td><td>Unrestricted</td><td class="num">488</td><td><span class="bar"><i style="width:88%"></i></span></td><td class="mono dim">Sep 2026</td></tr>
+            <tr data-region="americas"><td class="rank">3</td><td><span class="entity"><span class="flag">BR</span>Brazil</span></td><td><span class="grade g-b">B</span></td><td class="num">Low</td><td class="num">1</td><td>Unrestricted</td><td class="num">531</td><td><span class="bar"><i style="width:80%"></i></span></td><td class="mono dim">Aug 2026</td></tr>
+            <tr data-region="apac"><td class="rank">4</td><td><span class="entity"><span class="flag">IN</span>India</span></td><td><span class="grade g-c">C</span></td><td class="num">Moderate</td><td class="num">27</td><td>Pressured</td><td class="num">1,204</td><td><span class="bar low"><i style="width:71%"></i></span></td><td class="mono dim">Sep 2026</td></tr>
+            <tr data-region="emea"><td class="rank">5</td><td><span class="entity"><span class="flag">TR</span>T&uuml;rkiye</span></td><td><span class="grade g-d">D</span></td><td class="num">High</td><td class="num">6</td><td>Restricted</td><td class="num">874</td><td><span class="bar low"><i style="width:74%"></i></span></td><td class="mono dim">Sep 2026</td></tr>
+            <tr data-region="emea"><td class="rank">6</td><td><span class="entity"><span class="flag">RU</span>Russia</span></td><td><span class="grade g-f">F</span></td><td class="num">Severe</td><td class="num">14</td><td>Criminalised</td><td class="num">1,690</td><td><span class="bar"><i style="width:86%"></i></span></td><td class="mono dim">Sep 2026</td></tr>
+            <tr data-region="emea"><td class="rank">7</td><td><span class="entity"><span class="flag">IR</span>Iran</span></td><td><span class="grade g-f">F</span></td><td class="num">Severe</td><td class="num">31</td><td>Criminalised</td><td class="num">2,118</td><td><span class="bar"><i style="width:90%"></i></span></td><td class="mono dim">Sep 2026</td></tr>
+            <tr data-region="apac"><td class="rank">8</td><td><span class="entity"><span class="flag">CN</span>China</span></td><td><span class="grade g-f">F</span></td><td class="num">Severe</td><td class="num">9</td><td>Criminalised</td><td class="num">2,460</td><td><span class="bar"><i style="width:93%"></i></span></td><td class="mono dim">Sep 2026</td></tr>
+            <tr data-region="emea"><td class="rank">9</td><td><span class="entity"><span class="flag">ET</span>Ethiopia</span></td><td><span class="grade g-d">D</span></td><td class="num">High</td><td class="num">18</td><td>Restricted</td><td class="num">342</td><td><span class="bar bad"><i style="width:48%"></i></span></td><td class="mono dim">Jul 2026</td></tr>
+            <tr data-region="apac"><td class="rank">10</td><td><span class="entity"><span class="flag">MM</span>Myanmar</span></td><td><span class="grade g-f">F</span></td><td class="num">Severe</td><td class="num">44</td><td>Criminalised</td><td class="num">296</td><td><span class="bar bad"><i style="width:44%"></i></span></td><td class="mono dim">Jun 2026</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="panel-foot">
+        <span>Sample rendering. Figures are illustrative and are not a published assessment.</span>
+        <span><a href="#research">Methodology &amp; scoring notes &rarr;</a></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM (dark) -->
+<div class="dark">
+  <section>
+    <div class="wrap">
+      <div class="tape"><span class="t1"></span><span class="t2"></span></div>
+      <h2>People choose the tools that guard their lives on the strength of a slogan</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>No-logs is a marketing line until someone runs the test</h3>
+          <p class="dim">Providers write their own privacy claims and grade their own homework. Independent verification is rare, expensive, and almost never repeated after launch, so a claim that was true at audit can quietly stop being true and nobody finds out.</p>
+        </div>
+        <div class="card">
+          <h3>Shutdowns end before the record of them begins</h3>
+          <p class="dim">A throttle lasts six hours; a block on one protocol lasts a weekend. By the time a report is written the traffic has recovered and the evidence is gone. Without continuous measurement, the worst behaviour is the behaviour that leaves no trace.</p>
+        </div>
+        <div class="card">
+          <h3>The people most at risk get the least usable guidance</h3>
+          <p class="dim">A journalist in Tehran, an organiser in Yangon, and a researcher in Minsk all need the same thing: which of these five tools will not give me up, and how do you know. The honest answer today is usually a forum thread and a review paid for by affiliate revenue.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- WHAT WE DO -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow mono">Core activities</div>
+    <h2>Three products, one rule: show the evidence or mark it unknown</h2>
+    <div class="grid-3">
+      <div class="cell">
+        <div class="num mono">01 / Measure freedom</div>
+        <h3>Grades carry their dates, their coverage, and their confidence</h3>
+        <p class="dim">Country scores cover blocking, shutdowns, restrictions on circumvention, and punishment for online expression. Where our coverage is thin, the confidence bar says so rather than rounding the gap into a number.</p>
+        <ul>
+          <li>Continuous network measurement</li>
+          <li>Event log with sources and timestamps</li>
+          <li>Quarterly re-grade, public changelog</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <div class="num mono">02 / Evaluate products</div>
+        <h3>Provider claims and observed behaviour are scored separately</h3>
+        <p class="dim">The Privacy Product Index compares tools inside a category on data collection, retention, provider access, tracking, privacy defaults, and user control; each cell is labelled claimed, observed, audited, or unknown.</p>
+        <ul>
+          <li>Category-relative scoring</li>
+          <li>Traffic and binary analysis</li>
+          <li>No paid placement, no affiliate links</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <div class="num mono">03 / Build and advocate</div>
+        <h3>Open tools let anyone repeat the measurement</h3>
+        <p class="dim">We ship the diagnostics we test with, work with product teams on the fixes our testing surfaces, and turn findings into guidance people can act on and briefings regulators can use.</p>
+        <ul>
+          <li>Open-source testing harness</li>
+          <li>Coordinated disclosure to vendors</li>
+          <li>Plain-language buyer guidance</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT INDEX -->
+<section id="index" style="padding-top:0">
+  <div class="wrap">
+    <div class="panel">
+      <div class="panel-head">
+        <span class="title">Privacy Product Index</span>
+        <div class="controls">
+          <button class="chip on" data-cat="all">All</button>
+          <button class="chip" data-cat="vpn">VPN</button>
+          <button class="chip" data-cat="msg">Messaging</button>
+          <button class="chip" data-cat="mail">Email</button>
+          <button class="chip" data-cat="browser">Browser</button>
+        </div>
+      </div>
+      <div class="scroller">
+        <table id="indexTable">
+          <thead>
+            <tr>
+              <th>Entry</th>
+              <th>Category</th>
+              <th>Data collected</th>
+              <th>Retention</th>
+              <th>Provider access</th>
+              <th>Third-party tracking</th>
+              <th>Private by default</th>
+              <th>Verification</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-cat="vpn"><td><span class="entity"><span class="flag">01</span>Provider&nbsp;01</span></td><td class="dim">VPN</td><td>Email, payment token</td><td>Session only</td><td>None claimed</td><td>None detected</td><td>Yes</td><td><span class="stat s-aud">Audited</span></td></tr>
+            <tr data-cat="vpn"><td><span class="entity"><span class="flag">02</span>Provider&nbsp;02</span></td><td class="dim">VPN</td><td>Email, device ID, IP</td><td>30 days</td><td>Full</td><td>2 SDKs</td><td>No</td><td><span class="stat s-obs">Observed</span></td></tr>
+            <tr data-cat="vpn"><td><span class="entity"><span class="flag">03</span>Provider&nbsp;03</span></td><td class="dim">VPN</td><td>Undisclosed</td><td>Undisclosed</td><td>Undisclosed</td><td>Not testable</td><td>Unknown</td><td><span class="stat s-unk">Unknown</span></td></tr>
+            <tr data-cat="msg"><td><span class="entity"><span class="flag">04</span>Messenger&nbsp;01</span></td><td class="dim">Messaging</td><td>Phone number</td><td>Message queue only</td><td>None claimed</td><td>None detected</td><td>Yes</td><td><span class="stat s-aud">Audited</span></td></tr>
+            <tr data-cat="msg"><td><span class="entity"><span class="flag">05</span>Messenger&nbsp;02</span></td><td class="dim">Messaging</td><td>Contacts, metadata</td><td>Indefinite</td><td>Full</td><td>4 SDKs</td><td>No</td><td><span class="stat s-obs">Observed</span></td></tr>
+            <tr data-cat="mail"><td><span class="entity"><span class="flag">06</span>Mail&nbsp;01</span></td><td class="dim">Email</td><td>Recovery address</td><td>Until deletion</td><td>Metadata only</td><td>None detected</td><td>Yes</td><td><span class="stat s-obs">Observed</span></td></tr>
+            <tr data-cat="mail"><td><span class="entity"><span class="flag">07</span>Mail&nbsp;02</span></td><td class="dim">Email</td><td>Full mailbox</td><td>Indefinite</td><td>Full</td><td>Ad profiling</td><td>No</td><td><span class="stat s-claim">Claimed</span></td></tr>
+            <tr data-cat="browser"><td><span class="entity"><span class="flag">08</span>Browser&nbsp;01</span></td><td class="dim">Browser</td><td>Crash reports</td><td>90 days</td><td>None claimed</td><td>Blocked by default</td><td>Yes</td><td><span class="stat s-aud">Audited</span></td></tr>
+            <tr data-cat="browser"><td><span class="entity"><span class="flag">09</span>Browser&nbsp;02</span></td><td class="dim">Browser</td><td>Telemetry, sync data</td><td>18 months</td><td>Full</td><td>Allowed by default</td><td>No</td><td><span class="stat s-obs">Observed</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="panel-foot">
+        <span>Entries are anonymised until first publication. Structure shown; scores are illustrative.</span>
+        <span><a href="#research">How an entry gets scored &rarr;</a></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research" style="padding-top:0">
+  <div class="wrap">
+    <div class="eyebrow mono">Research programme</div>
+    <h2>Privacy Claims vs Reality is where we start</h2>
+    <p class="dim" style="max-width:62ch;margin-top:20px">The signature series takes the three promises the industry repeats most often, no logs, anonymous, and deleted, and tests each one against what the software and the servers actually do. Everything after it follows the same rule: publish the method, publish the failures, publish the unknowns.</p>
+    <div class="rlist">
+      <a class="ritem" href="#">
+        <span class="when mono">Issue 01 &middot; Q4 2026</span>
+        <span><h3>What &ldquo;no logs&rdquo; survives a subpoena</h3><span class="dim">Twelve consumer VPNs, their written claims, their observed connection handling, and what each one has handed over when asked.</span></span>
+        <span class="arrow">&rarr;</span>
+      </a>
+      <a class="ritem" href="#">
+        <span class="when mono">Issue 02 &middot; Q1 2027</span>
+        <span><h3>Deleted accounts that are still there a year later</h3><span class="dim">We delete, we wait, we ask for our data back under access rights, and we publish who returns it.</span></span>
+        <span class="arrow">&rarr;</span>
+      </a>
+      <a class="ritem" href="#">
+        <span class="when mono">Issue 03 &middot; Q2 2027</span>
+        <span><h3>The price of choosing the private option</h3><span class="dim">What privacy actually costs a household in money, time, and broken services, measured across four income brackets and three countries.</span></span>
+        <span class="arrow">&rarr;</span>
+      </a>
+      <a class="ritem" href="#">
+        <span class="when mono">Standing</span>
+        <span><h3>State surveillance and AI, tracked as it changes</h3><span class="dim">Procurement records, vendor disclosures, and model-side data handling, updated as filings land rather than once a year.</span></span>
+        <span class="arrow">&rarr;</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- INDEPENDENCE -->
+<div class="dark" id="independence">
+  <section>
+    <div class="wrap split">
+      <div>
+        <div class="eyebrow mono">Funding and credibility</div>
+        <p class="p-lg">Our largest funder does not get a soft review; we wrote that into the structure before we wrote a word of research.</p>
+      </div>
+      <div>
+        <p class="dim">ur.io would be the Institute's primary supporter, with funding and in-kind contributions disclosed in full. Independence that depends on goodwill is not independence, so control of methodology and publication sits with a majority-independent board and autonomous research leadership, and assessments of ur.io and of anything the Institute builds are led by external reviewers.</p>
+        <div class="rules">
+          <div class="rule"><div class="k mono">Disclosure</div><p>Every funder, grant, and in-kind contribution published with amounts and dates.</p></div>
+          <div class="rule"><div class="k mono">Control</div><p>Majority-independent board; research leadership holds final say on what publishes.</p></div>
+          <div class="rule"><div class="k mono">Conflicts</div><p>External reviewers lead any assessment touching a funder or an Institute product.</p></div>
+          <div class="rule"><div class="k mono">No paid rankings</div><p>No sponsored placement, no affiliate revenue, no sponsor veto over a finding.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- PRIOR ART -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow mono">Prior art we build on</div>
+    <h2>Six organisations already solved parts of this; we are not starting from zero</h2>
+    <div class="priors">
+      <div class="prior"><div class="k mono">Freedom House</div><p>Annual internet-freedom country ratings with supporting narratives.</p><a href="https://freedomhouse.org/reports" target="_blank" rel="noopener">Freedom on the Net</a></div>
+      <div class="prior"><div class="k mono">OONI</div><p>Open-source censorship measurement, open data, and investigations.</p><a href="https://ooni.org/" target="_blank" rel="noopener">ooni.org</a></div>
+      <div class="prior"><div class="k mono">Access Now</div><p>Shutdown documentation joined to advocacy through local partners.</p><a href="https://www.accessnow.org/campaign/keepiton/" target="_blank" rel="noopener">KeepItOn</a></div>
+      <div class="prior"><div class="k mono">Ranking Digital Rights</div><p>Structured review of corporate disclosures on privacy and expression.</p><a href="https://rankingdigitalrights.org/2020-research-process/" target="_blank" rel="noopener">Research process</a></div>
+      <div class="prior"><div class="k mono">Mozilla</div><p>Consumer-facing warnings on connected products and apps.</p><a href="https://wiki.mozilla.org/Foundation/Privacy_not_included" target="_blank" rel="noopener">Privacy Not Included</a></div>
+      <div class="prior"><div class="k mono">Privacy Guides</div><p>Criteria-based recommendations with rules against provider influence.</p><a href="https://www.privacyguides.org/" target="_blank" rel="noopener">privacyguides.org</a></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <svg width="64" height="64" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+      <circle cx="20" cy="20" r="19" stroke="#ffffff" stroke-width="1.2"/>
+      <path d="M7 24c0-9 5.8-14 13-14s13 5 13 14" stroke="#ffffff" stroke-width="1.2"/>
+      <path d="M20 6v28M9.5 13.5h21M9.5 30.5h21" stroke="#ffffff" stroke-width="1.2" opacity=".35"/>
+    </svg>
+    <p class="vision">People deserve to know which tools keep their promises, and which governments break theirs.</p>
+    <div class="foot-grid">
+      <div>
+        <div class="k mono">Institute</div>
+        <a href="#grades">Country grades</a>
+        <a href="#index">Privacy Product Index</a>
+        <a href="#research">Research programme</a>
+        <a href="#independence">Funding and governance</a>
+      </div>
+      <div>
+        <div class="k mono">Open source</div>
+        <a href="#">Testing harness</a>
+        <a href="#">Measurement data</a>
+        <a href="#">Scoring methodology</a>
+        <a href="#">Changelog</a>
+      </div>
+      <div>
+        <div class="k mono">Contact</div>
+        <a href="#">research@freedominstitute.org</a>
+        <a href="#">media@freedominstitute.org</a>
+        <a href="#">Secure tip line</a>
+        <a href="#">Open roles</a>
+      </div>
+      <div>
+        <div class="k mono">Get the findings first</div>
+        <p style="color:rgba(255,255,255,.6);font-size:14px;margin:0">One email when a grade changes or a report lands. Nothing else.</p>
+        <form class="signup" id="signup">
+          <input type="email" placeholder="you@domain.com" aria-label="Email address" required>
+          <button type="submit">Join</button>
+        </form>
+        <p class="mono" id="signupNote" style="color:var(--mint);margin-top:12px;display:none">Thanks. Concept page; no list yet.</p>
+      </div>
+    </div>
+    <div class="colophon mono">
+      <span>&copy; 2026 Freedom Institute &middot; Concept</span>
+      <span>Supported by ur.io &middot; Independence policy published in full</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // live UTC clock
+  function tick(){
+    var d=new Date();
+    var h=String(d.getUTCHours()).padStart(2,'0');
+    var m=String(d.getUTCMinutes()).padStart(2,'0');
+    var el=document.getElementById('clock');
+    if(el) el.textContent=h+':'+m+' UTC';
+  }
+  tick(); setInterval(tick,10000);
+
+  // mobile menu
+  var burger=document.getElementById('burger'), menu=document.getElementById('menu');
+  burger.addEventListener('click',function(){menu.classList.toggle('open');});
+  menu.addEventListener('click',function(e){if(e.target.tagName==='A')menu.classList.remove('open');});
+
+  // filter chips
+  function wireFilters(selector, attr, tableId){
+    var btns=document.querySelectorAll(selector);
+    btns.forEach(function(b){
+      b.addEventListener('click',function(){
+        btns.forEach(function(x){x.classList.remove('on');});
+        b.classList.add('on');
+        var v=b.getAttribute(attr);
+        document.querySelectorAll('#'+tableId+' tbody tr').forEach(function(r){
+          r.style.display=(v==='all'||r.dataset[attr.replace('data-','')]===v)?'':'none';
+        });
+      });
+    });
+  }
+  wireFilters('[data-region]','data-region','gradeTable');
+  wireFilters('[data-cat]','data-cat','indexTable');
+
+  // sortable numeric columns
+  document.querySelectorAll('#gradeTable thead th[data-sort]').forEach(function(th){
+    var asc=false;
+    th.addEventListener('click',function(){
+      var idx=Array.prototype.indexOf.call(th.parentNode.children,th);
+      var tb=document.querySelector('#gradeTable tbody');
+      var rows=Array.prototype.slice.call(tb.rows);
+      var order={'Low':1,'Moderate':2,'High':3,'Severe':4};
+      rows.sort(function(a,b){
+        var x=a.cells[idx].textContent.trim(), y=b.cells[idx].textContent.trim();
+        var nx=order[x]!==undefined?order[x]:parseFloat(x.replace(/,/g,''));
+        var ny=order[y]!==undefined?order[y]:parseFloat(y.replace(/,/g,''));
+        return asc?nx-ny:ny-nx;
+      });
+      asc=!asc;
+      rows.forEach(function(r,i){tb.appendChild(r);r.cells[0].textContent=i+1;});
+    });
+  });
+
+  // signup
+  var f=document.getElementById('signup');
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    document.getElementById('signupNote').style.display='block';
+    f.reset();
+  });
+})();
+</script>
+</body>
+</html>
