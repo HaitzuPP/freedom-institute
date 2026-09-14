@@ -148,6 +148,17 @@ window.FI.wireSort=function(tableId,state,render){
   });
 };
 
+/* ---------- image fallback: a failed photo degrades to a clean plate ---------- */
+function markFailed(img){
+  img.setAttribute("data-failed","");
+  var fig=img.closest(".shot");
+  if(fig)fig.setAttribute("data-failed","");
+}
+$$(".shot img").forEach(function(img){
+  img.addEventListener("error",function(){markFailed(img)});
+  if(img.complete&&img.naturalWidth===0)markFailed(img);
+});
+
 /* ---------- newsletter ---------- */
 var signup=$("#signup");
 if(signup) signup.addEventListener("submit",function(e){e.preventDefault();this.reset();window.FI.toast("Concept page; no list yet")});
