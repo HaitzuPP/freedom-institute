@@ -5,485 +5,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Freedom Institute: grades for censorship, tests for privacy products</title>
 <meta name="description" content="The Freedom Institute grades country censorship, tests what privacy products actually do, and builds open tools so anyone can repeat the measurement.">
+<meta name="color-scheme" content="light dark">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Freedom Institute">
-<meta property="og:description" content="Country censorship grades and a Privacy Product Index, published with the evidence behind every score.">
-<meta property="og:url" content="https://haitzupp.github.io/freedom-institute/">
+<meta property="og:title" content="Freedom Institute: grades for censorship, tests for privacy products">
+<meta property="og:description" content="The Freedom Institute grades country censorship, tests what privacy products actually do, and builds open tools so anyone can repeat the measurement.">
+<meta property="og:url" content="https://haitzupp.github.io/freedom-institute/index.html">
 <meta property="og:image" content="https://haitzupp.github.io/freedom-institute/img/patch-panel.jpg">
 <meta name="twitter:card" content="summary_large_image">
+<script>(function(){try{var t=localStorage.getItem("fi-theme")||((window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light");if(t==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..500;1,6..72,200..400&family=Geist:wght@300;400;500&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23011614'/%3E%3Cpath d='M8 22c0-8 3-12 8-12s8 4 8 12' stroke='%2397FCE4' stroke-width='2' fill='none'/%3E%3C/svg%3E">
-<script>(function(){try{var t=localStorage.getItem("fi-theme")||((window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light");if(t==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}})();</script>
-<meta name="color-scheme" content="light dark">
-<style>
-:root{
-  --ink:#011614; --deep:#002F2B; --green:#17453F; --mint:#97FCE4;
-  --paper:#F3F5F4; --grey:#E5E7E5; --line:#D8DDDB; --white:#FFFFFF; --muted:#5E6C69;
-  --pos:#0E7C5A; --warn:#96600F; --neg:#A8362B;
-  /* semantic surfaces that invert independently of the palette */
-  --sel-bg:#011614; --sel-fg:#97FCE4;
-  --band-bg:#002F2B; --band-fg:#FFFFFF;
-  --plate-bg:#011614; --plate-fg:#FFFFFF;
-  --onmint:#002F2B;
-  --headerbg:rgba(243,245,244,.88);
-  --dot:rgba(1,22,20,.16);
-  --rowsel:#EEF6F3;
-  --hairline:rgba(1,22,20,.12);
-  --risk-lo:#17453F; --risk-md:#C6903A; --risk-hi:#B0563E;
-  --ga-bg:#DFF4EA; --ga-fg:#0B5F45; --gb-bg:#E7F1DC; --gb-fg:#46661F;
-  --gc-bg:#FBF0D6; --gc-fg:#7E5A0F; --gd-bg:#FAE3D6; --gd-fg:#94441A;
-  --gf-bg:#F7DAD6; --gf-fg:#93281D;
-  --shot-veil:linear-gradient(180deg,rgba(1,22,20,.05),rgba(23,69,63,.16));
-  --shot-blend:multiply;
-  --shot-filter:saturate(.78) contrast(1.03);
-  --serif:"Newsreader",Georgia,"Times New Roman",serif;
-  --sans:"Geist","Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
-  --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-  --pad:clamp(20px,5vw,88px);
-  --control-line:#93A3A0;
-  --glow:rgba(23,69,63,.18);
-  color-scheme:light;
-}
-html[data-theme="dark"]{
-  --ink:#E8F0ED; --deep:#04100E; --green:#79DFC4; --mint:#97FCE4;
-  --paper:#0A1715; --grey:#1A2E2A; --line:#223A35; --white:#11201D; --muted:#9AAEA8;
-  --pos:#46C79C; --warn:#DCA65A; --neg:#E5836F;
-  --sel-bg:#97FCE4; --sel-fg:#011614;
-  --band-bg:#04100E; --band-fg:#E8F0ED;
-  --plate-bg:#020A09; --plate-fg:#E8F0ED;
-  --onmint:#002F2B;
-  --headerbg:rgba(10,23,21,.9);
-  --dot:rgba(151,252,228,.15);
-  --rowsel:#153029;
-  --hairline:rgba(232,240,237,.14);
-  --risk-lo:#79DFC4; --risk-md:#DCA65A; --risk-hi:#E5836F;
-  --ga-bg:#0E3628; --ga-fg:#8AE7C1; --gb-bg:#1D3618; --gb-fg:#B8D794;
-  --gc-bg:#3A2E15; --gc-fg:#EBC77F; --gd-bg:#402319; --gd-fg:#F2B096;
-  --gf-bg:#431D1A; --gf-fg:#F5A497;
-  --shot-veil:linear-gradient(180deg,rgba(4,16,14,.30),rgba(4,16,14,.46));
-  --shot-blend:normal;
-  --shot-filter:saturate(.7) contrast(1.02) brightness(.8);
-  --control-line:#5F7A74;
-  --glow:rgba(151,252,228,.10);
-  color-scheme:dark;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:132px}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
-body.locked{overflow:hidden}
-img{max-width:100%}
-a{color:inherit}
-button{font-family:inherit}
-.wrap{max-width:1280px;margin:0 auto;padding-inline:var(--pad)}
-.mono{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase}
-:focus-visible{outline:2px solid var(--green);outline-offset:2px}
-
-/* progress */
-.skip{position:fixed;left:-9999px;top:8px;z-index:99;background:var(--sel-bg);color:var(--sel-fg);padding:10px 16px;border-radius:2px;text-decoration:none}
-.skip:focus{left:8px}
-#progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--green);z-index:90;transition:width .08s linear}
-
-/* nav */
-header{position:sticky;top:0;z-index:70;background:var(--headerbg);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.nav{display:flex;align-items:center;gap:24px;height:72px}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none;flex:0 0 auto}
-.mark{width:36px;height:36px;flex:0 0 auto}
-.brand-name{font-family:var(--serif);font-size:18px;line-height:1.05;letter-spacing:-.01em}
-.brand-name em{font-style:italic}
-.nav-links{display:flex;gap:2px;margin-left:auto;background:var(--white);border:1px solid var(--line);border-radius:2px;padding:4px}
-.nav-links a{padding:8px 13px;text-decoration:none;color:var(--muted);transition:.15s}
-.nav-links a:hover{color:var(--ink);background:var(--grey)}
-.nav-links a.on{background:var(--sel-bg);color:var(--sel-fg)}
-.nav-meta{margin-left:auto;text-align:right;line-height:1.5}
-.nav-meta .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--warn);margin-right:6px;vertical-align:middle}
-.themebtn{display:inline-flex;align-items:center;gap:7px;margin-left:18px;background:var(--white);border:1px solid var(--line);border-radius:2px;padding:8px 11px;cursor:pointer;color:var(--muted);transition:.15s;flex:0 0 auto}
-.themebtn:hover{border-color:var(--ink);color:var(--ink)}
-.themebtn svg{width:13px;height:13px;display:block}
-.burger{display:none;margin-left:auto;background:none;border:1px solid var(--line);padding:9px 12px;border-radius:2px;cursor:pointer}
-
-/* section rail */
-.rail{position:sticky;top:72px;z-index:65;background:var(--white);border-bottom:1px solid var(--line)}
-.rail .wrap{display:flex;align-items:center;gap:4px;height:52px;overflow-x:auto;scrollbar-width:none}
-.rail .wrap::-webkit-scrollbar{display:none}
-.rail a{padding:7px 12px;text-decoration:none;color:var(--muted);border-radius:2px;white-space:nowrap;transition:.15s;position:relative}
-.rail a:hover{color:var(--ink);background:var(--paper)}
-.rail a.active{color:var(--ink)}
-.rail a.active::after{content:"";position:absolute;left:12px;right:12px;bottom:-1px;height:2px;background:var(--green)}
-.rail .kbd{margin-left:auto;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
-.rail .kbd kbd{font-family:var(--mono);font-size:10px;border:1px solid var(--line);background:var(--paper);padding:3px 6px;border-radius:3px}
-
-/* hero */
-.hero{padding:clamp(52px,8vw,104px) 0 0;overflow:hidden}
-.hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(38px,6.4vw,84px);line-height:1.02;letter-spacing:-.025em;margin:26px 0 0;max-width:17ch}
-.hero h1 .soft{color:var(--muted)}
-.hero .lede{font-size:clamp(16px,1.5vw,19px);color:var(--muted);max-width:56ch;margin:28px 0 0;font-weight:300}
-.hero-cta{display:flex;flex-wrap:wrap;gap:26px;align-items:center;margin-top:42px}
-.featured{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:36px;background:var(--white);border:1px solid var(--line);padding:14px 18px;border-radius:2px;text-decoration:none;max-width:760px;transition:.18s}
-.featured:hover{border-color:var(--ink);transform:translateY(-1px)}
-.featured .tag{background:var(--mint);color:var(--onmint);padding:4px 8px;border-radius:2px}
-.featured .txt{flex:1;min-width:200px;font-size:14px}
-.featured .date{color:var(--muted)}
-.skyline{margin-top:clamp(44px,6vw,80px);height:clamp(140px,20vw,260px);
-  background:radial-gradient(circle at 1px 1px, var(--dot) 1px, transparent 0) 0 0/9px 9px;
-  -webkit-mask-image:linear-gradient(to bottom,transparent,#000 35%,#000 70%,transparent);
-  mask-image:linear-gradient(to bottom,transparent,#000 35%,#000 70%,transparent);position:relative}
-.skyline::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 40% 70% at 50% 100%, var(--glow), transparent 70%)}
-
-/* type */
-section{padding:clamp(52px,7vw,96px) 0}
-.eyebrow{display:flex;align-items:center;gap:10px;color:var(--muted);margin-bottom:20px}
-.eyebrow{flex-wrap:wrap}
-.eyebrow::before{content:"";width:26px;height:1px;background:currentColor;flex:0 0 auto}
-h2{font-family:var(--serif);font-weight:300;font-size:clamp(28px,4vw,50px);line-height:1.08;letter-spacing:-.022em;margin:0;max-width:22ch}
-h3{font-family:var(--serif);font-weight:400;font-size:clamp(20px,2.1vw,26px);line-height:1.2;letter-spacing:-.012em;margin:0 0 12px}
-p{margin:0 0 16px}
-.p-lg{font-family:var(--serif);font-weight:300;font-size:clamp(21px,2.5vw,32px);line-height:1.32;letter-spacing:-.015em;max-width:24ch}
-.dim{color:var(--muted)}
-
-.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border:1px solid var(--ink);border-radius:100px;text-decoration:none;background:transparent;position:relative;transition:.2s;cursor:pointer}
-.btn::before{content:"";position:absolute;inset:-6px;border:1px solid var(--line);border-radius:100px;transition:.2s}
-.btn:hover{background:var(--sel-bg);color:var(--sel-fg)}
-.btn:hover::before{inset:-3px;border-color:var(--ink)}
-.link-q{color:var(--green);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px}
-.link-q:hover{border-color:var(--green)}
-
-/* reveal */
-.rv{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
-.rv.in{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
-
-/* mission */
-.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(28px,5vw,72px);align-items:start}
-.mission-list{list-style:none;margin:32px 0 0;padding:0;border-top:1px solid var(--line)}
-.mission-list li{display:grid;grid-template-columns:38px 1fr;gap:18px;padding:19px 0;border-bottom:1px solid var(--line)}
-.mission-list .n{color:var(--muted)}
-
-/* metrics */
-.metrics{background:var(--white);border-block:1px solid var(--line)}
-.metrics .wrap{padding-block:clamp(36px,5vw,56px)}
-.metric-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:32px}
-.flagnote{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--paper);padding:6px 10px;border-radius:2px;color:var(--warn)}
-.metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
-.metric{background:var(--white);padding:22px}
-.metric .k{color:var(--muted);margin-bottom:10px}
-.metric .v{font-family:var(--serif);font-weight:300;font-size:clamp(30px,3.5vw,43px);line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-.metric .d{margin-top:10px;font-size:12.5px;color:var(--muted)}
-.metric .d b{font-weight:500;font-family:var(--mono);font-size:11.5px}
-.up{color:var(--pos)}.down{color:var(--neg)}
-
-/* panels */
-.panel{background:var(--white);border:1px solid var(--line);border-radius:3px;overflow:hidden}
-.panel-head{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--line)}
-.panel-head .title{font-family:var(--serif);font-size:20px;letter-spacing:-.01em}
-.controls{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.chip{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:8px 12px;border:1px solid var(--line);background:var(--paper);border-radius:2px;cursor:pointer;color:var(--muted);transition:.15s}
-.chip:hover{border-color:var(--ink);color:var(--ink)}
-.chip.on{background:var(--sel-bg);border-color:var(--sel-bg);color:var(--sel-fg)}
-.chip.toggle{display:inline-flex;align-items:center;gap:8px;border-radius:100px}
-.chip.toggle .box{width:11px;height:11px;border-radius:2px;border:1px solid currentColor;flex:0 0 auto}
-.chip.toggle.on .box{background:currentColor}
-.search{display:flex;align-items:center;gap:8px;border:1px solid var(--control-line);background:var(--paper);border-radius:2px;padding:0 10px;min-width:190px}
-.search:focus-within{outline:2px solid var(--green);outline-offset:2px;border-color:var(--green)}
-.search input{border:0;background:transparent;padding:9px 0;font-family:var(--sans);font-size:14px;width:100%;outline:none;color:var(--ink)}
-.search .sicon{color:var(--muted);font-size:13px}
-.toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--line);background:var(--paper)}
-
-/* distribution bar */
-.dist{display:flex;gap:6px;flex-wrap:wrap}
-.dist button{display:flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--white);border-radius:2px;padding:6px 10px;cursor:pointer;transition:.15s}
-.dist button:hover{border-color:var(--ink)}
-.dist button.on{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
-.dist .gl{font-family:var(--mono);font-size:11px;font-weight:600}
-.dist .ct{font-family:var(--mono);font-size:11px;color:var(--muted)}
-.dist .col{width:4px;border-radius:2px}
-
-/* weights */
-.weights{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px 26px;padding:18px 20px;border-bottom:1px solid var(--line);background:var(--paper)}
-.wctl label{display:flex;justify-content:space-between;gap:10px;color:var(--muted);margin-bottom:9px}
-.wctl label b{color:var(--ink);font-family:var(--mono);font-size:11px}
-.wctl input[type=range]{width:100%;accent-color:var(--green);height:18px}
-.wnote{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;color:var(--muted);font-size:12.5px;margin-top:-4px}
-.wnote button{background:none;border:0;color:var(--green);cursor:pointer;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:0}
-
-/* table */
-.scroller{overflow-x:auto;position:relative;background:linear-gradient(to right,var(--white) 30%,transparent),linear-gradient(to left,var(--white) 30%,transparent) 100% 0,linear-gradient(to right,rgba(1,22,20,.16),transparent 14px),linear-gradient(to left,rgba(1,22,20,.16),transparent 14px) 100% 0;background-size:60px 100%,60px 100%,16px 100%,16px 100%;background-repeat:no-repeat;background-attachment:local,local,scroll,scroll}
-table{width:100%;border-collapse:collapse;min-width:820px;font-size:14px}
-thead th{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;padding:11px 15px;background:var(--paper);border-bottom:1px solid var(--line);white-space:nowrap;cursor:pointer;user-select:none;position:relative}
-thead th:hover{color:var(--ink)}
-.sortbtn{all:unset;display:inline-flex;align-items:center;cursor:pointer;width:100%;font:inherit;color:inherit;letter-spacing:inherit;text-transform:inherit}
-thead th.num .sortbtn{justify-content:flex-end}
-.sortbtn:focus-visible{outline:2px solid var(--green);outline-offset:2px}
-thead th .car{opacity:0;margin-left:5px}
-thead th.sorted .car{opacity:1}
-thead th.num,tbody td.num{text-align:right;font-variant-numeric:tabular-nums}
-thead th.band,tbody td.band{text-align:left}
-tbody td{padding:12px 15px;border-bottom:1px solid var(--line);vertical-align:middle}
-tbody tr{cursor:pointer;transition:background .12s}
-tbody tr:hover{background:var(--paper)}
-.rank{color:var(--muted);font-family:var(--mono);font-size:12px;width:42px}
-.entity{display:flex;align-items:center;gap:11px;font-weight:500;white-space:nowrap}
-.rowbtn{all:unset;display:flex;align-items:center;gap:11px;cursor:pointer;font:inherit;font-weight:500;color:inherit;white-space:nowrap}
-.rowbtn:hover{color:var(--green)}
-.rowbtn:focus-visible{outline:2px solid var(--green);outline-offset:3px}
-.flag{width:26px;height:19px;border-radius:2px;flex:0 0 auto;display:grid;place-items:center;font-family:var(--mono);font-size:9.5px;font-weight:600;background:var(--grey);color:var(--ink);border:1px solid var(--hairline)}
-.grade{display:inline-grid;place-items:center;width:30px;height:26px;border-radius:2px;font-family:var(--mono);font-size:12px;font-weight:600}
-.g-a{background:var(--ga-bg);color:var(--ga-fg)}.g-b{background:var(--gb-bg);color:var(--gb-fg)}
-.g-c{background:var(--gc-bg);color:var(--gc-fg)}.g-d{background:var(--gd-bg);color:var(--gd-fg)}.g-f{background:var(--gf-bg);color:var(--gf-fg)}
-.bar{display:inline-block;vertical-align:middle;width:56px;height:6px;background:var(--grey);box-shadow:inset 0 0 0 1px var(--line);border-radius:100px;overflow:hidden}
-.bar i{display:block;height:100%;background:var(--green);border-radius:100px;transition:width .45s cubic-bezier(.4,0,.2,1)}
-.bar.low i{background:var(--risk-md)}.bar.bad i{background:var(--risk-hi)}
-.spark{display:block}
-.stat{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);cursor:help}
-.stat::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
-.s-obs{color:var(--pos)}.s-aud{color:var(--green)}.s-cla{color:var(--warn)}.s-unk{color:var(--neg)}
-.legend{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px}
-.legend .stat{cursor:help}
-.panel-foot{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;padding:13px 20px;background:var(--paper);border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
-.empty{padding:44px 20px;text-align:center;color:var(--muted)}
-
-/* drawer */
-.scrim{position:fixed;inset:0;background:rgba(1,22,20,.42);opacity:0;pointer-events:none;transition:opacity .25s;z-index:80}
-.scrim.on{opacity:1;pointer-events:auto}
-.drawer{position:fixed;top:0;right:0;bottom:0;width:min(520px,100%);background:var(--white);z-index:85;transform:translateX(102%);transition:transform .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-18px 0 44px rgba(1,22,20,.14)}
-.drawer.on{transform:none}
-.drawer-head{display:flex;align-items:flex-start;gap:14px;padding:22px 24px;border-bottom:1px solid var(--line)}
-.drawer-head .x{margin-left:auto;background:none;border:1px solid var(--line);width:34px;height:34px;border-radius:2px;cursor:pointer;font-size:16px;line-height:1;color:var(--muted)}
-.drawer-head .x:hover{border-color:var(--ink);color:var(--ink)}
-.drawer-body{overflow-y:auto;padding:24px;flex:1}
-.dsec{margin-bottom:30px}
-.dsec .k{color:var(--muted);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--line)}
-.axis{margin-bottom:15px}
-.axis .row{display:flex;justify-content:space-between;gap:10px;font-size:13.5px;margin-bottom:6px}
-.axis .row b{font-family:var(--mono);font-size:11.5px;font-weight:600}
-.track{height:7px;background:var(--grey);box-shadow:inset 0 0 0 1px var(--line);border-radius:100px;overflow:hidden}
-.track i{display:block;height:100%;border-radius:100px;transition:width .5s cubic-bezier(.4,0,.2,1)}
-.log{list-style:none;margin:0;padding:0}
-.log li{display:grid;grid-template-columns:82px 1fr;gap:14px;padding:12px 0;border-bottom:1px solid var(--line);font-size:13.5px}
-.log li:last-child{border-bottom:0}
-.log .when{color:var(--muted);font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding-top:2px}
-.kv{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;font-size:13.5px}
-.kv dt{color:var(--muted)}
-.kv dd{margin:0;text-align:right}
-
-/* compare tray */
-.tray{position:fixed;left:50%;bottom:22px;transform:translate(-50%,150%);z-index:75;background:var(--plate-bg);color:var(--plate-fg);border:1px solid var(--line);border-radius:4px;padding:12px 14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;box-shadow:0 14px 38px rgba(1,22,20,.3);transition:transform .3s cubic-bezier(.4,0,.2,1);max-width:calc(100vw - 32px)}
-.tray.on{transform:translate(-50%,0)}
-.tray .slots{display:flex;flex-wrap:wrap;gap:7px;min-width:0}
-.tray .slot{border:1px dashed rgba(255,255,255,.48);border-radius:2px;padding:6px 10px;font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.45);white-space:nowrap}
-.tray .slot.full{border-style:solid;border-color:var(--mint);color:var(--mint)}
-.tray .go{background:var(--mint);color:var(--onmint);border:0;border-radius:2px;padding:9px 15px;cursor:pointer;font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase}
-.tray .go:disabled{opacity:.35;cursor:not-allowed}
-.tray .clr{background:none;border:0;color:rgba(255,255,255,.55);cursor:pointer;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase}
-.pick{width:20px;height:20px;border:1px solid var(--control-line);border-radius:3px;display:inline-grid;place-items:center;font-size:12px;color:transparent;background:var(--white);cursor:pointer;transition:.15s}
-.pick:hover{border-color:var(--ink)}
-.pick.on{background:var(--sel-bg);border-color:var(--sel-bg);color:var(--sel-fg)}
-
-/* compare modal */
-.cmp{position:fixed;inset:0;z-index:86;display:none;padding:clamp(12px,4vw,48px);overflow:auto;background:rgba(1,22,20,.55);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
-.cmp.on{display:block}
-.cmp-inner{max-width:1000px;margin:0 auto;background:var(--white);border-radius:4px;overflow:hidden;box-shadow:0 26px 70px rgba(1,22,20,.34)}
-.cmp table{min-width:640px}
-.cmp tbody tr{cursor:default}
-.cmp thead th{cursor:default}
-.cmp thead th:hover{color:var(--muted)}
-.cmp tbody td:first-child{color:var(--muted);font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;background:var(--paper);white-space:nowrap}
-.cmp .best{background:var(--rowsel);box-shadow:inset 3px 0 0 var(--pos)}
-.ring{display:inline-flex;align-items:center;gap:9px}
-.ring svg{transform:rotate(-90deg)}
-.ring b{font-family:var(--mono);font-size:12px}
-
-/* threat tool */
-.tool{background:var(--white);border:1px solid var(--line);border-radius:3px;overflow:hidden;margin-top:40px}
-.tool-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)}
-.tool-q{padding:clamp(22px,3vw,32px);border-right:1px solid var(--line)}
-.tool-q .k{color:var(--muted);margin-bottom:14px}
-.opts{display:flex;flex-direction:column;gap:8px;margin-bottom:28px}
-.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;border:1px solid var(--line);background:var(--paper);border-radius:2px;padding:13px 15px;cursor:pointer;transition:.15s}
-.opt:hover{border-color:var(--ink)}
-.opt.on{border-color:var(--ink);background:var(--white);box-shadow:inset 0 0 0 1px var(--ink)}
-.opt .rd{width:15px;height:15px;border:1px solid var(--muted);border-radius:50%;flex:0 0 auto;margin-top:3px;display:grid;place-items:center}
-.opt.on .rd{border-color:var(--ink)}
-.opt.on .rd::after{content:"";width:7px;height:7px;border-radius:50%;background:var(--ink)}
-.opt .t{font-size:14.5px;font-weight:500}
-.opt .s{font-size:13px;color:var(--muted)}
-.tool-out{padding:clamp(22px,3vw,32px);background:var(--paper)}
-.tool-out .head{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:18px}
-.prio{list-style:none;margin:0;padding:0;counter-reset:p}
-.prio li{counter-increment:p;display:grid;grid-template-columns:26px 1fr;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
-.prio li::before{content:counter(p,decimal-leading-zero);font-family:var(--mono);font-size:11px;font-weight:600;color:var(--muted);padding-top:3px}
-.prio li:last-child{border-bottom:0}
-.prio .t{display:block;font-size:14.5px;font-weight:500;margin-bottom:3px}
-.prio .s{display:block;font-size:13.5px;color:var(--muted)}
-.riskpill{display:inline-flex;align-items:center;gap:8px;border-radius:100px;padding:6px 13px;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase}
-.r-hi{background:var(--gf-bg);color:var(--gf-fg)}.r-md{background:var(--gc-bg);color:var(--gc-fg)}.r-lo{background:var(--ga-bg);color:var(--ga-fg)}
-
-/* photography */
-.shot{position:relative;overflow:hidden;border-radius:2px;background:var(--grey);margin:0;display:block}
-.shot img{width:100%;height:100%;object-fit:cover;display:block;filter:var(--shot-filter)}
-.shot::after{content:"";position:absolute;inset:0;background:var(--shot-veil);pointer-events:none;mix-blend-mode:var(--shot-blend)}
-.shot.r45{aspect-ratio:4/5}
-.shot.r32{aspect-ratio:3/2}
-.shot.sq{aspect-ratio:1/1}
-.shot.band{height:clamp(200px,26vw,360px)}
-.shot .cred{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:20px 10px 7px;background:linear-gradient(transparent,rgba(1,22,20,.78));color:rgba(255,255,255,.94);font-family:var(--mono);font-size:9.5px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;opacity:0;transition:opacity .2s}
-.shot:hover .cred{opacity:1}
-.ritem .thumb .shot .cred{display:none}
-
-/* credits */
-.credits{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:38px}
-.credit{background:var(--white);padding:18px 20px;font-size:13.5px}
-.credit .n{font-weight:500;margin-bottom:5px}
-.credit .m{color:var(--muted);font-size:12.5px}
-.credit a{color:var(--green);text-decoration:none;border-bottom:1px solid var(--line)}
-.credit a:hover{border-color:var(--green)}
-
-/* readers */
-.readers{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:clamp(18px,2.4vw,30px);margin-top:46px}
-.reader h3{margin:22px 0 10px}
-.reader p{font-size:14.5px;color:var(--muted);margin:0}
-
-/* UR block */
-.ur{background:var(--white);border:1px solid var(--line);border-radius:3px;overflow:hidden;margin-top:44px}
-.ur-lockup{display:flex;flex-wrap:wrap;align-items:center;gap:18px;background:var(--plate-bg);padding:24px clamp(20px,3vw,34px)}
-.ur-lockup img{width:clamp(150px,17vw,210px);height:auto;display:block}
-.ur-lockup .l{color:rgba(255,255,255,.58);margin-left:auto;text-align:right;line-height:1.7}
-.ur-lockup .l a{color:var(--mint);text-decoration:none;border-bottom:1px solid rgba(151,252,228,.35)}
-.ur-body{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
-.ur-txt{padding:clamp(24px,3vw,36px);display:flex;flex-direction:column}
-.ur .shot{aspect-ratio:auto;min-height:320px;max-height:520px}
-.ur-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line);margin-top:auto;padding-top:0}
-.ur-stat{background:var(--white);padding:16px 0 0}
-.ur-stat .v{font-family:var(--serif);font-weight:300;font-size:clamp(22px,2.4vw,30px);line-height:1;letter-spacing:-.02em}
-.ur-stat .k{color:var(--muted);margin-top:8px}
-.ur-stat .t{color:var(--muted);font-size:13px;line-height:1.45;padding-right:14px}
-
-/* research thumbs */
-.ritem .thumb{width:118px}
-.ritem .rbody{min-width:0}
-
-/* dark */
-.dark{background:var(--band-bg);color:var(--band-fg)}
-.dark h2,.dark .p-lg{color:var(--band-fg)}
-.dark .eyebrow{color:var(--mint)}
-.dark .dim{color:rgba(255,255,255,.62)}
-.dark .card .dim,.dark .card p{color:var(--muted)}
-.cards{display:grid;gap:18px;margin-top:42px}
-.card{background:var(--white);color:var(--ink);border-left:4px solid var(--mint);padding:24px 28px;border-radius:2px}
-.card p:last-child{margin-bottom:0}
-.tape{display:flex;margin-bottom:38px}
-.tape span{display:block;height:30px}
-.tape .t1{width:118px;background:var(--grey)}
-.tape .t2{width:212px;background:var(--white)}
-
-/* activities */
-.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:48px}
-.cell{background:var(--white);padding:30px}
-.cell .num{color:var(--muted);margin-bottom:18px}
-.cell ul{margin:16px 0 0;padding-left:18px;color:var(--muted);font-size:14.5px}
-.cell li{margin-bottom:7px}
-
-/* research */
-.rlist{border-top:1px solid var(--line);margin-top:42px}
-.ritem{display:grid;grid-template-columns:130px 1fr auto;gap:24px;align-items:baseline;padding:24px 0;border-bottom:1px solid var(--line);text-decoration:none;transition:.15s}
-.ritem:hover{background:var(--white);padding-inline:16px;margin-inline:-16px}
-.ritem .when{color:var(--muted)}
-.ritem h3{margin:0 0 6px}
-.ritem .arrow{font-family:var(--mono);font-size:16px;color:var(--muted)}
-
-/* independence */
-.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.14);margin-top:42px}
-.rule{background:var(--band-bg);padding:24px}
-.rule .k{color:var(--mint);margin-bottom:12px}
-.rule p{font-size:14.5px;color:rgba(255,255,255,.74);margin:0}
-
-/* priors */
-.priors{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:38px}
-.prior{background:var(--white);padding:22px}
-.prior .k{margin-bottom:10px}
-.prior a{color:var(--green);font-size:13.5px;text-decoration:none;border-bottom:1px solid var(--line)}
-.prior a:hover{border-color:var(--green)}
-.prior p{font-size:13.5px;color:var(--muted);margin:0 0 10px}
-
-/* footer */
-footer{background:var(--plate-bg);color:var(--plate-fg);padding:clamp(52px,7vw,90px) 0 32px}
-footer .vision{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4vw,50px);line-height:1.1;letter-spacing:-.022em;max-width:20ch;margin:32px 0 0}
-.foot-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:34px;margin-top:60px;padding-top:38px;border-top:1px solid rgba(255,255,255,.16)}
-.foot-grid .k{color:var(--mint);margin-bottom:16px}
-.foot-grid a{display:block;color:rgba(255,255,255,.74);text-decoration:none;font-size:14.5px;margin-bottom:9px}
-.foot-grid a:hover{color:var(--plate-fg)}
-.signup{display:flex;gap:8px;margin-top:14px;max-width:340px}
-.signup input{flex:1;min-width:0;background:transparent;border:1px solid rgba(255,255,255,.42);color:var(--plate-fg);padding:12px 14px;border-radius:2px;font-family:var(--sans);font-size:14px}
-.signup input::placeholder{color:rgba(255,255,255,.62)}
-.signup button{background:var(--mint);color:var(--onmint);border:0;padding:0 18px;border-radius:2px;cursor:pointer;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
-.colophon{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;margin-top:52px;padding-top:22px;border-top:1px solid rgba(255,255,255,.16);color:rgba(255,255,255,.5)}
-
-/* toast */
-.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,150%);background:var(--plate-bg);color:var(--mint);border:1px solid var(--line);padding:11px 18px;border-radius:3px;z-index:95;transition:transform .28s;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase}
-.toast.on{transform:translate(-50%,0)}
-
-@media(max-width:960px){
-  .tool-grid{grid-template-columns:1fr}
-  .tool-q{border-right:0;border-bottom:1px solid var(--line)}
-}
-html[data-theme="dark"] .dark{border-block:1px solid var(--line)}
-html[data-theme="dark"] .drawer{border-left:1px solid var(--line)}
-html[data-theme="dark"] .cmp-inner{border:1px solid var(--line)}
-html[data-theme="dark"] .tray{box-shadow:0 14px 38px rgba(0,0,0,.55)}
-
-@media(max-width:1000px){
-  .ur-body{grid-template-columns:1fr}
-  .ur .shot{aspect-ratio:16/9;min-height:0}
-}
-@media(max-width:900px){
-  .split{grid-template-columns:1fr}
-  .ritem{grid-template-columns:1fr;gap:10px}
-  .ritem .arrow{display:none}
-  .ritem .thumb{width:100%;max-width:240px}
-}
-@media(max-width:760px){
-  html{scroll-padding-top:118px}
-  .nav-links{display:none;position:absolute;top:72px;left:var(--pad);right:var(--pad);flex-direction:column;padding:8px;z-index:5}
-  .nav-links.open{display:flex}
-  .nav-links a{padding:12px}
-  .burger{display:block}
-  .nav-meta{display:none}
-  .themebtn{margin-left:auto;order:2;padding:8px 10px}
-  .themebtn span{display:none}
-  .burger{order:3;margin-left:8px}
-  .rail .kbd{display:none}
-  .drawer{width:100%}
-  .tray{left:12px;right:12px;transform:translateY(150%);max-width:none;justify-content:space-between}
-  .tray.on{transform:none}
-  .ur-stats{grid-template-columns:1fr}
-  .ur-stat{padding:14px 0 10px}
-  .ur-lockup{padding:20px}
-  .ur-lockup .l{margin-left:0;text-align:left;width:100%}
-}
-</style>
 </head>
 <body>
 <a class="skip mono" href="#top">Skip to content</a>
 <div id="progress"></div>
-
 <header>
   <div class="wrap nav">
-    <a class="brand" href="#top">
-      <svg class="mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-        <circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1.4"/>
-        <path d="M7 24c0-9 5.8-14 13-14s13 5 13 14" stroke="currentColor" stroke-width="1.4"/>
-        <path d="M20 6v28M9.5 13.5h21M9.5 30.5h21" stroke="currentColor" stroke-width="1.4" opacity=".35"/>
-      </svg>
+    <a class="brand" href="index.html">
+      <svg class="mark" viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1.4"/><path d="M7 24c0-9 5.8-14 13-14s13 5 13 14" stroke="currentColor" stroke-width="1.4"/><path d="M20 6v28M9.5 13.5h21M9.5 30.5h21" stroke="currentColor" stroke-width="1.4" opacity=".35"/></svg>
       <span class="brand-name">Freedom<br><em>Institute</em></span>
     </a>
     <button class="burger mono" id="burger" type="button" aria-controls="menu" aria-expanded="false" aria-label="Menu">Menu</button>
-    <nav class="nav-links" id="menu">
-      <a class="mono on" href="#top" aria-current="page">Home</a>
-      <a class="mono" href="#grades">Grades</a>
-      <a class="mono" href="#index">Index</a>
-      <a class="mono" href="#research">Research</a>
-      <a class="mono" href="#independence">About</a>
+    <nav class="nav-links" id="menu" aria-label="Primary">
+      <a class="mono on" href="index.html" aria-current="page">Home</a>
+      <a class="mono" href="grades.html">Grades</a>
+      <a class="mono" href="products.html">Index</a>
+      <a class="mono" href="history.html">History</a>
+      <a class="mono" href="research.html">Research</a>
+      <a class="mono" href="about.html">About</a>
     </nav>
     <div class="nav-meta mono">
       <div><span class="dot"></span>Concept build</div>
@@ -495,21 +47,18 @@ html[data-theme="dark"] .tray{box-shadow:0 14px 38px rgba(0,0,0,.55)}
     </button>
   </div>
 </header>
-
 <div class="rail">
   <div class="wrap">
     <a class="mono" href="#assess" data-spy="assess">Start here</a>
-    <a class="mono" href="#grades" data-spy="grades">Grade Explorer</a>
     <a class="mono" href="#activities" data-spy="activities">What we do</a>
-    <a class="mono" href="#index" data-spy="index">Product Index</a>
-    <a class="mono" href="#research" data-spy="research">Research</a>
-    <a class="mono" href="#independence" data-spy="independence">Independence</a>
-    <span class="kbd mono"><kbd>/</kbd> search <kbd>Esc</kbd> close</span>
+    <a class="mono" href="grades.html">Grade Explorer</a>
+    <a class="mono" href="products.html">Product Index</a>
+    <a class="mono" href="history.html">History</a>
+    <a class="mono" href="about.html">Independence</a>
+
   </div>
 </div>
-
 <main id="top">
-
 <div class="hero">
   <div class="wrap">
     <div class="eyebrow mono">Public-interest privacy research <span class="flagnote mono" style="margin-left:4px">Illustrative data &middot; concept</span></div>
@@ -517,9 +66,9 @@ html[data-theme="dark"] .tray{box-shadow:0 14px 38px rgba(0,0,0,.55)}
     <p class="lede">The Freedom Institute grades how countries censor, measures what privacy products actually do with your data, and publishes the evidence behind every score. We build the testing tools in the open so anyone can repeat the work.</p>
     <div class="hero-cta">
       <a class="btn mono" href="#assess">Check your exposure <span>&rarr;</span></a>
-      <a class="link-q mono" href="#grades">Open the Grade Explorer</a>
+      <a class="link-q mono" href="grades.html">Open the Grade Explorer</a>
     </div>
-    <a class="featured" href="#index">
+    <a class="featured" href="products.html">
       <span class="tag mono">First edition</span>
       <span class="txt">The Privacy Product Index opens for public methodology review</span>
       <span class="date mono">Sep 2026</span>
@@ -527,7 +76,6 @@ html[data-theme="dark"] .tray{box-shadow:0 14px 38px rgba(0,0,0,.55)}
   </div>
   <div class="skyline"></div>
 </div>
-
 <section class="rv">
   <div class="wrap split">
     <div>
@@ -545,7 +93,6 @@ html[data-theme="dark"] .tray{box-shadow:0 14px 38px rgba(0,0,0,.55)}
     </div>
   </div>
 </section>
-
 <section class="rv" style="padding-bottom:0">
   <div class="wrap">
     <div class="eyebrow mono">Who this is for</div>
@@ -570,7 +117,6 @@ html[data-theme="dark"] .tray{box-shadow:0 14px 38px rgba(0,0,0,.55)}
     </div>
   </div>
 </section>
-
 <div class="metrics">
   <div class="wrap">
     <div class="metric-head">
@@ -589,7 +135,6 @@ html[data-theme="dark"] .tray{box-shadow:0 14px 38px rgba(0,0,0,.55)}
     </div>
   </div>
 </div>
-
 <!-- THREAT TOOL -->
 <section id="assess" class="rv">
   <div class="wrap">
@@ -624,61 +169,6 @@ html[data-theme="dark"] .tray{box-shadow:0 14px 38px rgba(0,0,0,.55)}
     </div>
   </div>
 </section>
-
-<!-- GRADE EXPLORER -->
-<section id="grades" class="rv">
-  <div class="wrap">
-    <div class="eyebrow mono">Country censorship grades</div>
-    <h2>A grade is worthless unless you can see what it was built from</h2>
-    <p class="dim" style="max-width:64ch;margin-top:18px">Each country is scored on four axes. A scoring choice is an argument, so move the weights and every grade recomputes. Open any row for the axis detail, the shutdown history, and the evidence log behind it.</p>
-
-    <div class="panel" style="margin-top:36px">
-      <div class="panel-head">
-        <span><span class="title">Freedom Grade Explorer</span><br><span class="mono dim" style="font-size:10px">Higher score is worse &middot; most restricted first &middot; 23-country sample of 72</span></span>
-        <div class="controls">
-          <label class="search"><span class="sicon">&#9906;</span><input id="cSearch" type="search" placeholder="Search country" aria-label="Search country"></label>
-          <button class="chip on" data-region="all">All</button>
-          <button class="chip" data-region="apac">APAC</button>
-          <button class="chip" data-region="emea">EMEA</button>
-          <button class="chip" data-region="americas">Americas</button>
-        </div>
-      </div>
-      <div class="toolbar">
-        <div class="dist" id="dist"></div>
-        <button class="chip" id="toggleWeights" type="button" aria-controls="weights" aria-expanded="false">Adjust weights</button>
-      </div>
-      <div class="weights" id="weights" hidden>
-        <div class="wctl"><label for="wBlock">Blocking <b id="vBlock">30</b></label><input id="wBlock" type="range" min="0" max="60" value="30"></div>
-        <div class="wctl"><label for="wShut">Shutdowns <b id="vShut">25</b></label><input id="wShut" type="range" min="0" max="60" value="25"></div>
-        <div class="wctl"><label for="wCirc">Circumvention <b id="vCirc">25</b></label><input id="wCirc" type="range" min="0" max="60" value="25"></div>
-        <div class="wctl"><label for="wExpr">Expression penalty <b id="vExpr">20</b></label><input id="wExpr" type="range" min="0" max="60" value="20"></div>
-        <div class="wnote"><span id="wSummary">Weights normalise to 100. Grades and ranking update live.</span><button id="resetWeights">Reset to published weights</button></div>
-      </div>
-      <div class="scroller">
-        <table id="cTable">
-          <thead><tr>
-            <th data-k="rank" scope="col" title="Rank, most restricted first">#</th>
-            <th data-k="name">Country<span class="car">&#9662;</span></th>
-            <th data-k="score">Grade<span class="car">&#9662;</span></th>
-            <th class="band" data-k="blocking" scope="col">Blocking<span class="car">&#9662;</span></th>
-            <th class="num" data-k="shutdowns12">Shutdowns 12M<span class="car">&#9662;</span></th>
-            <th data-k="trend">Trend</th>
-            <th class="band" data-k="circumvention" scope="col">Circumvention<span class="car">&#9662;</span></th>
-            <th class="num" data-k="evidence">Evidence<span class="car">&#9662;</span></th>
-            <th data-k="confidence">Confidence<span class="car">&#9662;</span></th>
-          </tr></thead>
-          <tbody id="cBody"></tbody>
-        </table>
-      </div>
-      <div class="empty" id="cEmpty" hidden>No country matches that filter.</div>
-      <div class="panel-foot">
-        <span id="cCount" aria-live="polite">Showing 23 of 23</span>
-        <span>Illustrative data. Not a published assessment.</span>
-      </div>
-    </div>
-  </div>
-</section>
-
 <div class="dark">
   <section class="rv">
     <div class="wrap">
@@ -702,7 +192,6 @@ html[data-theme="dark"] .tray{box-shadow:0 14px 38px rgba(0,0,0,.55)}
     </div>
   </section>
 </div>
-
 <section id="activities" class="rv">
   <div class="wrap">
     <div class="eyebrow mono">Core activities</div>
@@ -729,159 +218,48 @@ html[data-theme="dark"] .tray{box-shadow:0 14px 38px rgba(0,0,0,.55)}
     </div>
   </div>
 </section>
-
-<!-- PRODUCT INDEX -->
-<section id="index" class="rv" style="padding-top:0">
-  <div class="wrap">
-    <div class="panel">
-      <div class="panel-head">
-        <span><span class="title">Privacy Product Index</span><br><span class="mono dim" style="font-size:10px">Higher composite is better &middot; 12-entry sample of 140+</span></span>
-        <div class="controls">
-          <label class="search"><span class="sicon">&#9906;</span><input id="pSearch" type="search" placeholder="Search entry" aria-label="Search entry"></label>
-          <button class="chip on" data-cat="all">All</button>
-          <button class="chip" data-cat="vpn">VPN</button>
-          <button class="chip" data-cat="msg">Messaging</button>
-          <button class="chip" data-cat="mail">Email</button>
-          <button class="chip" data-cat="browser">Browser</button>
-        </div>
-      </div>
-      <div class="toolbar">
-        <div class="controls">
-          <button class="chip toggle" id="fVerified" type="button" aria-pressed="false"><span class="box"></span>Verified evidence only</button>
-          <button class="chip toggle" id="fNoTrack" type="button" aria-pressed="false"><span class="box"></span>No tracking detected</button>
-        </div>
-        <div class="legend">
-          <span class="stat s-aud" title="Confirmed by an independent audit we could read.">Audited</span>
-          <span class="stat s-obs" title="Measured by us directly against the running product.">Observed</span>
-          <span class="stat s-cla" title="Stated by the provider and not independently confirmed.">Claimed</span>
-          <span class="stat s-unk" title="No disclosure and no way for us to test it.">Unknown</span>
-          <span class="dim" style="font-size:12px;text-transform:none;letter-spacing:0;font-family:var(--sans)">Tick up to three rows to compare</span>
-        </div>
-      </div>
-      <div class="scroller">
-        <table id="pTable">
-          <thead><tr>
-            <th style="width:44px"></th>
-            <th data-k="name">Entry<span class="car">&#9662;</span></th>
-            <th data-k="cat">Category<span class="car">&#9662;</span></th>
-            <th class="num" data-k="score">Composite<span class="car">&#9662;</span></th>
-            <th data-k="collection">Data collected</th>
-            <th data-k="retention">Retention</th>
-            <th data-k="access">Provider access</th>
-            <th data-k="tracking">Third-party tracking</th>
-            <th data-k="state">Verification<span class="car">&#9662;</span></th>
-          </tr></thead>
-          <tbody id="pBody"></tbody>
-        </table>
-      </div>
-      <div class="empty" id="pEmpty" hidden>No entry matches that filter.</div>
-      <div class="panel-foot">
-        <span id="pCount" aria-live="polite">Showing 12 of 12</span>
-        <span>Illustrative data. Entries stay anonymised until first publication.</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="research" class="rv" style="padding-top:0">
-  <div class="wrap">
-    <div class="eyebrow mono">Research programme</div>
-    <h2>Privacy Claims vs Reality is where we start</h2>
-    <p class="dim" style="max-width:62ch;margin-top:18px">The signature series takes the three promises the industry repeats most often, no logs, anonymous, and deleted, and tests each one against what the software and the servers actually do.</p>
-    <div class="rlist">
-      <a class="ritem" href="#"><div class="thumb"><figure class="shot r32"><img width="380" height="507" src="img/routers.jpg" alt="Router and switch racks with patch cabling" loading="lazy" decoding="async"><figcaption class="cred">Jemimus &middot; CC BY 2.0</figcaption></figure><span class="when mono" style="display:block;margin-top:8px">Issue 01 &middot; Q4 2026</span></div><div class="rbody"><h3>What &ldquo;no logs&rdquo; survives a subpoena</h3><span class="dim">Twelve consumer VPNs, their written claims, their observed connection handling, and what each one has handed over when asked.</span></div><span class="arrow">&rarr;</span></a>
-      <a class="ritem" href="#"><div class="thumb"><figure class="shot r32"><img width="380" height="214" src="img/archive.jpg" alt="Archival photograph of records storage" loading="lazy" decoding="async"><figcaption class="cred">General Services Administration. N &middot; Public domain</figcaption></figure><span class="when mono" style="display:block;margin-top:8px">Issue 02 &middot; Q1 2027</span></div><div class="rbody"><h3>Deleted accounts that are still there a year later</h3><span class="dim">We delete, we wait, we ask for our data back under access rights, and we publish who returns it.</span></div><span class="arrow">&rarr;</span></a>
-      <a class="ritem" href="#"><div class="thumb"><figure class="shot r32"><img width="380" height="507" src="img/checkout.jpg" alt="Supermarket self-checkout terminals" loading="lazy" decoding="async"><figcaption class="cred">Bdx &middot; CC0</figcaption></figure><span class="when mono" style="display:block;margin-top:8px">Issue 03 &middot; Q2 2027</span></div><div class="rbody"><h3>The price of choosing the private option</h3><span class="dim">What privacy actually costs a household in money, time, and broken services, measured across four income brackets and three countries.</span></div><span class="arrow">&rarr;</span></a>
-      <a class="ritem" href="#"><div class="thumb"><figure class="shot r32"><img width="460" height="202" src="img/utah.jpg" alt="Large government data centre seen from a distance" loading="lazy" decoding="async"><figcaption class="cred">Swilsonmc &middot; CC BY-SA 3.0</figcaption></figure><span class="when mono" style="display:block;margin-top:8px">Standing</span></div><div class="rbody"><h3>State surveillance and AI, tracked as it changes</h3><span class="dim">Procurement records, vendor disclosures, and model-side data handling, updated as filings land rather than once a year.</span></div><span class="arrow">&rarr;</span></a>
-    </div>
-  </div>
-</section>
-
-<div class="dark" id="independence">
-  <section class="rv">
-    <div class="wrap split">
-      <div>
-        <div class="eyebrow mono">Funding and credibility</div>
-        <p class="p-lg">Our largest funder does not get a soft review; we wrote that into the structure before we wrote a word of research.</p>
-      </div>
-      <div>
-        <p class="dim">UR would be the Institute's primary supporter and its founding organiser, with funding and in-kind contributions disclosed in full. That relationship creates the obvious conflict, because UR builds the category of product the Institute exists to assess. Independence that depends on goodwill is not independence, so control of methodology and publication sits with a majority-independent board and autonomous research leadership, and any assessment touching UR or anything the Institute builds is led by external reviewers.</p>
-        <div class="rules">
-          <div class="rule"><div class="k mono">Disclosure</div><p>Every funder, grant, and in-kind contribution published with amounts and dates.</p></div>
-          <div class="rule"><div class="k mono">Control</div><p>Majority-independent board; research leadership holds final say on what publishes.</p></div>
-          <div class="rule"><div class="k mono">Conflicts</div><p>External reviewers lead any assessment touching a funder or an Institute product.</p></div>
-          <div class="rule"><div class="k mono">No paid rankings</div><p>No sponsored placement, no affiliate revenue, no sponsor veto over a finding.</p></div>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-
 <section class="rv">
   <div class="wrap">
-    <div class="eyebrow mono">The organiser</div>
-    <h2>UR builds the products; the Institute is the check on them</h2>
-    <p class="dim" style="max-width:62ch;margin-top:18px"><a href="https://ur.xyz" target="_blank" rel="noopener" class="link-q">UR</a> is a global institute for privacy and encryption products. Its network is contributed rather than rented: more than 80,000 members supply bandwidth that anonymises traffic for people who cannot route around their own government. UR would organise and fund the Freedom Institute, and would also sit inside its scope of assessment.</p>
-    <div class="ur">
-      <div class="ur-lockup">
-        <img src="img/ur-network-white.png" alt="URnetwork" width="400" height="58">
-        <span class="l mono">Organiser and primary supporter<br><a href="https://ur.xyz" target="_blank" rel="noopener">ur.xyz</a></span>
-      </div>
-      <div class="ur-body">
-      <figure class="shot sq"><img width="900" height="900" src="img/earth.jpg" alt="Satellite composite of the Earth" loading="lazy" decoding="async"><figcaption class="cred">NASA images by Reto Stöckli &middot; Public domain</figcaption></figure>
-      <div class="ur-txt">
-        <h3>A contributed network changes who holds the risk</h3>
-        <p class="dim" style="font-size:15px">Commercial privacy infrastructure concentrates trust in one operator and one jurisdiction; a member-contributed network spreads it across the people using it. That design is the reason UR can serve places where a single corporate exit node would be blocked or seized within a week, and it is also the reason UR's own claims need testing by someone who does not report to UR.</p>
-        <p class="dim" style="font-size:15px;margin-bottom:0">The Institute publishes the test results either way. A finding against UR is the proof that the structure works.</p>
-        <div class="ur-stats">
-          <div class="ur-stat"><div class="v">80k+</div><div class="k mono">Contributing members</div></div>
-          <div class="ur-stat"><div class="t">Bandwidth contributed by members, not rented from operators</div></div>
-          <div class="ur-stat"><div class="t">Funding to the Institute disclosed in full, with amounts and dates</div></div>
-        </div>
-      </div>
-      </div>
+    <div class="eyebrow mono">Where to go next</div>
+    <h2>Four places to start, depending on what you came for</h2>
+    <div class="navcards">
+      <a class="navcard" href="grades.html">
+        <span class="navcard__n mono">01 / Grades</span>
+        <span class="navcard__t">How free is the network where you are</span>
+        <span class="navcard__d">Twenty-three countries scored on blocking, shutdowns, circumvention and punishment for speech. Move the weights and every grade recomputes.</span>
+        <span class="navcard__a mono">Open the explorer &rarr;</span>
+      </a>
+      <a class="navcard" href="products.html">
+        <span class="navcard__n mono">02 / Index</span>
+        <span class="navcard__t">What your privacy tools actually do</span>
+        <span class="navcard__d">Twelve entries compared on collection, retention, provider access, tracking, defaults and control, with each cell labelled claimed, observed, audited or unknown.</span>
+        <span class="navcard__a mono">Open the index &rarr;</span>
+      </a>
+      <a class="navcard" href="history.html">
+        <span class="navcard__n mono">03 / History</span>
+        <span class="navcard__t">Eighty years of shutting people up</span>
+        <span class="navcard__d">Fifty-nine sourced events from the jamming towers of 1948 to the national blackouts of 2026, read through information freedom rather than politics.</span>
+        <span class="navcard__a mono">Open the timeline &rarr;</span>
+      </a>
+      <a class="navcard" href="research.html">
+        <span class="navcard__n mono">04 / Research</span>
+        <span class="navcard__t">The promises we are testing first</span>
+        <span class="navcard__d">Privacy Claims vs Reality takes no logs, anonymous and deleted, and tests each against what the software and the servers do.</span>
+        <span class="navcard__a mono">See the programme &rarr;</span>
+      </a>
     </div>
-  </div>
-</section>
-
-<section class="rv">
-  <div class="wrap">
-    <div class="eyebrow mono">Prior art we build on</div>
-    <h2>Six organisations already solved parts of this; we are not starting from zero</h2>
-    <div class="priors">
-      <div class="prior"><div class="k mono">Freedom House</div><p>Annual internet-freedom country ratings with supporting narratives.</p><a href="https://freedomhouse.org/reports" target="_blank" rel="noopener">Freedom on the Net</a></div>
-      <div class="prior"><div class="k mono">OONI</div><p>Open-source censorship measurement, open data, and investigations.</p><a href="https://ooni.org/" target="_blank" rel="noopener">ooni.org</a></div>
-      <div class="prior"><div class="k mono">Access Now</div><p>Shutdown documentation joined to advocacy through local partners.</p><a href="https://www.accessnow.org/campaign/keepiton/" target="_blank" rel="noopener">KeepItOn</a></div>
-      <div class="prior"><div class="k mono">Ranking Digital Rights</div><p>Structured review of corporate disclosures on privacy and expression.</p><a href="https://rankingdigitalrights.org/2020-research-process/" target="_blank" rel="noopener">Research process</a></div>
-      <div class="prior"><div class="k mono">Mozilla</div><p>Consumer-facing warnings on connected products and apps.</p><a href="https://wiki.mozilla.org/Foundation/Privacy_not_included" target="_blank" rel="noopener">Privacy Not Included</a></div>
-      <div class="prior"><div class="k mono">Privacy Guides</div><p>Criteria-based recommendations with rules against provider influence.</p><a href="https://www.privacyguides.org/" target="_blank" rel="noopener">privacyguides.org</a></div>
-    </div>
-  </div>
-</section>
-
-<section class="rv" style="padding-top:0">
-  <div class="wrap">
-    <div class="eyebrow mono">Photography</div>
-    <h2>Every image here is licensed, and the licence is printed</h2>
-    <p class="dim" style="max-width:62ch;margin-top:18px">An organisation that asks providers to show their evidence should show its own. Every photograph comes from Wikimedia Commons under public domain, CC0 or Creative Commons Attribution terms, resized but not otherwise altered.</p>
-    <div class="credits"><div class="credit"><div class="n">URnetwork wordmark</div><div class="m">UR &middot; Supplied by the organiser &middot; <a href="https://ur.xyz" target="_blank" rel="noopener">ur.xyz</a></div></div><div class="credit"><div class="n">The newsroom at DR</div><div class="m">James Cridland &middot; CC BY 2.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:The_newsroom_at_DR.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></div></div><div class="credit"><div class="n">People studying in the Wolfson Reading Room of Manchester Cent</div><div class="m">Ridiculopathy &middot; CC0 &middot; <a href="https://commons.wikimedia.org/wiki/File:People_studying_in_the_Wolfson_Reading_Room_of_Manchester_Central_Library_01.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></div></div><div class="credit"><div class="n">AMS-IX optical patch panel</div><div class="m">Fabienne Serriere &middot; CC BY-SA 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:AMS-IX_optical_patch_panel.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></div></div><div class="credit"><div class="n">Blue Marble Western Hemisphere</div><div class="m">NASA / Reto Stöckli, based on data from NASA and NOAA &middot; Public domain &middot; <a href="https://commons.wikimedia.org/wiki/File:Blue_Marble_Western_Hemisphere.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></div></div><div class="credit"><div class="n">Routers and switch racks - IMG 1678</div><div class="m">Jemimus &middot; CC BY 2.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Routers_and_switch_racks_-_IMG_1678.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></div></div><div class="credit"><div class="n">Photograph of Storage Boxes, Used in National Archives Stack A</div><div class="m">General Services Administration. National Archives and Records Service &middot; Public domain &middot; <a href="https://commons.wikimedia.org/wiki/File:Photograph_of_Storage_Boxes,_Used_in_National_Archives_Stack_Area_-_DPLA_-_b2200ed66f97530c2610fe2621cadad4.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></div></div><div class="credit"><div class="n">Utah Data Center Panorama (cropped)</div><div class="m">Swilsonmc &middot; CC BY-SA 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Utah_Data_Center_Panorama_(cropped).jpg" target="_blank" rel="noopener">Wikimedia Commons</a></div></div><div class="credit"><div class="n">Internet Cafe, Apizaco, Mexico</div><div class="m">ARipstra (WMF) &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Internet_Cafe,_Apizaco,_Mexico.JPG" target="_blank" rel="noopener">Wikimedia Commons</a></div></div><div class="credit"><div class="n">Billa supermarket, Blagoevgrad centre, self-checkout, 2026</div><div class="m">Bdx &middot; CC0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Billa_supermarket,_Blagoevgrad_centre,_self-checkout,_2026.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></div></div></div>
   </div>
 </section>
 
 </main>
-
 <footer>
   <div class="wrap">
-    <svg width="60" height="60" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-      <circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1.2"/>
-      <path d="M7 24c0-9 5.8-14 13-14s13 5 13 14" stroke="currentColor" stroke-width="1.2"/>
-      <path d="M20 6v28M9.5 13.5h21M9.5 30.5h21" stroke="currentColor" stroke-width="1.2" opacity=".35"/>
-    </svg>
+    <svg width="60" height="60" viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1.2"/><path d="M7 24c0-9 5.8-14 13-14s13 5 13 14" stroke="currentColor" stroke-width="1.2"/><path d="M20 6v28M9.5 13.5h21M9.5 30.5h21" stroke="currentColor" stroke-width="1.2" opacity=".35"/></svg>
     <p class="vision">People deserve to know which tools keep their promises, and which governments break theirs.</p>
     <div class="foot-grid">
-      <div><div class="k mono">Institute</div><a href="#grades">Country grades</a><a href="#index">Privacy Product Index</a><a href="#research">Research programme</a><a href="#independence">Funding and governance</a></div>
+      <div><div class="k mono">Institute</div><a href="grades.html">Country grades</a><a href="products.html">Privacy Product Index</a><a href="history.html">History of information freedom</a><a href="research.html">Research programme</a></div>
       <div><div class="k mono">Open source</div><a href="#">Testing harness</a><a href="#">Measurement data</a><a href="#">Scoring methodology</a><a href="#">Changelog</a></div>
-      <div><div class="k mono">Contact</div><a href="mailto:research@freedominstitute.org">research@freedominstitute.org</a><a href="mailto:media@freedominstitute.org">media@freedominstitute.org</a><a href="#">Secure tip line</a><a href="#">Open roles</a></div>
+      <div><div class="k mono">Contact</div><a href="mailto:research@freedominstitute.org">research@freedominstitute.org</a><a href="mailto:media@freedominstitute.org">media@freedominstitute.org</a><a href="about.html">Funding and governance</a><a href="#">Open roles</a></div>
       <div>
         <div class="k mono">Get the findings first</div>
         <p style="color:rgba(255,255,255,.6);font-size:14px;margin:0">One email when a grade changes or a report lands. Nothing else.</p>
@@ -890,557 +268,11 @@ html[data-theme="dark"] .tray{box-shadow:0 14px 38px rgba(0,0,0,.55)}
     </div>
     <div class="colophon mono">
       <span>&copy; 2026 Freedom Institute &middot; Concept</span>
-      <span style="display:inline-flex;align-items:center;gap:9px">Organised by <a href="https://ur.xyz" target="_blank" rel="noopener" style="display:inline-flex"><img src="img/ur-network-white.png" alt="URnetwork" style="height:11px;width:auto;display:block;opacity:.85"></a> &middot; Independence policy published in full</span>
+      <span style="display:inline-flex;align-items:center;gap:9px">Organised by <a href="https://ur.xyz" target="_blank" rel="noopener" style="display:inline-flex"><img src="img/ur-network-white.png" alt="URnetwork" width="400" height="58" style="height:11px;width:auto;display:block;opacity:.85"></a> &middot; Independence policy published in full</span>
     </div>
   </div>
 </footer>
-
-<div class="scrim" id="scrim"></div>
-<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Country detail"><div id="drawerInner"></div></aside>
-
-<div class="tray" id="tray">
-  <span class="mono" style="color:rgba(255,255,255,.55)">Compare</span>
-  <div class="slots" id="slots"></div>
-  <button class="go" id="cmpGo" disabled>Open</button>
-  <button class="clr" id="cmpClear">Clear</button>
-</div>
-
-<div class="cmp" id="cmp" role="dialog" aria-modal="true" aria-label="Compare index entries"><div class="cmp-inner" id="cmpInner"></div></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-<script>
-(function(){
-"use strict";
-var $=function(s,r){return (r||document).querySelector(s)};
-var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
-
-/* ============ DATA (illustrative) ============ */
-var COUNTRIES=[
- {c:"DE",n:"Germany",r:"emea",a:[8,4,5,12],s12:0,ev:612,cf:92,u:"Sep 2026",m:[0,0,0,0,0,0,0,0,0,0,0,0]},
- {c:"SE",n:"Sweden",r:"emea",a:[6,2,4,9],s12:0,ev:402,cf:86,u:"Sep 2026",m:[0,0,0,0,0,0,0,0,0,0,0,0]},
- {c:"JP",n:"Japan",r:"apac",a:[10,3,6,14],s12:0,ev:488,cf:88,u:"Sep 2026",m:[0,0,0,0,0,0,0,0,0,0,0,0]},
- {c:"US",n:"United States",r:"americas",a:[14,4,8,18],s12:0,ev:980,cf:90,u:"Sep 2026",m:[0,0,0,0,0,0,0,0,0,0,0,0]},
- {c:"BR",n:"Brazil",r:"americas",a:[22,12,10,26],s12:1,ev:531,cf:80,u:"Aug 2026",m:[0,0,0,1,0,0,0,0,0,0,0,0]},
- {c:"ZA",n:"South Africa",r:"emea",a:[20,10,12,24],s12:0,ev:288,cf:72,u:"Aug 2026",m:[0,0,0,0,0,0,0,0,0,0,0,0]},
- {c:"MX",n:"Mexico",r:"americas",a:[24,8,14,34],s12:0,ev:344,cf:70,u:"Jul 2026",m:[0,0,0,0,0,0,0,0,0,0,0,0]},
- {c:"MY",n:"Malaysia",r:"apac",a:[34,12,26,38],s12:1,ev:302,cf:66,u:"Aug 2026",m:[0,0,0,0,1,0,0,0,0,0,0,0]},
- {c:"MA",n:"Morocco",r:"emea",a:[30,16,34,36],s12:1,ev:264,cf:58,u:"Jul 2026",m:[0,0,1,0,0,0,0,0,0,0,0,0]},
- {c:"TH",n:"Thailand",r:"apac",a:[40,14,30,46],s12:2,ev:338,cf:64,u:"Aug 2026",m:[0,1,0,0,0,0,1,0,0,0,0,0]},
- {c:"KZ",n:"Kazakhstan",r:"emea",a:[44,28,38,50],s12:4,ev:296,cf:60,u:"Aug 2026",m:[1,0,0,1,0,1,0,0,1,0,0,0]},
- {c:"IN",n:"India",r:"apac",a:[46,62,44,52],s12:27,ev:1204,cf:71,u:"Sep 2026",m:[1,3,2,4,1,2,3,5,2,1,2,1]},
- {c:"ID",n:"Indonesia",r:"apac",a:[52,32,40,48],s12:3,ev:466,cf:68,u:"Aug 2026",m:[0,0,1,0,0,1,0,0,1,0,0,0]},
- {c:"TR",n:"Türkiye",r:"emea",a:[68,38,62,72],s12:6,ev:874,cf:74,u:"Sep 2026",m:[1,0,1,0,1,0,0,1,1,0,1,0]},
- {c:"PK",n:"Pakistan",r:"apac",a:[64,58,60,66],s12:12,ev:512,cf:66,u:"Aug 2026",m:[1,1,2,0,1,1,2,1,1,0,1,1]},
- {c:"EG",n:"Egypt",r:"emea",a:[70,34,66,76],s12:2,ev:398,cf:64,u:"Jul 2026",m:[0,0,0,1,0,0,0,0,1,0,0,0]},
- {c:"VN",n:"Vietnam",r:"apac",a:[66,26,58,74],s12:1,ev:354,cf:62,u:"Jul 2026",m:[0,0,0,0,0,1,0,0,0,0,0,0]},
- {c:"BY",n:"Belarus",r:"emea",a:[78,56,80,86],s12:5,ev:410,cf:70,u:"Sep 2026",m:[0,1,0,1,0,0,1,0,1,0,1,0]},
- {c:"RU",n:"Russia",r:"emea",a:[82,52,86,88],s12:14,ev:1690,cf:86,u:"Sep 2026",m:[1,2,1,1,2,1,1,2,1,1,0,1]},
- {c:"ET",n:"Ethiopia",r:"emea",a:[72,74,68,70],s12:18,ev:342,cf:48,u:"Jul 2026",m:[2,1,3,2,1,2,1,2,1,1,1,1]},
- {c:"IR",n:"Iran",r:"emea",a:[90,78,92,90],s12:31,ev:2118,cf:90,u:"Sep 2026",m:[3,2,4,3,2,3,2,4,3,2,2,1]},
- {c:"CN",n:"China",r:"apac",a:[94,44,95,88],s12:9,ev:2460,cf:93,u:"Sep 2026",m:[1,1,0,1,1,0,1,1,1,1,0,1]},
- {c:"MM",n:"Myanmar",r:"apac",a:[88,86,84,92],s12:44,ev:296,cf:44,u:"Jun 2026",m:[4,3,5,4,3,4,3,5,4,3,3,3]}
-];
-var AXES=["Blocking","Shutdowns","Circumvention","Expression penalty"];
-var AXIS_NOTE=[
- "Reachability of sites, apps, and protocols measured from in-country vantage points.",
- "Full and partial network outages, including throttling below usable thresholds.",
- "Legal and technical restrictions on VPNs, Tor, and other circumvention tools.",
- "Arrests, prosecutions, and penalties recorded for online speech."
-];
-function band(v){return v<20?"Low":v<40?"Moderate":v<65?"Elevated":v<82?"High":"Severe"}
-function circBand(v){return v<20?"Unrestricted":v<45?"Monitored":v<65?"Pressured":v<82?"Restricted":"Criminalised"}
-function gradeOf(s){return s<20?"A":s<35?"B":s<52?"C":s<70?"D":"F"}
-function evidenceLog(d){
-  var out=[],i;
-  var kinds=[
-    ["Protocol reachability","Encrypted DNS blocked on "+(6+(d.a[0]%9))+" of 12 vantage points"],
-    ["Throughput","Median throughput fell "+(20+(d.a[1]%50))+"% below baseline for "+(2+(d.a[1]%9))+" hours"],
-    ["App availability","Circumvention app delisted from the local store, restored after "+(3+(d.a[2]%20))+" days"],
-    ["Legal record","New penalty provision recorded for online expression, pending review"],
-    ["Restoration","Service restored on all monitored vantage points, event closed"]
-  ];
-  var months=["Sep 2026","Aug 2026","Aug 2026","Jul 2026","Jun 2026"];
-  var count=d.a[0]>60?5:d.a[0]>30?4:3;
-  for(i=0;i<count;i++) out.push({w:months[i],k:kinds[i][0],t:kinds[i][1]});
-  return out;
-}
-
-var PRODUCTS=[
- {id:"v1",n:"Provider 01",cat:"vpn",catL:"VPN",f:{collection:["Email, payment token",82,"audited"],retention:["Session only",90,"audited"],access:["None claimed",80,"audited"],tracking:["None detected",95,"observed"],defaults:["Private by default",88,"observed"],control:["Full export and delete",84,"audited"]}},
- {id:"v2",n:"Provider 02",cat:"vpn",catL:"VPN",f:{collection:["Email, device ID, IP",34,"observed"],retention:["30 days",40,"observed"],access:["Full",20,"claimed"],tracking:["2 SDKs detected",22,"observed"],defaults:["Opt-in required",30,"observed"],control:["Delete on request",44,"claimed"]}},
- {id:"v3",n:"Provider 03",cat:"vpn",catL:"VPN",f:{collection:["Undisclosed",12,"unknown"],retention:["Undisclosed",12,"unknown"],access:["Undisclosed",12,"unknown"],tracking:["Not testable",18,"unknown"],defaults:["Unknown",15,"unknown"],control:["No stated process",14,"unknown"]}},
- {id:"v4",n:"Provider 04",cat:"vpn",catL:"VPN",f:{collection:["Email only",70,"observed"],retention:["7 days aggregate",62,"claimed"],access:["Support staff",48,"claimed"],tracking:["1 analytics SDK",46,"observed"],defaults:["Private by default",74,"observed"],control:["Self-serve delete",68,"observed"]}},
- {id:"m1",n:"Messenger 01",cat:"msg",catL:"Messaging",f:{collection:["Phone number",76,"audited"],retention:["Message queue only",92,"audited"],access:["None claimed",86,"audited"],tracking:["None detected",94,"observed"],defaults:["End-to-end by default",96,"audited"],control:["Full export and delete",82,"observed"]}},
- {id:"m2",n:"Messenger 02",cat:"msg",catL:"Messaging",f:{collection:["Contacts, metadata",26,"observed"],retention:["Indefinite",18,"observed"],access:["Full",18,"observed"],tracking:["4 SDKs detected",14,"observed"],defaults:["Opt-in encryption",28,"observed"],control:["Delete on request",36,"claimed"]}},
- {id:"m3",n:"Messenger 03",cat:"msg",catL:"Messaging",f:{collection:["Account handle",72,"observed"],retention:["90 days",58,"claimed"],access:["Metadata only",60,"claimed"],tracking:["None detected",88,"observed"],defaults:["End-to-end by default",84,"observed"],control:["Self-serve delete",70,"observed"]}},
- {id:"e1",n:"Mail 01",cat:"mail",catL:"Email",f:{collection:["Recovery address",74,"observed"],retention:["Until deletion",66,"observed"],access:["Metadata only",62,"claimed"],tracking:["None detected",90,"observed"],defaults:["Encrypted at rest",78,"audited"],control:["Full export",80,"observed"]}},
- {id:"e2",n:"Mail 02",cat:"mail",catL:"Email",f:{collection:["Full mailbox",16,"claimed"],retention:["Indefinite",16,"claimed"],access:["Full",14,"claimed"],tracking:["Ad profiling",10,"observed"],defaults:["Scanning enabled",12,"claimed"],control:["Delete on request",34,"claimed"]}},
- {id:"e3",n:"Mail 03",cat:"mail",catL:"Email",f:{collection:["Recovery address",70,"observed"],retention:["12 months logs",52,"observed"],access:["Support staff",50,"claimed"],tracking:["1 analytics SDK",48,"observed"],defaults:["Encrypted at rest",72,"claimed"],control:["Self-serve delete",66,"observed"]}},
- {id:"b1",n:"Browser 01",cat:"browser",catL:"Browser",f:{collection:["Crash reports",80,"audited"],retention:["90 days",74,"audited"],access:["None claimed",82,"audited"],tracking:["Blocked by default",96,"observed"],defaults:["Strict protection on",92,"observed"],control:["Granular controls",86,"observed"]}},
- {id:"b2",n:"Browser 02",cat:"browser",catL:"Browser",f:{collection:["Telemetry, sync data",30,"observed"],retention:["18 months",28,"observed"],access:["Full",22,"observed"],tracking:["Allowed by default",18,"observed"],defaults:["Protection opt-in",26,"observed"],control:["Settings only",40,"observed"]}}
-];
-var PFIELDS=[["collection","Data collected"],["retention","Retention"],["access","Provider access"],["tracking","Third-party tracking"],["defaults","Private by default"],["control","User control"]];
-var STATE_RANK={audited:4,observed:3,claimed:2,unknown:1};
-var STATE_NOTE={
-  audited:"Confirmed by an independent audit we could read.",
-  observed:"Measured by us directly against the running product.",
-  claimed:"Stated by the provider and not independently confirmed.",
-  unknown:"No disclosure and no way for us to test it."
-};
-
-/* ============ helpers ============ */
-function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
-var toastT;
-function toast(msg){var t=$("#toast");t.textContent=msg;t.classList.add("on");clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove("on")},2100)}
-function gclass(g){return "g-"+g.toLowerCase()}
-function riskColour(v){return v<35?"var(--risk-lo)":v<65?"var(--risk-md)":"var(--risk-hi)"}
-
-/* ============ theme ============ */
-var root=document.documentElement, tBtn=$("#theme"), tLabel=$("#themeLabel");
-function store(k,v){try{localStorage.setItem(k,v)}catch(e){}}
-function recall(k){try{return localStorage.getItem(k)}catch(e){return null}}
-function applyTheme(t){
-  if(t==="dark"){root.setAttribute("data-theme","dark")}else{root.removeAttribute("data-theme")}
-  tLabel.textContent=(t==="dark")?"Light":"Dark";
-  tBtn.setAttribute("aria-pressed",t==="dark"?"true":"false");
-  tBtn.setAttribute("aria-label",t==="dark"?"Switch to the light theme":"Switch to the dark theme");
-}
-var systemDark=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)");
-applyTheme(recall("fi-theme") || (systemDark&&systemDark.matches?"dark":"light"));
-tBtn.addEventListener("click",function(){
-  var next=root.getAttribute("data-theme")==="dark"?"light":"dark";
-  applyTheme(next); store("fi-theme",next);
-});
-if(systemDark&&systemDark.addEventListener){
-  systemDark.addEventListener("change",function(e){ if(!recall("fi-theme")) applyTheme(e.matches?"dark":"light") });
-}
-
-/* ============ clock, menu, progress, reveal, spy ============ */
-function tick(){var d=new Date();$("#clock").textContent=String(d.getUTCHours()).padStart(2,"0")+":"+String(d.getUTCMinutes()).padStart(2,"0")+" UTC"}
-tick();setInterval(tick,10000);
-
-$("#burger").addEventListener("click",function(){var o=$("#menu").classList.toggle("open");this.setAttribute("aria-expanded",o?"true":"false")});
-$("#menu").addEventListener("click",function(e){if(e.target.tagName==="A")$("#menu").classList.remove("open")});
-
-window.addEventListener("scroll",function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight||1);
-  $("#progress").style.width=(p*100).toFixed(2)+"%";
-},{passive:true});
-
-if("IntersectionObserver" in window){
-  var rvObs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");rvObs.unobserve(e.target)}})},{threshold:.08});
-  $$(".rv").forEach(function(el){rvObs.observe(el)});
-  setTimeout(function(){$$(".rv").forEach(function(el){el.classList.add("in")})},2500);
-
-  var spyObs=new IntersectionObserver(function(es){
-    es.forEach(function(e){
-      if(e.isIntersecting){
-        $$(".rail a").forEach(function(a){a.classList.toggle("active",a.dataset.spy===e.target.id)});
-      }
-    });
-  },{rootMargin:"-140px 0px -65% 0px"});
-  ["assess","grades","activities","index","research","independence"].forEach(function(id){var el=document.getElementById(id);if(el)spyObs.observe(el)});
-
-  $$("[data-count]").forEach(function(el){el.textContent=Number(el.dataset.count).toLocaleString("en-US")+(el.dataset.suffix||"")});
-  var mObs=new IntersectionObserver(function(es){
-    es.forEach(function(e){
-      if(!e.isIntersecting)return;
-      mObs.unobserve(e.target);
-      $$("[data-count]",e.target).forEach(function(el){
-        var end=parseFloat(el.dataset.count), sfx=el.dataset.suffix||"", t0=performance.now(), dur=1100;
-        (function step(t){
-          var k=Math.min(1,(t-t0)/dur), e2=1-Math.pow(1-k,3);
-          el.textContent=Math.round(end*e2).toLocaleString("en-US")+(k===1?sfx:"");
-          if(k<1)requestAnimationFrame(step);
-        })(t0);
-      });
-    });
-  },{threshold:.3});
-  mObs.observe($("#metricGrid"));
-}else{ $$(".rv").forEach(function(el){el.classList.add("in")}); $$("[data-count]").forEach(function(el){el.textContent=Number(el.dataset.count).toLocaleString("en-US")+(el.dataset.suffix||"")}); }
-
-/* ============ THREAT TOOL ============ */
-var tState={profile:"journalist",tier:"pressured"};
-var PRIOS={
-  journalist:[
-    ["Where source metadata lives","Who can see that you and a source spoke, even when the words are encrypted."],
-    ["Device seizure posture","What a powered-off device gives up, and what survives a border inspection."],
-    ["Provider response to legal demand","What the provider holds and what it has actually handed over when asked."],
-    ["Account recovery paths","The recovery phone or email is usually the weakest link in the chain."],
-    ["Local network observation","What your ISP and any campus or hotel network can infer from traffic shape."]
-  ],
-  organiser:[
-    ["Group membership exposure","Who can enumerate the members of a group, including the platform itself."],
-    ["Real-time location leakage","Presence, typing, and delivery receipts place people at a time and a place."],
-    ["Circumvention legality","Whether using the tool is itself the offence in your jurisdiction."],
-    ["Backup and cloud sync","Encrypted chats routinely land unencrypted in someone else's backup."],
-    ["Provider response to legal demand","What the provider holds and what it has handed over when asked."]
-  ],
-  citizen:[
-    ["Third-party trackers","How many parties receive your activity without you choosing them."],
-    ["Default settings","Products are configured for the business model, not for you."],
-    ["Retention period","How long the record of you outlives your use of the service."],
-    ["Data export and deletion","Whether you can get your data out and have it actually removed."],
-    ["Account recovery paths","The recovery phone or email is usually the weakest link in the chain."]
-  ]
-};
-var TIER_ADD={
-  open:null,
-  pressured:["Failure behaviour under filtering","What the tool does when it cannot connect; some fall back to plaintext without telling you."],
-  closed:["Traffic that looks like circumvention","Blocking is one risk; being identified as someone evading it is the other."]
-};
-var TIER_RISK={open:["r-lo","Baseline exposure"],pressured:["r-md","Elevated exposure"],closed:["r-hi","Severe exposure"]};
-function renderTool(){
-  var list=PRIOS[tState.profile].slice(0,4);
-  var add=TIER_ADD[tState.tier];
-  if(add)list.unshift(add);
-  list=list.slice(0,5);
-  $("#prioList").innerHTML=list.map(function(i){return '<li><span><span class="t">'+esc(i[0])+'</span><span class="s">'+esc(i[1])+'</span></span></li>'}).join("");
-  var r=TIER_RISK[tState.tier];
-  var pill=$("#riskPill");pill.className="riskpill "+r[0];pill.textContent=r[1];
-}
-function wireOpts(sel,key){
-  $$(sel+" .opt").forEach(function(b){
-    b.addEventListener("click",function(){
-      $$(sel+" .opt").forEach(function(x){x.classList.remove("on")});
-      b.classList.add("on");tState[key]=b.dataset.v;renderTool();
-    });
-  });
-}
-wireOpts("#optProfile","profile");wireOpts("#optTier","tier");
-renderTool();
-
-/* ============ GRADE EXPLORER ============ */
-var W={blocking:30,shutdowns:25,circumvention:25,expression:20};
-var DEFAULT_W={blocking:30,shutdowns:25,circumvention:25,expression:20};
-var cState={region:"all",q:"",grade:"all",sort:"score",dir:-1};
-
-function weightTotal(){return W.blocking+W.shutdowns+W.circumvention+W.expression}
-function scoreOf(d){
-  var w=[W.blocking,W.shutdowns,W.circumvention,W.expression];
-  var tot=w[0]+w[1]+w[2]+w[3];
-  if(!tot)return null;
-  return (d.a[0]*w[0]+d.a[1]*w[1]+d.a[2]*w[2]+d.a[3]*w[3])/tot;
-}
-function rows(){
-  return COUNTRIES.filter(function(d){
-    if(cState.region!=="all"&&d.r!==cState.region)return false;
-    if(cState.grade!=="all"&&(weightTotal()===0||gradeOf(scoreOf(d))!==cState.grade))return false;
-    if(cState.q&&d.n.toLowerCase().indexOf(cState.q)<0&&d.c.toLowerCase().indexOf(cState.q)<0)return false;
-    return true;
-  });
-}
-function sortVal(d,k){
-  switch(k){
-    case "name":return d.n.toLowerCase();
-    case "score":return scoreOf(d);
-    case "blocking":return d.a[0];
-    case "shutdowns12":return d.s12;
-    case "circumvention":return d.a[2];
-    case "evidence":return d.ev;
-    case "confidence":return d.cf;
-    default:return scoreOf(d);
-  }
-}
-function sparkline(m){
-  var max=Math.max.apply(null,m.concat([1])),w=62,h=18,step=w/(m.length-1);
-  var pts=m.map(function(v,i){return (i*step).toFixed(1)+","+(h-(v/max)*(h-2)-1).toFixed(1)}).join(" ");
-  var col=max>=3?"var(--risk-hi)":max>=1?"var(--risk-md)":"var(--muted)";
-  return '<svg class="spark" width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'" aria-hidden="true"><polyline points="'+pts+'" fill="none" stroke="'+col+'" stroke-width="1.4" stroke-linejoin="round"/></svg>';
-}
-function renderDist(){
-  var counts={A:0,B:0,C:0,D:0,F:0}, live=weightTotal()>0;
-  if(live)COUNTRIES.forEach(function(d){counts[gradeOf(scoreOf(d))]++});
-  var max=Math.max.apply(null,Object.keys(counts).map(function(k){return counts[k]}).concat([1]));
-  var cols={A:"var(--ga-fg)",B:"var(--gb-fg)",C:"var(--gc-fg)",D:"var(--gd-fg)",F:"var(--gf-fg)"};
-  var html='<button class="chip'+(cState.grade==="all"?" on":"")+'" data-grade="all" style="border-radius:2px">All grades</button>';
-  html+=Object.keys(counts).map(function(g){
-    var hgt=Math.max(8,Math.round((counts[g]/max)*26));
-    return '<button type="button" data-grade="'+g+'"'+(cState.grade===g?' class="on"':'')+(live?'':' disabled')+' aria-pressed="'+(cState.grade===g)+'"><span class="col" style="height:'+hgt+'px;background:'+cols[g]+'"></span><span class="gl">'+g+'</span><span class="ct">'+(live?counts[g]:"\u2013")+'</span></button>';
-  }).join("");
-  $("#dist").innerHTML=html;
-  $$("#dist [data-grade]").forEach(function(b){
-    b.addEventListener("click",function(){
-      cState.grade=(cState.grade===b.dataset.grade)?"all":b.dataset.grade;
-      renderDist();renderCountries();
-    });
-  });
-}
-function renderCountries(){
-  var list=rows();
-  list.sort(function(a,b){
-    var x=sortVal(a,cState.sort),y=sortVal(b,cState.sort);
-    if(x<y)return -1*cState.dir; if(x>y)return 1*cState.dir; return 0;
-  });
-  $("#cBody").innerHTML=list.map(function(d,i){
-    var s=scoreOf(d),g=(s===null)?null:gradeOf(s);
-    var cbar=d.cf>=75?"":d.cf>=60?" low":" bad";
-    return '<tr data-c="'+d.c+'">'+
-      '<td class="rank">'+(i+1)+'</td>'+
-      '<td><button type="button" class="entity rowbtn" data-open="'+d.c+'" aria-haspopup="dialog"><span class="flag">'+d.c+'</span>'+esc(d.n)+'</button></td>'+
-      '<td>'+(g?'<span class="grade '+gclass(g)+'">'+g+'</span>':'<span class="dim mono" title="Set at least one weight above zero">n/a</span>')+'</td>'+
-      '<td class="band">'+band(d.a[0])+'</td>'+
-      '<td class="num">'+d.s12+'</td>'+
-      '<td>'+sparkline(d.m)+'</td>'+
-      '<td class="band">'+circBand(d.a[2])+'</td>'+
-      '<td class="num">'+d.ev.toLocaleString("en-US")+'</td>'+
-      '<td><span class="bar'+cbar+'" role="img" aria-label="Confidence '+d.cf+' percent"><i style="width:'+d.cf+'%"></i></span> <span class="mono dim" style="font-size:10.5px">'+d.cf+'%</span></td>'+
-    '</tr>';
-  }).join("");
-  $("#cEmpty").hidden=list.length>0;
-  $("#cCount").textContent="Showing "+list.length+" of "+COUNTRIES.length;
-  $$("#cBody tr").forEach(function(tr){
-    tr.addEventListener("click",function(){openDrawer(tr.dataset.c)});
-  });
-}
-$$("[data-region]").forEach(function(b){
-  b.addEventListener("click",function(){
-    $$("[data-region]").forEach(function(x){x.classList.remove("on")});
-    b.classList.add("on");cState.region=b.dataset.region;renderCountries();
-  });
-});
-$("#cSearch").addEventListener("input",function(e){cState.q=e.target.value.trim().toLowerCase();renderCountries()});
-function wireSort(tableId,state,render){
-  $$("#"+tableId+" thead th").forEach(function(th){
-    var k=th.dataset.k;
-    if(!k||k==="rank"||k==="trend"){th.setAttribute("scope","col");return}
-    th.setAttribute("scope","col");
-    var b=document.createElement("button");
-    b.type="button"; b.className="sortbtn"; b.innerHTML=th.innerHTML;
-    th.innerHTML=""; th.appendChild(b);
-    b.addEventListener("click",function(){
-      if(state.sort===k){state.dir*=-1}else{state.sort=k;state.dir=(k==="name"||k==="cat")?1:-1}
-      $$("#"+tableId+" thead th").forEach(function(x){x.classList.remove("sorted");x.removeAttribute("aria-sort")});
-      th.classList.add("sorted");
-      th.setAttribute("aria-sort",state.dir===1?"ascending":"descending");
-      render();
-    });
-  });
-}
-wireSort("cTable",cState,function(){renderCountries()});
-$("#toggleWeights").addEventListener("click",function(){
-  var w=$("#weights"); w.hidden=!w.hidden;
-  this.classList.toggle("on",!w.hidden);
-  this.setAttribute("aria-expanded",w.hidden?"false":"true");
-});
-function syncWeights(){
-  W.blocking=+$("#wBlock").value;W.shutdowns=+$("#wShut").value;
-  W.circumvention=+$("#wCirc").value;W.expression=+$("#wExpr").value;
-  $("#vBlock").textContent=W.blocking;$("#vShut").textContent=W.shutdowns;
-  $("#vCirc").textContent=W.circumvention;$("#vExpr").textContent=W.expression;
-  var tot=W.blocking+W.shutdowns+W.circumvention+W.expression;
-  var changed=JSON.stringify(W)!==JSON.stringify(DEFAULT_W);
-  $("#wSummary").textContent=tot===0?"Every weight is zero; set at least one axis above zero."
-    :(changed?"Custom weighting active. Grades below are yours, not ours.":"Weights normalise to 100. Grades and ranking update live.");
-  renderDist();renderCountries();
-}
-["wBlock","wShut","wCirc","wExpr"].forEach(function(id){$("#"+id).addEventListener("input",syncWeights)});
-$("#resetWeights").addEventListener("click",function(){
-  $("#wBlock").value=30;$("#wShut").value=25;$("#wCirc").value=25;$("#wExpr").value=20;
-  syncWeights();toast("Published weights restored");
-});
-
-/* drawer */
-function openDrawer(code){
-  var d=COUNTRIES.filter(function(x){return x.c===code})[0]; if(!d)return;
-  var s=scoreOf(d),g=gradeOf(s);
-  var axes=d.a.map(function(v,i){
-    return '<div class="axis"><div class="row"><span>'+AXES[i]+'</span><b>'+Math.round(v)+' / 100</b></div>'+
-      '<div class="track"><i style="width:'+v+'%;background:'+riskColour(v)+'"></i></div>'+
-      '<div class="dim" style="font-size:12.5px;margin-top:6px">'+AXIS_NOTE[i]+'</div></div>';
-  }).join("");
-  var log=evidenceLog(d).map(function(e){
-    return '<li><span class="when">'+e.w+'</span><span><b style="font-weight:500">'+esc(e.k)+'</b><br><span class="dim">'+esc(e.t)+'</span></span></li>';
-  }).join("");
-  $("#drawerInner").innerHTML=
-    '<div class="drawer-head">'+
-      '<span class="grade '+gclass(g)+'" style="width:44px;height:38px;font-size:16px">'+g+'</span>'+
-      '<div><div style="font-family:var(--serif);font-size:24px;letter-spacing:-.015em">'+esc(d.n)+'</div>'+
-      '<div class="mono dim" style="margin-top:4px">Composite '+s.toFixed(1)+' &middot; updated '+d.u+'</div></div>'+
-      '<button class="x" id="drawerX" aria-label="Close">&times;</button>'+
-    '</div>'+
-    '<div class="drawer-body">'+
-      '<div class="dsec"><div class="k mono">Axis scores (higher is worse)</div>'+axes+'</div>'+
-      '<div class="dsec"><div class="k mono">Shutdown events, trailing 12 months</div>'+
-        '<div style="display:flex;align-items:flex-end;gap:4px;height:72px;margin-bottom:10px">'+
-        d.m.map(function(v){var max=Math.max.apply(null,d.m.concat([1]));
-          return '<div title="'+v+' events" style="flex:1;height:'+Math.max(3,(v/max)*68)+'px;background:'+(v>2?"var(--risk-hi)":v>0?"var(--risk-md)":"var(--grey)")+';border-radius:2px 2px 0 0"></div>'}).join("")+
-        '</div><div class="mono dim">'+d.s12+' events recorded &middot; oldest month left</div></div>'+
-      '<div class="dsec"><div class="k mono">Coverage</div><dl class="kv">'+
-        '<dt>Evidence records</dt><dd>'+d.ev.toLocaleString("en-US")+'</dd>'+
-        '<dt>Confidence</dt><dd>'+d.cf+'%</dd>'+
-        '<dt>Region</dt><dd>'+d.r.toUpperCase()+'</dd>'+
-        '<dt>Last re-grade</dt><dd>'+d.u+'</dd></dl></div>'+
-      '<div class="dsec"><div class="k mono">Evidence log</div><ul class="log">'+log+'</ul></div>'+
-      '<p class="dim" style="font-size:12.5px">Illustrative data. Published entries link to raw measurement data and the vantage points that produced it.</p>'+
-    '</div>';
-  $("#drawerX").addEventListener("click",closeDrawer);
-  lastFocus=document.activeElement;
-  $("#drawer").classList.add("on");$("#scrim").classList.add("on");lockBody();
-  $("#drawerX").focus();
-}
-function anyOverlayOpen(){return $("#drawer").classList.contains("on")||$("#cmp").classList.contains("on")}
-function lockBody(){document.body.classList.add("locked")}
-function unlockBody(){if(!anyOverlayOpen())document.body.classList.remove("locked")}
-function trapTab(container,e){
-  if(e.key!=="Tab")return;
-  var f=$$('a[href],button:not([disabled]),input,select,textarea,[tabindex]:not([tabindex="-1"])',container)
-        .filter(function(el){return el.offsetParent!==null});
-  if(!f.length)return;
-  var first=f[0],last=f[f.length-1];
-  if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
-  else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
-}
-var lastFocus=null;
-function closeDrawer(){
-  var d=$("#drawer");
-  if(!d.classList.contains("on"))return;
-  d.classList.remove("on");$("#scrim").classList.remove("on");unlockBody();
-  if(lastFocus&&lastFocus.focus){try{lastFocus.focus()}catch(e){}}
-}
-$("#scrim").addEventListener("click",closeDrawer);
-
-/* ============ PRODUCT INDEX ============ */
-var pState={cat:"all",q:"",verified:false,notrack:false,sort:"score",dir:-1};
-var picks=[];
-function pScore(p){
-  var ks=Object.keys(p.f),t=0;
-  ks.forEach(function(k){t+=p.f[k][1]});
-  return Math.round(t/ks.length);
-}
-function pState_(p){
-  var ranks=Object.keys(p.f).map(function(k){return STATE_RANK[p.f[k][2]]});
-  var min=Math.min.apply(null,ranks);
-  return min>=4?"audited":min>=3?"observed":min>=2?"claimed":"unknown";
-}
-function pRows(){
-  return PRODUCTS.filter(function(p){
-    if(pState.cat!=="all"&&p.cat!==pState.cat)return false;
-    if(pState.q&&p.n.toLowerCase().indexOf(pState.q)<0&&p.catL.toLowerCase().indexOf(pState.q)<0)return false;
-    if(pState.verified&&STATE_RANK[pState_(p)]<3)return false;
-    if(pState.notrack&&p.f.tracking[1]<70)return false;
-    return true;
-  });
-}
-function renderProducts(){
-  var list=pRows();
-  list.sort(function(a,b){
-    var k=pState.sort,x,y;
-    if(k==="name"){x=a.n.toLowerCase();y=b.n.toLowerCase()}
-    else if(k==="cat"){x=a.catL;y=b.catL}
-    else if(k==="state"){x=STATE_RANK[pState_(a)];y=STATE_RANK[pState_(b)]}
-    else if(k==="score"){x=pScore(a);y=pScore(b)}
-    else{x=a.f[k]?a.f[k][1]:0;y=b.f[k]?b.f[k][1]:0}
-    if(x<y)return -1*pState.dir; if(x>y)return 1*pState.dir; return 0;
-  });
-  $("#pBody").innerHTML=list.map(function(p){
-    var st=pState_(p),sc=pScore(p);
-    return '<tr data-id="'+p.id+'">'+
-      '<td><span class="pick'+(picks.indexOf(p.id)>=0?" on":"")+'" data-pick="'+p.id+'" role="checkbox" tabindex="0" aria-checked="'+(picks.indexOf(p.id)>=0)+'" aria-label="Compare '+esc(p.n)+'">&#10003;</span></td>'+
-      '<td><span class="entity"><span class="flag">'+p.id.toUpperCase()+'</span>'+esc(p.n)+'</span></td>'+
-      '<td class="dim">'+p.catL+'</td>'+
-      '<td class="num"><span class="ring">'+ringSvg(sc)+'<b>'+sc+'</b></span></td>'+
-      '<td>'+esc(p.f.collection[0])+'</td>'+
-      '<td>'+esc(p.f.retention[0])+'</td>'+
-      '<td>'+esc(p.f.access[0])+'</td>'+
-      '<td>'+esc(p.f.tracking[0])+'</td>'+
-      '<td><span class="stat s-'+st.slice(0,3)+'" title="'+STATE_NOTE[st]+'">'+st+'</span></td>'+
-    '</tr>';
-  }).join("");
-  $("#pEmpty").hidden=list.length>0;
-  $("#pCount").textContent="Showing "+list.length+" of "+PRODUCTS.length;
-  $$("#pBody [data-pick]").forEach(function(el){
-    el.addEventListener("click",function(e){e.stopPropagation();togglePick(el.dataset.pick)});
-    el.addEventListener("keydown",function(e){if(e.key===" "||e.key==="Enter"){e.preventDefault();togglePick(el.dataset.pick)}});
-  });
-  $$("#pBody tr").forEach(function(tr){
-    tr.addEventListener("click",function(){togglePick(tr.dataset.id)});
-  });
-}
-function ringSvg(v){
-  var r=9,c=2*Math.PI*r,off=c*(1-v/100);
-  return '<svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="'+r+'" fill="none" stroke="var(--grey)" stroke-width="3"/>'+
-    '<circle cx="12" cy="12" r="'+r+'" fill="none" stroke="'+(v>=70?"var(--pos)":v>=45?"var(--risk-md)":"var(--risk-hi)")+'" stroke-width="3" stroke-dasharray="'+c.toFixed(1)+'" stroke-dashoffset="'+off.toFixed(1)+'" stroke-linecap="round"/></svg>';
-}
-function togglePick(id){
-  var i=picks.indexOf(id);
-  if(i>=0){picks.splice(i,1)}
-  else{ if(picks.length>=3){toast("Three entries maximum");return} picks.push(id) }
-  var keep=document.activeElement&&document.activeElement.dataset&&document.activeElement.dataset.pick;
-  renderProducts();renderTray();
-  if(keep){var el=$('[data-pick="'+keep+'"]'); if(el)el.focus()}
-}
-function renderTray(){
-  var s=$("#slots"),html="";
-  for(var i=0;i<3;i++){
-    var p=picks[i]?PRODUCTS.filter(function(x){return x.id===picks[i]})[0]:null;
-    html+='<span class="slot'+(p?" full":"")+'">'+(p?esc(p.n):"Empty")+'</span>';
-  }
-  s.innerHTML=html;
-  $("#cmpGo").disabled=picks.length<2;
-  $("#tray").classList.toggle("on",picks.length>0);
-}
-$("#cmpClear").addEventListener("click",function(){picks=[];renderProducts();renderTray()});
-$("#cmpGo").addEventListener("click",openCompare);
-function openCompare(){
-  if(picks.length<2)return;
-  var sel=picks.map(function(id){return PRODUCTS.filter(function(x){return x.id===id})[0]});
-  var head='<tr><th>Dimension</th>'+sel.map(function(p){return '<th>'+esc(p.n)+'<br><span class="dim" style="text-transform:none;letter-spacing:0;font-family:var(--sans);font-size:12px">'+p.catL+'</span></th>'}).join("")+'</tr>';
-  var body=PFIELDS.map(function(f){
-    var vals=sel.map(function(p){return p.f[f[0]][1]});
-    var best=Math.max.apply(null,vals);
-    return '<tr><td>'+f[1]+'</td>'+sel.map(function(p,i){
-      var cell=p.f[f[0]];
-      return '<td'+(vals[i]===best&&sel.length>1?' class="best"':'')+'>'+esc(cell[0])+
-        '<br><span class="stat s-'+cell[2].slice(0,3)+'" style="margin-top:5px">'+cell[2]+'</span></td>';
-    }).join("")+'</tr>';
-  }).join("");
-  var scores='<tr><td>Composite</td>'+sel.map(function(p){var sc=pScore(p);return '<td><span class="ring">'+ringSvg(sc)+'<b>'+sc+'</b></span></td>'}).join("")+'</tr>';
-  $("#cmpInner").innerHTML=
-    '<div class="panel-head"><span class="title">Side by side</span>'+
-      '<div class="controls"><button class="chip" id="cmpClose">Close</button></div></div>'+
-    '<div class="scroller"><table>'+'<thead>'+head+'</thead><tbody>'+scores+body+'</tbody></table></div>'+
-    '<div class="panel-foot"><span>Highlighted cell is the stronger position on that dimension.</span><span>Illustrative data.</span></div>';
-  $("#cmpClose").addEventListener("click",closeCompare);
-  cmpLastFocus=document.activeElement;
-  $("#cmp").classList.add("on");lockBody();
-  $("#cmpClose").focus();
-}
-function closeCompare(){
-  var c=$("#cmp");
-  if(!c.classList.contains("on"))return;
-  c.classList.remove("on");unlockBody();
-  if(cmpLastFocus&&cmpLastFocus.focus){try{cmpLastFocus.focus()}catch(e){}}
-}
-var cmpLastFocus=null;
-$("#drawer").addEventListener("keydown",function(e){trapTab($("#drawer"),e)});
-$("#cmp").addEventListener("keydown",function(e){trapTab($("#cmp"),e)});
-$("#cmp").addEventListener("click",function(e){if(e.target===$("#cmp"))closeCompare()});
-
-$$("[data-cat]").forEach(function(b){
-  b.addEventListener("click",function(){
-    $$("[data-cat]").forEach(function(x){x.classList.remove("on")});
-    b.classList.add("on");pState.cat=b.dataset.cat;renderProducts();
-  });
-});
-$("#pSearch").addEventListener("input",function(e){pState.q=e.target.value.trim().toLowerCase();renderProducts()});
-$("#fVerified").addEventListener("click",function(){pState.verified=!pState.verified;this.classList.toggle("on",pState.verified);this.setAttribute("aria-pressed",pState.verified);renderProducts()});
-$("#fNoTrack").addEventListener("click",function(){pState.notrack=!pState.notrack;this.classList.toggle("on",pState.notrack);this.setAttribute("aria-pressed",pState.notrack);renderProducts()});
-wireSort("pTable",pState,function(){renderProducts()});
-
-/* ============ keyboard + form ============ */
-document.addEventListener("keydown",function(e){
-  var tag=(e.target.tagName||"").toLowerCase();
-  if(e.key==="Escape"){closeDrawer();closeCompare();return}
-  if(tag==="input"||tag==="textarea")return;
-  if(e.key==="/"){e.preventDefault();$("#cSearch").focus();$("#cSearch").scrollIntoView({block:"center"})}
-});
-$("#signup").addEventListener("submit",function(e){e.preventDefault();this.reset();toast("Concept page; no list yet")});
-
-/* ============ boot ============ */
-renderDist();renderCountries();renderProducts();renderTray();
-})();
-</script>
-</body>
+<script src="shared.js"></script>
+<script src="tool.js"></script></body>
 </html>

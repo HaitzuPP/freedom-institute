@@ -1,0 +1,34 @@
+<!-- THREAT TOOL -->
+<section id="assess" class="rv">
+  <div class="wrap">
+    <div class="eyebrow mono">Start here</div>
+    <h2>Your threat model decides which questions matter</h2>
+    <p class="dim" style="max-width:62ch;margin-top:18px">Pick the situation closest to yours and the country tier you operate in; the panel rewrites the order of what to check first.</p>
+    <div class="tool">
+      <div class="tool-grid">
+        <div class="tool-q">
+          <div class="k mono">01 / Who is likely looking</div>
+          <div class="opts" id="optProfile">
+            <button class="opt on" data-v="journalist"><span class="rd"></span><span><span class="t">Journalist or researcher</span><br><span class="s">Sources to protect, devices likely to be inspected</span></span></button>
+            <button class="opt" data-v="organiser"><span class="rd"></span><span><span class="t">Organiser or activist</span><br><span class="s">Group comms, real-time coordination, arrest risk</span></span></button>
+            <button class="opt" data-v="citizen"><span class="rd"></span><span><span class="t">Privacy-minded citizen</span><br><span class="s">Advertisers, data brokers, account breaches</span></span></button>
+          </div>
+          <div class="k mono">02 / Where you operate</div>
+          <div class="opts" id="optTier">
+            <button class="opt" data-v="open"><span class="rd"></span><span><span class="t">Open network</span><br><span class="s">Grade A to B, no routine blocking</span></span></button>
+            <button class="opt on" data-v="pressured"><span class="rd"></span><span><span class="t">Pressured network</span><br><span class="s">Grade C to D, filtering and periodic throttling</span></span></button>
+            <button class="opt" data-v="closed"><span class="rd"></span><span><span class="t">Closed network</span><br><span class="s">Grade F, shutdowns and criminalised circumvention</span></span></button>
+          </div>
+        </div>
+        <div class="tool-out">
+          <div class="head">
+            <div class="k mono dim">What to verify, in order</div>
+            <span class="riskpill r-md" id="riskPill">Elevated exposure</span>
+          </div>
+          <ol class="prio" id="prioList"></ol>
+          <p class="dim" style="font-size:13px;margin:20px 0 0">Illustrative. The published version links each item to the test that produced it.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

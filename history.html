@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A history of information freedom, 1945 to now | Freedom Institute</title>
+<meta name="description" content="Fifty-nine sourced events in the control of information, from the radio jamming of 1948 to the national internet blackouts running now.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="website">
+<meta property="og:title" content="A history of information freedom, 1945 to now | Freedom Institute">
+<meta property="og:description" content="Fifty-nine sourced events in the control of information, from the radio jamming of 1948 to the national internet blackouts running now.">
+<meta property="og:url" content="https://haitzupp.github.io/freedom-institute/history.html">
+<meta property="og:image" content="https://haitzupp.github.io/freedom-institute/img/patch-panel.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script>(function(){try{var t=localStorage.getItem("fi-theme")||((window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light");if(t==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..500;1,6..72,200..400&family=Geist:wght@300;400;500&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23011614'/%3E%3Cpath d='M8 22c0-8 3-12 8-12s8 4 8 12' stroke='%2397FCE4' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip mono" href="#top">Skip to content</a>
+<div id="progress"></div>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="index.html">
+      <svg class="mark" viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1.4"/><path d="M7 24c0-9 5.8-14 13-14s13 5 13 14" stroke="currentColor" stroke-width="1.4"/><path d="M20 6v28M9.5 13.5h21M9.5 30.5h21" stroke="currentColor" stroke-width="1.4" opacity=".35"/></svg>
+      <span class="brand-name">Freedom<br><em>Institute</em></span>
+    </a>
+    <button class="burger mono" id="burger" type="button" aria-controls="menu" aria-expanded="false" aria-label="Menu">Menu</button>
+    <nav class="nav-links" id="menu" aria-label="Primary">
+      <a class="mono" href="index.html">Home</a>
+      <a class="mono" href="grades.html">Grades</a>
+      <a class="mono" href="products.html">Index</a>
+      <a class="mono on" href="history.html" aria-current="page">History</a>
+      <a class="mono" href="research.html">Research</a>
+      <a class="mono" href="about.html">About</a>
+    </nav>
+    <div class="nav-meta mono">
+      <div><span class="dot"></span>Concept build</div>
+      <div><span id="clock">00:00 UTC</span></div>
+    </div>
+    <button class="themebtn mono" id="theme" type="button" aria-pressed="false" aria-label="Switch to the dark theme">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 1.8a6.2 6.2 0 0 0 0 12.4z" fill="currentColor"/></svg>
+      <span id="themeLabel">Dark</span>
+    </button>
+  </div>
+</header>
+<main id="top">
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow mono">A history of information freedom</div>
+    <h1>Every blackout was <span class="soft">rehearsed.</span></h1>
+    <p class="lede">Eighty years of censorship, jamming, wiretapping, filtering and network shutdowns, from the transmitter war of 1948 to the national blackouts running now. Fifty-nine entries, each one carrying the source it came from.</p>
+    <div class="hero-cta">
+      <a class="btn mono" href="#era1">Start in 1945 <span>&rarr;</span></a>
+      <button class="chip" type="button" id="keyOnly" aria-pressed="false">Pivotal entries only</button>
+    </div>
+  </div>
+</div>
+
+<section class="rv" style="padding-top:clamp(40px,5vw,64px)">
+  <div class="wrap">
+    <div class="eyebrow mono">Where it stands now</div>
+    <h2>The trend line of the last decade points one way</h2>
+    <div class="hstat" id="hstats" data-countgroup></div>
+
+    <div class="chart">
+      <div class="chart__head">
+        <div><span class="mono" style="font-size:13px;letter-spacing:.06em">Documented internet shutdowns per year</span>
+          <div class="mono dim" style="font-size:10px;margin-top:5px">Access Now #KeepItOn, as first reported each year</div></div>
+        <a class="hstat__s" href="https://www.accessnow.org/keepiton/" target="_blank" rel="noopener">Access Now &#8599;</a>
+      </div>
+      <div class="chart__b" id="chart"></div>
+      <div class="panel-foot"><span>Counts are revised upward as incidents are confirmed, so later reports cite higher figures for the same years.</span></div>
+    </div>
+
+    <div class="eranav" id="eranav"></div>
+  </div>
+</section>
+
+<div id="eras"></div>
+
+<section class="rv">
+  <div class="wrap">
+    <div class="eyebrow mono">How this was built</div>
+    <h2>Every entry names the source that carries it</h2>
+    <p class="dim" style="max-width:64ch;margin-top:18px">Dates and figures were verified against institutional sources rather than secondary summaries, and where a figure could not be verified it was left out instead of approximated. Where a claim is contested the entry says so rather than picking a side, and casualty figures reported during a blackout are attributed to whoever reported them.</p>
+    <p class="dim" style="max-width:64ch">This is a reading of the period through one lens. Events appear because of what they changed about the control of information, which means some of the century's gravest crimes sit here only where censorship was the instrument or the cover.</p>
+  </div>
+</section>
+
+</main>
+<footer>
+  <div class="wrap">
+    <svg width="60" height="60" viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1.2"/><path d="M7 24c0-9 5.8-14 13-14s13 5 13 14" stroke="currentColor" stroke-width="1.2"/><path d="M20 6v28M9.5 13.5h21M9.5 30.5h21" stroke="currentColor" stroke-width="1.2" opacity=".35"/></svg>
+    <p class="vision">People deserve to know which tools keep their promises, and which governments break theirs.</p>
+    <div class="foot-grid">
+      <div><div class="k mono">Institute</div><a href="grades.html">Country grades</a><a href="products.html">Privacy Product Index</a><a href="history.html">History of information freedom</a><a href="research.html">Research programme</a></div>
+      <div><div class="k mono">Open source</div><a href="#">Testing harness</a><a href="#">Measurement data</a><a href="#">Scoring methodology</a><a href="#">Changelog</a></div>
+      <div><div class="k mono">Contact</div><a href="mailto:research@freedominstitute.org">research@freedominstitute.org</a><a href="mailto:media@freedominstitute.org">media@freedominstitute.org</a><a href="about.html">Funding and governance</a><a href="#">Open roles</a></div>
+      <div>
+        <div class="k mono">Get the findings first</div>
+        <p style="color:rgba(255,255,255,.6);font-size:14px;margin:0">One email when a grade changes or a report lands. Nothing else.</p>
+        <form class="signup" id="signup"><input type="email" placeholder="you@domain.com" aria-label="Email address" required><button type="submit">Join</button></form>
+      </div>
+    </div>
+    <div class="colophon mono">
+      <span>&copy; 2026 Freedom Institute &middot; Concept</span>
+      <span style="display:inline-flex;align-items:center;gap:9px">Organised by <a href="https://ur.xyz" target="_blank" rel="noopener" style="display:inline-flex"><img src="img/ur-network-white.png" alt="URnetwork" width="400" height="58" style="height:11px;width:auto;display:block;opacity:.85"></a> &middot; Independence policy published in full</span>
+    </div>
+  </div>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="shared.js"></script>
+<script src="history-data.js"></script>
+<script src="history.js"></script></body>
+</html>

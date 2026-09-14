@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Country grades | Freedom Institute</title>
+<meta name="description" content="Country censorship grades scored on blocking, shutdowns, restrictions on circumvention and punishment for online expression.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Country grades | Freedom Institute">
+<meta property="og:description" content="Country censorship grades scored on blocking, shutdowns, restrictions on circumvention and punishment for online expression.">
+<meta property="og:url" content="https://haitzupp.github.io/freedom-institute/grades.html">
+<meta property="og:image" content="https://haitzupp.github.io/freedom-institute/img/patch-panel.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script>(function(){try{var t=localStorage.getItem("fi-theme")||((window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light");if(t==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..500;1,6..72,200..400&family=Geist:wght@300;400;500&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23011614'/%3E%3Cpath d='M8 22c0-8 3-12 8-12s8 4 8 12' stroke='%2397FCE4' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip mono" href="#top">Skip to content</a>
+<div id="progress"></div>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="index.html">
+      <svg class="mark" viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1.4"/><path d="M7 24c0-9 5.8-14 13-14s13 5 13 14" stroke="currentColor" stroke-width="1.4"/><path d="M20 6v28M9.5 13.5h21M9.5 30.5h21" stroke="currentColor" stroke-width="1.4" opacity=".35"/></svg>
+      <span class="brand-name">Freedom<br><em>Institute</em></span>
+    </a>
+    <button class="burger mono" id="burger" type="button" aria-controls="menu" aria-expanded="false" aria-label="Menu">Menu</button>
+    <nav class="nav-links" id="menu" aria-label="Primary">
+      <a class="mono" href="index.html">Home</a>
+      <a class="mono on" href="grades.html" aria-current="page">Grades</a>
+      <a class="mono" href="products.html">Index</a>
+      <a class="mono" href="history.html">History</a>
+      <a class="mono" href="research.html">Research</a>
+      <a class="mono" href="about.html">About</a>
+    </nav>
+    <div class="nav-meta mono">
+      <div><span class="dot"></span>Concept build</div>
+      <div><span id="clock">00:00 UTC</span></div>
+    </div>
+    <button class="themebtn mono" id="theme" type="button" aria-pressed="false" aria-label="Switch to the dark theme">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 1.8a6.2 6.2 0 0 0 0 12.4z" fill="currentColor"/></svg>
+      <span id="themeLabel">Dark</span>
+    </button>
+  </div>
+</header>
+<main id="top">
+<section class="rv" style="padding-bottom:0">
+  <div class="wrap">
+    <div class="eyebrow mono">Country censorship grades <span class="flagnote mono" style="margin-left:4px">Illustrative data &middot; concept</span></div>
+    <h2>A grade is worthless unless you can see what it was built from</h2>
+    <p class="dim" style="max-width:64ch;margin-top:18px">Each country is scored on four axes. A scoring choice is an argument, so move the weights and every grade recomputes. Open any row for the axis detail, the shutdown history, and the evidence log behind it.</p>
+  </div>
+</section>
+<!-- GRADE EXPLORER -->
+<section id="grades" class="rv" style="padding-top:36px">
+  <div class="wrap">
+    <div class="eyebrow mono">Country censorship grades</div>
+    <h2>A grade is worthless unless you can see what it was built from</h2>
+    <p class="dim" style="max-width:64ch;margin-top:18px">Each country is scored on four axes. A scoring choice is an argument, so move the weights and every grade recomputes. Open any row for the axis detail, the shutdown history, and the evidence log behind it.</p>
+
+    <div class="panel" style="margin-top:36px">
+      <div class="panel-head">
+        <span><span class="title">Freedom Grade Explorer</span><br><span class="mono dim" style="font-size:10px">Higher score is worse &middot; most restricted first &middot; 23-country sample of 72</span></span>
+        <div class="controls">
+          <label class="search"><span class="sicon">&#9906;</span><input id="cSearch" type="search" placeholder="Search country" aria-label="Search country"></label>
+          <button class="chip on" data-region="all">All</button>
+          <button class="chip" data-region="apac">APAC</button>
+          <button class="chip" data-region="emea">EMEA</button>
+          <button class="chip" data-region="americas">Americas</button>
+        </div>
+      </div>
+      <div class="toolbar">
+        <div class="dist" id="dist"></div>
+        <button class="chip" id="toggleWeights" type="button" aria-controls="weights" aria-expanded="false">Adjust weights</button>
+      </div>
+      <div class="weights" id="weights" hidden>
+        <div class="wctl"><label for="wBlock">Blocking <b id="vBlock">30</b></label><input id="wBlock" type="range" min="0" max="60" value="30"></div>
+        <div class="wctl"><label for="wShut">Shutdowns <b id="vShut">25</b></label><input id="wShut" type="range" min="0" max="60" value="25"></div>
+        <div class="wctl"><label for="wCirc">Circumvention <b id="vCirc">25</b></label><input id="wCirc" type="range" min="0" max="60" value="25"></div>
+        <div class="wctl"><label for="wExpr">Expression penalty <b id="vExpr">20</b></label><input id="wExpr" type="range" min="0" max="60" value="20"></div>
+        <div class="wnote"><span id="wSummary">Weights normalise to 100. Grades and ranking update live.</span><button id="resetWeights">Reset to published weights</button></div>
+      </div>
+      <div class="scroller">
+        <table id="cTable">
+          <thead><tr>
+            <th data-k="rank" scope="col" title="Rank, most restricted first">#</th>
+            <th data-k="name">Country<span class="car">&#9662;</span></th>
+            <th data-k="score">Grade<span class="car">&#9662;</span></th>
+            <th class="band" data-k="blocking" scope="col">Blocking<span class="car">&#9662;</span></th>
+            <th class="num" data-k="shutdowns12">Shutdowns 12M<span class="car">&#9662;</span></th>
+            <th data-k="trend">Trend</th>
+            <th class="band" data-k="circumvention" scope="col">Circumvention<span class="car">&#9662;</span></th>
+            <th class="num" data-k="evidence">Evidence<span class="car">&#9662;</span></th>
+            <th data-k="confidence">Confidence<span class="car">&#9662;</span></th>
+          </tr></thead>
+          <tbody id="cBody"></tbody>
+        </table>
+      </div>
+      <div class="empty" id="cEmpty" hidden>No country matches that filter.</div>
+      <div class="panel-foot">
+        <span id="cCount" aria-live="polite">Showing 23 of 23</span>
+        <span>Illustrative data. Not a published assessment.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Country detail"><div id="drawerInner"></div></aside>
+
+</main>
+<footer>
+  <div class="wrap">
+    <svg width="60" height="60" viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1.2"/><path d="M7 24c0-9 5.8-14 13-14s13 5 13 14" stroke="currentColor" stroke-width="1.2"/><path d="M20 6v28M9.5 13.5h21M9.5 30.5h21" stroke="currentColor" stroke-width="1.2" opacity=".35"/></svg>
+    <p class="vision">People deserve to know which tools keep their promises, and which governments break theirs.</p>
+    <div class="foot-grid">
+      <div><div class="k mono">Institute</div><a href="grades.html">Country grades</a><a href="products.html">Privacy Product Index</a><a href="history.html">History of information freedom</a><a href="research.html">Research programme</a></div>
+      <div><div class="k mono">Open source</div><a href="#">Testing harness</a><a href="#">Measurement data</a><a href="#">Scoring methodology</a><a href="#">Changelog</a></div>
+      <div><div class="k mono">Contact</div><a href="mailto:research@freedominstitute.org">research@freedominstitute.org</a><a href="mailto:media@freedominstitute.org">media@freedominstitute.org</a><a href="about.html">Funding and governance</a><a href="#">Open roles</a></div>
+      <div>
+        <div class="k mono">Get the findings first</div>
+        <p style="color:rgba(255,255,255,.6);font-size:14px;margin:0">One email when a grade changes or a report lands. Nothing else.</p>
+        <form class="signup" id="signup"><input type="email" placeholder="you@domain.com" aria-label="Email address" required><button type="submit">Join</button></form>
+      </div>
+    </div>
+    <div class="colophon mono">
+      <span>&copy; 2026 Freedom Institute &middot; Concept</span>
+      <span style="display:inline-flex;align-items:center;gap:9px">Organised by <a href="https://ur.xyz" target="_blank" rel="noopener" style="display:inline-flex"><img src="img/ur-network-white.png" alt="URnetwork" width="400" height="58" style="height:11px;width:auto;display:block;opacity:.85"></a> &middot; Independence policy published in full</span>
+    </div>
+  </div>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="shared.js"></script>
+<script src="grades.js"></script></body>
+</html>

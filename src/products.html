@@ -1,0 +1,52 @@
+<!-- PRODUCT INDEX -->
+<section id="index" class="rv" style="padding-top:0">
+  <div class="wrap">
+    <div class="panel">
+      <div class="panel-head">
+        <span><span class="title">Privacy Product Index</span><br><span class="mono dim" style="font-size:10px">Higher composite is better &middot; 12-entry sample of 140+</span></span>
+        <div class="controls">
+          <label class="search"><span class="sicon">&#9906;</span><input id="pSearch" type="search" placeholder="Search entry" aria-label="Search entry"></label>
+          <button class="chip on" data-cat="all">All</button>
+          <button class="chip" data-cat="vpn">VPN</button>
+          <button class="chip" data-cat="msg">Messaging</button>
+          <button class="chip" data-cat="mail">Email</button>
+          <button class="chip" data-cat="browser">Browser</button>
+        </div>
+      </div>
+      <div class="toolbar">
+        <div class="controls">
+          <button class="chip toggle" id="fVerified" type="button" aria-pressed="false"><span class="box"></span>Verified evidence only</button>
+          <button class="chip toggle" id="fNoTrack" type="button" aria-pressed="false"><span class="box"></span>No tracking detected</button>
+        </div>
+        <div class="legend">
+          <span class="stat s-aud" title="Confirmed by an independent audit we could read.">Audited</span>
+          <span class="stat s-obs" title="Measured by us directly against the running product.">Observed</span>
+          <span class="stat s-cla" title="Stated by the provider and not independently confirmed.">Claimed</span>
+          <span class="stat s-unk" title="No disclosure and no way for us to test it.">Unknown</span>
+          <span class="dim" style="font-size:12px;text-transform:none;letter-spacing:0;font-family:var(--sans)">Tick up to three rows to compare</span>
+        </div>
+      </div>
+      <div class="scroller">
+        <table id="pTable">
+          <thead><tr>
+            <th style="width:44px"></th>
+            <th data-k="name">Entry<span class="car">&#9662;</span></th>
+            <th data-k="cat">Category<span class="car">&#9662;</span></th>
+            <th class="num" data-k="score">Composite<span class="car">&#9662;</span></th>
+            <th data-k="collection">Data collected</th>
+            <th data-k="retention">Retention</th>
+            <th data-k="access">Provider access</th>
+            <th data-k="tracking">Third-party tracking</th>
+            <th data-k="state">Verification<span class="car">&#9662;</span></th>
+          </tr></thead>
+          <tbody id="pBody"></tbody>
+        </table>
+      </div>
+      <div class="empty" id="pEmpty" hidden>No entry matches that filter.</div>
+      <div class="panel-foot">
+        <span id="pCount" aria-live="polite">Showing 12 of 12</span>
+        <span>Illustrative data. Entries stay anonymised until first publication.</span>
+      </div>
+    </div>
+  </div>
+</section>

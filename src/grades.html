@@ -1,0 +1,53 @@
+<!-- GRADE EXPLORER -->
+<section id="grades" class="rv">
+  <div class="wrap">
+    <div class="eyebrow mono">Country censorship grades</div>
+    <h2>A grade is worthless unless you can see what it was built from</h2>
+    <p class="dim" style="max-width:64ch;margin-top:18px">Each country is scored on four axes. A scoring choice is an argument, so move the weights and every grade recomputes. Open any row for the axis detail, the shutdown history, and the evidence log behind it.</p>
+
+    <div class="panel" style="margin-top:36px">
+      <div class="panel-head">
+        <span><span class="title">Freedom Grade Explorer</span><br><span class="mono dim" style="font-size:10px">Higher score is worse &middot; most restricted first &middot; 23-country sample of 72</span></span>
+        <div class="controls">
+          <label class="search"><span class="sicon">&#9906;</span><input id="cSearch" type="search" placeholder="Search country" aria-label="Search country"></label>
+          <button class="chip on" data-region="all">All</button>
+          <button class="chip" data-region="apac">APAC</button>
+          <button class="chip" data-region="emea">EMEA</button>
+          <button class="chip" data-region="americas">Americas</button>
+        </div>
+      </div>
+      <div class="toolbar">
+        <div class="dist" id="dist"></div>
+        <button class="chip" id="toggleWeights" type="button" aria-controls="weights" aria-expanded="false">Adjust weights</button>
+      </div>
+      <div class="weights" id="weights" hidden>
+        <div class="wctl"><label for="wBlock">Blocking <b id="vBlock">30</b></label><input id="wBlock" type="range" min="0" max="60" value="30"></div>
+        <div class="wctl"><label for="wShut">Shutdowns <b id="vShut">25</b></label><input id="wShut" type="range" min="0" max="60" value="25"></div>
+        <div class="wctl"><label for="wCirc">Circumvention <b id="vCirc">25</b></label><input id="wCirc" type="range" min="0" max="60" value="25"></div>
+        <div class="wctl"><label for="wExpr">Expression penalty <b id="vExpr">20</b></label><input id="wExpr" type="range" min="0" max="60" value="20"></div>
+        <div class="wnote"><span id="wSummary">Weights normalise to 100. Grades and ranking update live.</span><button id="resetWeights">Reset to published weights</button></div>
+      </div>
+      <div class="scroller">
+        <table id="cTable">
+          <thead><tr>
+            <th data-k="rank" scope="col" title="Rank, most restricted first">#</th>
+            <th data-k="name">Country<span class="car">&#9662;</span></th>
+            <th data-k="score">Grade<span class="car">&#9662;</span></th>
+            <th class="band" data-k="blocking" scope="col">Blocking<span class="car">&#9662;</span></th>
+            <th class="num" data-k="shutdowns12">Shutdowns 12M<span class="car">&#9662;</span></th>
+            <th data-k="trend">Trend</th>
+            <th class="band" data-k="circumvention" scope="col">Circumvention<span class="car">&#9662;</span></th>
+            <th class="num" data-k="evidence">Evidence<span class="car">&#9662;</span></th>
+            <th data-k="confidence">Confidence<span class="car">&#9662;</span></th>
+          </tr></thead>
+          <tbody id="cBody"></tbody>
+        </table>
+      </div>
+      <div class="empty" id="cEmpty" hidden>No country matches that filter.</div>
+      <div class="panel-foot">
+        <span id="cCount" aria-live="polite">Showing 23 of 23</span>
+        <span>Illustrative data. Not a published assessment.</span>
+      </div>
+    </div>
+  </div>
+</section>
