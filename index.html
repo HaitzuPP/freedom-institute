@@ -11,218 +11,331 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23011614'/%3E%3Cpath d='M8 22c0-8 3-12 8-12s8 4 8 12' stroke='%2397FCE4' stroke-width='2' fill='none'/%3E%3C/svg%3E">
 <style>
 :root{
-  --ink:#011614;
-  --deep:#002F2B;
-  --green:#17453F;
-  --mint:#97FCE4;
-  --paper:#F3F5F4;
-  --grey:#E5E7E5;
-  --line:#D8DDDB;
-  --white:#FFFFFF;
-  --muted:#5E6C69;
-  --pos:#0E7C5A;
-  --warn:#B4741B;
-  --neg:#B03A2E;
+  --ink:#011614; --deep:#002F2B; --green:#17453F; --mint:#97FCE4;
+  --paper:#F3F5F4; --grey:#E5E7E5; --line:#D8DDDB; --white:#FFFFFF; --muted:#5E6C69;
+  --pos:#0E7C5A; --warn:#B4741B; --neg:#B03A2E;
   --serif:"Newsreader",Georgia,"Times New Roman",serif;
   --sans:"Geist","Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
   --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   --pad:clamp(20px,5vw,88px);
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;background:var(--paper);color:var(--ink);
-  font-family:var(--sans);font-weight:400;font-size:16px;line-height:1.55;
-  -webkit-font-smoothing:antialiased;
-}
+html{scroll-behavior:smooth;scroll-padding-top:132px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+body.locked{overflow:hidden}
 img{max-width:100%}
 a{color:inherit}
+button{font-family:inherit}
 .wrap{max-width:1280px;margin:0 auto;padding-inline:var(--pad)}
 .mono{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase}
+:focus-visible{outline:2px solid var(--green);outline-offset:2px}
 
-/* ---------- nav ---------- */
-header{position:sticky;top:0;z-index:60;background:rgba(243,245,244,.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.nav{display:flex;align-items:center;gap:24px;height:74px}
+/* progress */
+#progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--green);z-index:90;transition:width .08s linear}
+
+/* nav */
+header{position:sticky;top:0;z-index:70;background:rgba(243,245,244,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:24px;height:72px}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;flex:0 0 auto}
-.mark{width:38px;height:38px;flex:0 0 auto}
-.brand-name{font-family:var(--serif);font-size:19px;font-weight:400;line-height:1.05;letter-spacing:-.01em}
+.mark{width:36px;height:36px;flex:0 0 auto}
+.brand-name{font-family:var(--serif);font-size:18px;line-height:1.05;letter-spacing:-.01em}
 .brand-name em{font-style:italic}
 .nav-links{display:flex;gap:2px;margin-left:auto;background:var(--white);border:1px solid var(--line);border-radius:2px;padding:4px}
-.nav-links a{padding:8px 14px;text-decoration:none;color:var(--muted);border-radius:1px;transition:.15s}
+.nav-links a{padding:8px 13px;text-decoration:none;color:var(--muted);transition:.15s}
 .nav-links a:hover{color:var(--ink);background:var(--grey)}
 .nav-links a.on{background:var(--ink);color:var(--mint)}
-.nav-meta{margin-left:auto;text-align:right;line-height:1.5;color:var(--ink)}
+.nav-meta{margin-left:auto;text-align:right;line-height:1.5}
 .nav-meta .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--pos);margin-right:6px;vertical-align:middle;animation:pulse 2.4s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
 .burger{display:none;margin-left:auto;background:none;border:1px solid var(--line);padding:9px 12px;border-radius:2px;cursor:pointer}
 
-/* ---------- hero ---------- */
-.hero{padding:clamp(56px,9vw,116px) 0 0;position:relative;overflow:hidden}
-.hero h1{
-  font-family:var(--serif);font-weight:300;font-size:clamp(38px,6.6vw,86px);
-  line-height:1.02;letter-spacing:-.025em;margin:26px 0 0;max-width:17ch;
-}
+/* section rail */
+.rail{position:sticky;top:72px;z-index:65;background:var(--white);border-bottom:1px solid var(--line)}
+.rail .wrap{display:flex;align-items:center;gap:4px;height:52px;overflow-x:auto;scrollbar-width:none}
+.rail .wrap::-webkit-scrollbar{display:none}
+.rail a{padding:7px 12px;text-decoration:none;color:var(--muted);border-radius:2px;white-space:nowrap;transition:.15s;position:relative}
+.rail a:hover{color:var(--ink);background:var(--paper)}
+.rail a.active{color:var(--ink)}
+.rail a.active::after{content:"";position:absolute;left:12px;right:12px;bottom:-1px;height:2px;background:var(--green)}
+.rail .kbd{margin-left:auto;color:var(--muted);white-space:nowrap;display:flex;gap:6px;align-items:center}
+.rail .kbd kbd{font-family:var(--mono);font-size:10px;border:1px solid var(--line);background:var(--paper);padding:3px 6px;border-radius:3px}
+
+/* hero */
+.hero{padding:clamp(52px,8vw,104px) 0 0;overflow:hidden}
+.hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(38px,6.4vw,84px);line-height:1.02;letter-spacing:-.025em;margin:26px 0 0;max-width:17ch}
 .hero h1 .soft{color:var(--muted)}
-.hero .lede{font-size:clamp(16px,1.5vw,19px);color:var(--muted);max-width:56ch;margin:30px 0 0;font-weight:300}
-.featured{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:44px;background:var(--white);border:1px solid var(--line);padding:14px 18px;border-radius:2px;text-decoration:none;max-width:760px;transition:.18s}
+.hero .lede{font-size:clamp(16px,1.5vw,19px);color:var(--muted);max-width:56ch;margin:28px 0 0;font-weight:300}
+.hero-cta{display:flex;flex-wrap:wrap;gap:26px;align-items:center;margin-top:42px}
+.featured{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:36px;background:var(--white);border:1px solid var(--line);padding:14px 18px;border-radius:2px;text-decoration:none;max-width:760px;transition:.18s}
 .featured:hover{border-color:var(--ink);transform:translateY(-1px)}
 .featured .tag{background:var(--mint);color:var(--deep);padding:4px 8px;border-radius:2px}
 .featured .txt{flex:1;min-width:200px;font-size:14px}
 .featured .date{color:var(--muted)}
-.skyline{margin-top:clamp(48px,7vw,88px);height:clamp(150px,22vw,280px);background:
-  radial-gradient(circle at 1px 1px, rgba(1,22,20,.16) 1px, transparent 0) 0 0/9px 9px;
+.skyline{margin-top:clamp(44px,6vw,80px);height:clamp(140px,20vw,260px);
+  background:radial-gradient(circle at 1px 1px, rgba(1,22,20,.16) 1px, transparent 0) 0 0/9px 9px;
   -webkit-mask-image:linear-gradient(to bottom,transparent,#000 35%,#000 70%,transparent);
-  mask-image:linear-gradient(to bottom,transparent,#000 35%,#000 70%,transparent);
-  position:relative}
-.skyline::after{content:"";position:absolute;inset:0;background:
-  radial-gradient(ellipse 40% 70% at 50% 100%, rgba(23,69,63,.18), transparent 70%)}
+  mask-image:linear-gradient(to bottom,transparent,#000 35%,#000 70%,transparent);position:relative}
+.skyline::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 40% 70% at 50% 100%, rgba(23,69,63,.18), transparent 70%)}
 
-/* ---------- generic section ---------- */
-section{padding:clamp(56px,8vw,104px) 0}
-.eyebrow{display:flex;align-items:center;gap:10px;color:var(--muted);margin-bottom:22px}
+/* type */
+section{padding:clamp(52px,7vw,96px) 0}
+.eyebrow{display:flex;align-items:center;gap:10px;color:var(--muted);margin-bottom:20px}
 .eyebrow::before{content:"";width:26px;height:1px;background:currentColor}
-h2{font-family:var(--serif);font-weight:300;font-size:clamp(28px,4.1vw,52px);line-height:1.08;letter-spacing:-.022em;margin:0;max-width:22ch}
-h3{font-family:var(--serif);font-weight:400;font-size:clamp(20px,2.1vw,27px);line-height:1.2;letter-spacing:-.012em;margin:0 0 12px}
+h2{font-family:var(--serif);font-weight:300;font-size:clamp(28px,4vw,50px);line-height:1.08;letter-spacing:-.022em;margin:0;max-width:22ch}
+h3{font-family:var(--serif);font-weight:400;font-size:clamp(20px,2.1vw,26px);line-height:1.2;letter-spacing:-.012em;margin:0 0 12px}
 p{margin:0 0 16px}
-.p-lg{font-family:var(--serif);font-weight:300;font-size:clamp(21px,2.6vw,33px);line-height:1.32;letter-spacing:-.015em;max-width:24ch}
+.p-lg{font-family:var(--serif);font-weight:300;font-size:clamp(21px,2.5vw,32px);line-height:1.32;letter-spacing:-.015em;max-width:24ch}
 .dim{color:var(--muted)}
 
-.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 26px;border:1px solid var(--ink);border-radius:100px;text-decoration:none;background:transparent;position:relative;transition:.2s}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border:1px solid var(--ink);border-radius:100px;text-decoration:none;background:transparent;position:relative;transition:.2s;cursor:pointer}
 .btn::before{content:"";position:absolute;inset:-6px;border:1px solid var(--line);border-radius:100px;transition:.2s}
 .btn:hover{background:var(--ink);color:var(--mint)}
 .btn:hover::before{inset:-3px;border-color:var(--ink)}
-.btn.on-dark{border-color:var(--mint);color:var(--mint)}
-.btn.on-dark::before{border-color:rgba(151,252,228,.28)}
-.btn.on-dark:hover{background:var(--mint);color:var(--deep)}
+.link-q{color:var(--green);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px}
+.link-q:hover{border-color:var(--green)}
 
-/* ---------- mission split ---------- */
+/* reveal */
+.rv{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+
+/* mission */
 .split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(28px,5vw,72px);align-items:start}
-.mission-list{list-style:none;margin:34px 0 0;padding:0;border-top:1px solid var(--line)}
-.mission-list li{display:grid;grid-template-columns:38px 1fr;gap:18px;padding:20px 0;border-bottom:1px solid var(--line)}
+.mission-list{list-style:none;margin:32px 0 0;padding:0;border-top:1px solid var(--line)}
+.mission-list li{display:grid;grid-template-columns:38px 1fr;gap:18px;padding:19px 0;border-bottom:1px solid var(--line)}
 .mission-list .n{color:var(--muted)}
 
-/* ---------- metric strip ---------- */
+/* metrics */
 .metrics{background:var(--white);border-block:1px solid var(--line)}
-.metrics .wrap{padding-block:clamp(38px,5vw,58px)}
-.metric-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:34px}
+.metrics .wrap{padding-block:clamp(36px,5vw,56px)}
+.metric-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:32px}
 .flagnote{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--paper);padding:6px 10px;border-radius:2px;color:var(--warn)}
 .metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
 .metric{background:var(--white);padding:22px}
 .metric .k{color:var(--muted);margin-bottom:10px}
-.metric .v{font-family:var(--serif);font-weight:300;font-size:clamp(30px,3.6vw,44px);line-height:1;letter-spacing:-.03em}
+.metric .v{font-family:var(--serif);font-weight:300;font-size:clamp(30px,3.5vw,43px);line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .metric .d{margin-top:10px;font-size:12.5px;color:var(--muted)}
 .metric .d b{font-weight:500;font-family:var(--mono);font-size:11.5px}
 .up{color:var(--pos)}.down{color:var(--neg)}
 
-/* ---------- data panel ---------- */
+/* panels */
 .panel{background:var(--white);border:1px solid var(--line);border-radius:3px;overflow:hidden}
-.panel-head{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--line)}
-.panel-head .title{font-family:var(--serif);font-size:21px;font-weight:400;letter-spacing:-.01em}
-.controls{display:flex;flex-wrap:wrap;gap:6px}
-.chip{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:8px 13px;border:1px solid var(--line);background:var(--paper);border-radius:2px;cursor:pointer;color:var(--muted);transition:.15s}
+.panel-head{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--line)}
+.panel-head .title{font-family:var(--serif);font-size:20px;letter-spacing:-.01em}
+.controls{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.chip{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:8px 12px;border:1px solid var(--line);background:var(--paper);border-radius:2px;cursor:pointer;color:var(--muted);transition:.15s}
 .chip:hover{border-color:var(--ink);color:var(--ink)}
 .chip.on{background:var(--ink);border-color:var(--ink);color:var(--mint)}
+.search{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--paper);border-radius:2px;padding:0 10px;min-width:190px}
+.search input{border:0;background:transparent;padding:9px 0;font-family:var(--sans);font-size:14px;width:100%;outline:none;color:var(--ink)}
+.search .sicon{color:var(--muted);font-size:13px}
+.toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--line);background:var(--paper)}
+
+/* distribution bar */
+.dist{display:flex;gap:6px;flex-wrap:wrap}
+.dist button{display:flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--white);border-radius:2px;padding:6px 10px;cursor:pointer;transition:.15s}
+.dist button:hover{border-color:var(--ink)}
+.dist button.on{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.dist .gl{font-family:var(--mono);font-size:11px;font-weight:600}
+.dist .ct{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.dist .col{width:4px;border-radius:2px}
+
+/* weights */
+.weights{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px 26px;padding:18px 20px;border-bottom:1px solid var(--line);background:var(--paper)}
+.wctl label{display:flex;justify-content:space-between;gap:10px;color:var(--muted);margin-bottom:9px}
+.wctl label b{color:var(--ink);font-family:var(--mono);font-size:11px}
+.wctl input[type=range]{width:100%;accent-color:var(--green);height:18px}
+.wnote{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;color:var(--muted);font-size:12.5px;margin-top:-4px}
+.wnote button{background:none;border:0;color:var(--green);cursor:pointer;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:0}
+
+/* table */
 .scroller{overflow-x:auto}
-table{width:100%;border-collapse:collapse;min-width:760px;font-size:14px}
-thead th{
-  font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--muted);text-align:left;padding:12px 16px;background:var(--paper);border-bottom:1px solid var(--line);
-  white-space:nowrap;cursor:pointer;user-select:none}
+table{width:100%;border-collapse:collapse;min-width:820px;font-size:14px}
+thead th{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;padding:11px 15px;background:var(--paper);border-bottom:1px solid var(--line);white-space:nowrap;cursor:pointer;user-select:none;position:relative}
 thead th:hover{color:var(--ink)}
+thead th .car{opacity:0;margin-left:5px}
+thead th.sorted .car{opacity:1}
 thead th.num,tbody td.num{text-align:right;font-variant-numeric:tabular-nums}
-tbody td{padding:14px 16px;border-bottom:1px solid var(--line);vertical-align:middle}
-tbody tr:last-child td{border-bottom:0}
+tbody td{padding:12px 15px;border-bottom:1px solid var(--line);vertical-align:middle}
+tbody tr{cursor:pointer;transition:background .12s}
 tbody tr:hover{background:var(--paper)}
-.rank{color:var(--muted);font-family:var(--mono);font-size:12px;width:44px}
+tbody tr.sel{background:#EEF6F3}
+.rank{color:var(--muted);font-family:var(--mono);font-size:12px;width:42px}
 .entity{display:flex;align-items:center;gap:11px;font-weight:500;white-space:nowrap}
-.flag{width:26px;height:19px;border-radius:2px;flex:0 0 auto;border:1px solid rgba(1,22,20,.12);display:grid;place-items:center;font-family:var(--mono);font-size:9px;font-weight:600;background:var(--grey);color:var(--muted)}
+.flag{width:26px;height:19px;border-radius:2px;flex:0 0 auto;display:grid;place-items:center;font-family:var(--mono);font-size:9px;font-weight:600;background:var(--grey);color:var(--muted);border:1px solid rgba(1,22,20,.12)}
 .grade{display:inline-grid;place-items:center;width:30px;height:26px;border-radius:2px;font-family:var(--mono);font-size:12px;font-weight:600}
-.g-a{background:#DFF4EA;color:#0B5F45}
-.g-b{background:#E7F1DC;color:#4A6B24}
-.g-c{background:#FBF0D6;color:#8A6412}
-.g-d{background:#FAE3D6;color:#9B4A1C}
-.g-f{background:#F7DAD6;color:#9B2C20}
-.bar{display:inline-block;vertical-align:middle;width:84px;height:6px;background:var(--grey);border-radius:100px;overflow:hidden}
-.bar i{display:block;height:100%;background:var(--green);border-radius:100px}
-.bar.low i{background:#C6903A}
-.bar.bad i{background:#B0563E}
-.stat{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.g-a{background:#DFF4EA;color:#0B5F45}.g-b{background:#E7F1DC;color:#4A6B24}
+.g-c{background:#FBF0D6;color:#8A6412}.g-d{background:#FAE3D6;color:#9B4A1C}.g-f{background:#F7DAD6;color:#9B2C20}
+.bar{display:inline-block;vertical-align:middle;width:80px;height:6px;background:var(--grey);border-radius:100px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--green);border-radius:100px;transition:width .45s cubic-bezier(.4,0,.2,1)}
+.bar.low i{background:#C6903A}.bar.bad i{background:#B0563E}
+.spark{display:block}
+.stat{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);cursor:help}
 .stat::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
 .s-obs{color:var(--pos)}.s-aud{color:var(--green)}.s-claim{color:var(--warn)}.s-unk{color:var(--neg)}
-.panel-foot{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;padding:14px 22px;background:var(--paper);border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
-.panel-foot a{color:var(--green)}
+.panel-foot{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;padding:13px 20px;background:var(--paper);border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
+.panel-foot a,.panel-foot button{color:var(--green);background:none;border:0;cursor:pointer;font-size:12.5px;font-family:inherit}
+.empty{padding:44px 20px;text-align:center;color:var(--muted)}
 
-/* ---------- dark block ---------- */
+/* drawer */
+.scrim{position:fixed;inset:0;background:rgba(1,22,20,.42);opacity:0;pointer-events:none;transition:opacity .25s;z-index:80}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(520px,100%);background:var(--white);z-index:85;transform:translateX(102%);transition:transform .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-18px 0 44px rgba(1,22,20,.14)}
+.drawer.on{transform:none}
+.drawer-head{display:flex;align-items:flex-start;gap:14px;padding:22px 24px;border-bottom:1px solid var(--line)}
+.drawer-head .x{margin-left:auto;background:none;border:1px solid var(--line);width:34px;height:34px;border-radius:2px;cursor:pointer;font-size:16px;line-height:1;color:var(--muted)}
+.drawer-head .x:hover{border-color:var(--ink);color:var(--ink)}
+.drawer-body{overflow-y:auto;padding:24px;flex:1}
+.dsec{margin-bottom:30px}
+.dsec .k{color:var(--muted);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.axis{margin-bottom:15px}
+.axis .row{display:flex;justify-content:space-between;gap:10px;font-size:13.5px;margin-bottom:6px}
+.axis .row b{font-family:var(--mono);font-size:11.5px;font-weight:600}
+.track{height:7px;background:var(--grey);border-radius:100px;overflow:hidden}
+.track i{display:block;height:100%;border-radius:100px;transition:width .5s cubic-bezier(.4,0,.2,1)}
+.log{list-style:none;margin:0;padding:0}
+.log li{display:grid;grid-template-columns:82px 1fr;gap:14px;padding:12px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.log li:last-child{border-bottom:0}
+.log .when{color:var(--muted);font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding-top:2px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;font-size:13.5px}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0;text-align:right}
+
+/* compare tray */
+.tray{position:fixed;left:50%;bottom:22px;transform:translate(-50%,150%);z-index:75;background:var(--ink);color:var(--white);border-radius:4px;padding:12px 14px;display:flex;align-items:center;gap:14px;box-shadow:0 14px 38px rgba(1,22,20,.3);transition:transform .3s cubic-bezier(.4,0,.2,1);max-width:calc(100vw - 32px)}
+.tray.on{transform:translate(-50%,0)}
+.tray .slots{display:flex;gap:7px}
+.tray .slot{border:1px dashed rgba(255,255,255,.3);border-radius:2px;padding:6px 10px;font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.45);white-space:nowrap}
+.tray .slot.full{border-style:solid;border-color:var(--mint);color:var(--mint)}
+.tray .go{background:var(--mint);color:var(--deep);border:0;border-radius:2px;padding:9px 15px;cursor:pointer;font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase}
+.tray .go:disabled{opacity:.35;cursor:not-allowed}
+.tray .clr{background:none;border:0;color:rgba(255,255,255,.55);cursor:pointer;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase}
+.pick{width:20px;height:20px;border:1px solid var(--line);border-radius:3px;display:inline-grid;place-items:center;font-size:12px;color:transparent;background:var(--white);cursor:pointer;transition:.15s}
+.pick:hover{border-color:var(--ink)}
+.pick.on{background:var(--ink);border-color:var(--ink);color:var(--mint)}
+
+/* compare modal */
+.cmp{position:fixed;inset:0;z-index:86;display:none;padding:clamp(12px,4vw,48px);overflow:auto}
+.cmp.on{display:block}
+.cmp-inner{max-width:1000px;margin:0 auto;background:var(--white);border-radius:4px;overflow:hidden;box-shadow:0 26px 70px rgba(1,22,20,.34)}
+.cmp table{min-width:640px}
+.cmp tbody tr{cursor:default}
+.cmp thead th{cursor:default}
+.cmp thead th:hover{color:var(--muted)}
+.cmp tbody td:first-child{color:var(--muted);font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;background:var(--paper);white-space:nowrap}
+.cmp .best{background:#EEF6F3}
+.ring{display:inline-flex;align-items:center;gap:9px}
+.ring svg{transform:rotate(-90deg)}
+.ring b{font-family:var(--mono);font-size:12px}
+
+/* threat tool */
+.tool{background:var(--white);border:1px solid var(--line);border-radius:3px;overflow:hidden;margin-top:40px}
+.tool-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)}
+.tool-q{padding:clamp(22px,3vw,32px);border-right:1px solid var(--line)}
+.tool-q .k{color:var(--muted);margin-bottom:14px}
+.opts{display:flex;flex-direction:column;gap:8px;margin-bottom:28px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;border:1px solid var(--line);background:var(--paper);border-radius:2px;padding:13px 15px;cursor:pointer;transition:.15s}
+.opt:hover{border-color:var(--ink)}
+.opt.on{border-color:var(--ink);background:var(--white);box-shadow:inset 0 0 0 1px var(--ink)}
+.opt .rd{width:15px;height:15px;border:1px solid var(--muted);border-radius:50%;flex:0 0 auto;margin-top:3px;display:grid;place-items:center}
+.opt.on .rd{border-color:var(--ink)}
+.opt.on .rd::after{content:"";width:7px;height:7px;border-radius:50%;background:var(--ink)}
+.opt .t{font-size:14.5px;font-weight:500}
+.opt .s{font-size:13px;color:var(--muted)}
+.tool-out{padding:clamp(22px,3vw,32px);background:var(--paper)}
+.tool-out .head{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:18px}
+.prio{list-style:none;margin:0;padding:0;counter-reset:p}
+.prio li{counter-increment:p;display:grid;grid-template-columns:26px 1fr;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.prio li::before{content:counter(p,decimal-leading-zero);font-family:var(--mono);font-size:11px;font-weight:600;color:var(--muted);padding-top:3px}
+.prio li:last-child{border-bottom:0}
+.prio .t{display:block;font-size:14.5px;font-weight:500;margin-bottom:3px}
+.prio .s{display:block;font-size:13.5px;color:var(--muted)}
+.riskpill{display:inline-flex;align-items:center;gap:8px;border-radius:100px;padding:6px 13px;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase}
+.r-hi{background:#F7DAD6;color:#9B2C20}.r-md{background:#FBF0D6;color:#8A6412}.r-lo{background:#DFF4EA;color:#0B5F45}
+
+/* dark */
 .dark{background:var(--deep);color:var(--white)}
 .dark h2,.dark .p-lg{color:var(--white)}
 .dark .eyebrow{color:var(--mint)}
 .dark .dim{color:rgba(255,255,255,.62)}
 .dark .card .dim,.dark .card p{color:var(--muted)}
-.cards{display:grid;gap:20px;margin-top:44px}
-.card{background:var(--white);color:var(--ink);border-left:4px solid var(--mint);padding:26px 30px;border-radius:2px}
+.cards{display:grid;gap:18px;margin-top:42px}
+.card{background:var(--white);color:var(--ink);border-left:4px solid var(--mint);padding:24px 28px;border-radius:2px}
 .card p:last-child{margin-bottom:0}
-.dark .tape{display:flex;gap:0;margin-bottom:40px}
-.dark .tape span{display:block;height:30px}
+.tape{display:flex;margin-bottom:38px}
+.tape span{display:block;height:30px}
 .tape .t1{width:118px;background:var(--grey)}
 .tape .t2{width:212px;background:var(--white)}
 
-/* ---------- activity grid ---------- */
-.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:52px}
-.cell{background:var(--white);padding:32px}
-.cell .num{color:var(--muted);margin-bottom:20px}
+/* activities */
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:48px}
+.cell{background:var(--white);padding:30px}
+.cell .num{color:var(--muted);margin-bottom:18px}
 .cell ul{margin:16px 0 0;padding-left:18px;color:var(--muted);font-size:14.5px}
 .cell li{margin-bottom:7px}
 
-/* ---------- research list ---------- */
-.rlist{border-top:1px solid var(--line);margin-top:44px}
-.ritem{display:grid;grid-template-columns:158px 1fr auto;gap:24px;align-items:baseline;padding:26px 0;border-bottom:1px solid var(--line);text-decoration:none;transition:.15s}
+/* research */
+.rlist{border-top:1px solid var(--line);margin-top:42px}
+.ritem{display:grid;grid-template-columns:158px 1fr auto;gap:24px;align-items:baseline;padding:24px 0;border-bottom:1px solid var(--line);text-decoration:none;transition:.15s}
 .ritem:hover{background:var(--white);padding-inline:16px;margin-inline:-16px}
 .ritem .when{color:var(--muted)}
 .ritem h3{margin:0 0 6px}
 .ritem .arrow{font-family:var(--mono);font-size:16px;color:var(--muted)}
 
-/* ---------- independence ---------- */
-.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.14);margin-top:44px}
-.rule{background:var(--deep);padding:26px}
+/* independence */
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.14);margin-top:42px}
+.rule{background:var(--deep);padding:24px}
 .rule .k{color:var(--mint);margin-bottom:12px}
 .rule p{font-size:14.5px;color:rgba(255,255,255,.74);margin:0}
 
-/* ---------- prior art ---------- */
-.priors{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:40px}
+/* priors */
+.priors{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:38px}
 .prior{background:var(--white);padding:22px}
 .prior .k{margin-bottom:10px}
 .prior a{color:var(--green);font-size:13.5px;text-decoration:none;border-bottom:1px solid var(--line)}
 .prior a:hover{border-color:var(--green)}
 .prior p{font-size:13.5px;color:var(--muted);margin:0 0 10px}
 
-/* ---------- footer ---------- */
-footer{background:var(--ink);color:var(--white);padding:clamp(56px,8vw,96px) 0 34px}
-footer .vision{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4.2vw,52px);line-height:1.1;letter-spacing:-.022em;max-width:20ch;margin:34px 0 0}
-.foot-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:36px;margin-top:64px;padding-top:40px;border-top:1px solid rgba(255,255,255,.16)}
+/* footer */
+footer{background:var(--ink);color:var(--white);padding:clamp(52px,7vw,90px) 0 32px}
+footer .vision{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4vw,50px);line-height:1.1;letter-spacing:-.022em;max-width:20ch;margin:32px 0 0}
+.foot-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:34px;margin-top:60px;padding-top:38px;border-top:1px solid rgba(255,255,255,.16)}
 .foot-grid .k{color:var(--mint);margin-bottom:16px}
 .foot-grid a{display:block;color:rgba(255,255,255,.74);text-decoration:none;font-size:14.5px;margin-bottom:9px}
 .foot-grid a:hover{color:var(--white)}
 .signup{display:flex;gap:8px;margin-top:14px;max-width:340px}
-.signup input{flex:1;min-width:0;background:transparent;border:1px solid rgba(255,255,255,.26);color:var(--white);padding:13px 14px;border-radius:2px;font-family:var(--sans);font-size:14px}
+.signup input{flex:1;min-width:0;background:transparent;border:1px solid rgba(255,255,255,.26);color:var(--white);padding:12px 14px;border-radius:2px;font-family:var(--sans);font-size:14px}
 .signup input::placeholder{color:rgba(255,255,255,.4)}
 .signup button{background:var(--mint);color:var(--deep);border:0;padding:0 18px;border-radius:2px;cursor:pointer;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
-.colophon{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;margin-top:56px;padding-top:22px;border-top:1px solid rgba(255,255,255,.16);color:rgba(255,255,255,.5)}
+.colophon{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;margin-top:52px;padding-top:22px;border-top:1px solid rgba(255,255,255,.16);color:rgba(255,255,255,.5)}
 
+/* toast */
+.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,150%);background:var(--ink);color:var(--mint);padding:11px 18px;border-radius:3px;z-index:95;transition:transform .28s;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase}
+.toast.on{transform:translate(-50%,0)}
+
+@media(max-width:960px){
+  .tool-grid{grid-template-columns:1fr}
+  .tool-q{border-right:0;border-bottom:1px solid var(--line)}
+}
 @media(max-width:900px){
   .split{grid-template-columns:1fr}
   .ritem{grid-template-columns:1fr;gap:8px}
   .ritem .arrow{display:none}
 }
 @media(max-width:760px){
-  .nav-links{display:none;position:absolute;top:74px;left:var(--pad);right:var(--pad);flex-direction:column;padding:8px}
+  html{scroll-padding-top:118px}
+  .nav-links{display:none;position:absolute;top:72px;left:var(--pad);right:var(--pad);flex-direction:column;padding:8px;z-index:5}
   .nav-links.open{display:flex}
   .nav-links a{padding:12px}
   .burger{display:block}
   .nav-meta{display:none}
+  .rail .kbd{display:none}
+  .drawer{width:100%}
 }
 </style>
 </head>
 <body>
+<div id="progress"></div>
 
 <header>
   <div class="wrap nav">
@@ -236,7 +349,7 @@ footer .vision{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4.2
     </a>
     <button class="burger mono" id="burger" aria-label="Menu">Menu</button>
     <nav class="nav-links" id="menu">
-      <a class="mono on" href="#top">Home</a>
+      <a class="mono" href="#top">Home</a>
       <a class="mono" href="#grades">Grades</a>
       <a class="mono" href="#index">Index</a>
       <a class="mono" href="#research">Research</a>
@@ -249,14 +362,29 @@ footer .vision{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4.2
   </div>
 </header>
 
+<div class="rail">
+  <div class="wrap">
+    <a class="mono" href="#assess" data-spy="assess">Start here</a>
+    <a class="mono" href="#grades" data-spy="grades">Grade Explorer</a>
+    <a class="mono" href="#activities" data-spy="activities">What we do</a>
+    <a class="mono" href="#index" data-spy="index">Product Index</a>
+    <a class="mono" href="#research" data-spy="research">Research</a>
+    <a class="mono" href="#independence" data-spy="independence">Independence</a>
+    <span class="kbd mono"><kbd>/</kbd> search <kbd>C</kbd> compare <kbd>Esc</kbd> close</span>
+  </div>
+</div>
+
 <main id="top">
 
-<!-- HERO -->
 <div class="hero">
   <div class="wrap">
     <div class="eyebrow mono">Public-interest privacy research</div>
     <h1>Privacy is a promise until someone <span class="soft">tests it.</span></h1>
     <p class="lede">The Freedom Institute grades how countries censor, measures what privacy products actually do with your data, and publishes the evidence behind every score. We build the testing tools in the open so anyone can repeat the work.</p>
+    <div class="hero-cta">
+      <a class="btn mono" href="#assess">Check your exposure <span>&rarr;</span></a>
+      <a class="link-q mono" href="#grades">Open the Grade Explorer</a>
+    </div>
     <a class="featured" href="#index">
       <span class="tag mono">First edition</span>
       <span class="txt">The Privacy Product Index opens for public methodology review</span>
@@ -266,8 +394,7 @@ footer .vision{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4.2
   <div class="skyline"></div>
 </div>
 
-<!-- MISSION -->
-<section>
+<section class="rv">
   <div class="wrap split">
     <div>
       <div class="eyebrow mono">What we are for</div>
@@ -281,13 +408,11 @@ footer .vision{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4.2
         <li><span class="n mono">02</span><span>Serve the people choosing privacy tools, the journalists who depend on them, and the civil-society groups working under pressure.</span></li>
         <li><span class="n mono">03</span><span>Hand policymakers and product teams recommendations specific enough to act on.</span></li>
       </ul>
-      <div style="margin-top:40px"><a class="btn mono" href="#grades">See the methodology <span>&rarr;</span></a></div>
     </div>
   </div>
 </section>
 
-<!-- METRICS -->
-<div class="metrics" id="coverage">
+<div class="metrics">
   <div class="wrap">
     <div class="metric-head">
       <div>
@@ -296,73 +421,107 @@ footer .vision{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4.2
       </div>
       <span class="flagnote mono">Illustrative &middot; pre-launch concept</span>
     </div>
-    <div class="metric-grid">
-      <div class="metric"><div class="k mono">Countries graded</div><div class="v">72</div><div class="d"><b class="up">&#9650; +12</b> since prior cycle</div></div>
-      <div class="metric"><div class="k mono">Products indexed</div><div class="v">140+</div><div class="d"><b class="up">&#9650; +31</b> since prior cycle</div></div>
-      <div class="metric"><div class="k mono">Evidence records</div><div class="v">18,400</div><div class="d"><b class="up">&#9650; +2,900</b> last 90 days</div></div>
-      <div class="metric"><div class="k mono">Shutdown events</div><div class="v">216</div><div class="d"><b class="down">&#9660; 41</b> still unresolved</div></div>
-      <div class="metric"><div class="k mono">Open-source tests</div><div class="v">9</div><div class="d">Diagnostics published under MIT</div></div>
+    <div class="metric-grid" id="metricGrid">
+      <div class="metric"><div class="k mono">Countries graded</div><div class="v" data-count="72">0</div><div class="d"><b class="up">&#9650; +12</b> since prior cycle</div></div>
+      <div class="metric"><div class="k mono">Products indexed</div><div class="v" data-count="140" data-suffix="+">0</div><div class="d"><b class="up">&#9650; +31</b> since prior cycle</div></div>
+      <div class="metric"><div class="k mono">Evidence records</div><div class="v" data-count="18400">0</div><div class="d"><b class="up">&#9650; +2,900</b> last 90 days</div></div>
+      <div class="metric"><div class="k mono">Shutdown events</div><div class="v" data-count="216">0</div><div class="d"><b class="down">&#9660; 41</b> still unresolved</div></div>
+      <div class="metric"><div class="k mono">Open-source tests</div><div class="v" data-count="9">0</div><div class="d">Diagnostics published under MIT</div></div>
     </div>
   </div>
 </div>
 
-<!-- GRADES -->
-<section id="grades">
+<!-- THREAT TOOL -->
+<section id="assess" class="rv">
   <div class="wrap">
-    <div class="eyebrow mono">Country censorship grades</div>
-    <h2>A grade is worthless unless you can see what it was built from</h2>
-    <p class="dim" style="max-width:64ch;margin-top:20px">Each country is scored on four axes: blocking of sites and protocols, network shutdowns, restrictions on circumvention tools, and punishment for online expression. Every score carries the measurement window, the number of supporting records, and a confidence level we will argue about in public.</p>
-
-    <div class="panel" style="margin-top:40px">
-      <div class="panel-head">
-        <span class="title">Freedom Grade League Table</span>
-        <div class="controls">
-          <button class="chip on" data-region="all">All regions</button>
-          <button class="chip" data-region="apac">APAC</button>
-          <button class="chip" data-region="emea">EMEA</button>
-          <button class="chip" data-region="americas">Americas</button>
+    <div class="eyebrow mono">Start here</div>
+    <h2>Your threat model decides which questions matter</h2>
+    <p class="dim" style="max-width:62ch;margin-top:18px">Advice that ignores who is looking for you is guesswork. Pick the situation closest to yours and the country tier you operate in; the panel rewrites the order of what to check first.</p>
+    <div class="tool">
+      <div class="tool-grid">
+        <div class="tool-q">
+          <div class="k mono">01 / Who is likely looking</div>
+          <div class="opts" id="optProfile">
+            <button class="opt on" data-v="journalist"><span class="rd"></span><span><span class="t">Journalist or researcher</span><br><span class="s">Sources to protect, devices likely to be inspected</span></span></button>
+            <button class="opt" data-v="organiser"><span class="rd"></span><span><span class="t">Organiser or activist</span><br><span class="s">Group comms, real-time coordination, arrest risk</span></span></button>
+            <button class="opt" data-v="citizen"><span class="rd"></span><span><span class="t">Privacy-minded citizen</span><br><span class="s">Advertisers, data brokers, account breaches</span></span></button>
+          </div>
+          <div class="k mono">02 / Where you operate</div>
+          <div class="opts" id="optTier">
+            <button class="opt" data-v="open"><span class="rd"></span><span><span class="t">Open network</span><br><span class="s">Grade A to B, no routine blocking</span></span></button>
+            <button class="opt on" data-v="pressured"><span class="rd"></span><span><span class="t">Pressured network</span><br><span class="s">Grade C to D, filtering and periodic throttling</span></span></button>
+            <button class="opt" data-v="closed"><span class="rd"></span><span><span class="t">Closed network</span><br><span class="s">Grade F, shutdowns and criminalised circumvention</span></span></button>
+          </div>
         </div>
-      </div>
-      <div class="scroller">
-        <table id="gradeTable">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Country</th>
-              <th>Grade</th>
-              <th class="num" data-sort="num">Blocking</th>
-              <th class="num" data-sort="num">Shutdowns 12M</th>
-              <th>Circumvention</th>
-              <th class="num" data-sort="num">Evidence</th>
-              <th>Confidence</th>
-              <th>Updated</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr data-region="emea"><td class="rank">1</td><td><span class="entity"><span class="flag">DE</span>Germany</span></td><td><span class="grade g-a">A</span></td><td class="num">Low</td><td class="num">0</td><td>Unrestricted</td><td class="num">612</td><td><span class="bar"><i style="width:92%"></i></span></td><td class="mono dim">Sep 2026</td></tr>
-            <tr data-region="apac"><td class="rank">2</td><td><span class="entity"><span class="flag">JP</span>Japan</span></td><td><span class="grade g-a">A</span></td><td class="num">Low</td><td class="num">0</td><td>Unrestricted</td><td class="num">488</td><td><span class="bar"><i style="width:88%"></i></span></td><td class="mono dim">Sep 2026</td></tr>
-            <tr data-region="americas"><td class="rank">3</td><td><span class="entity"><span class="flag">BR</span>Brazil</span></td><td><span class="grade g-b">B</span></td><td class="num">Low</td><td class="num">1</td><td>Unrestricted</td><td class="num">531</td><td><span class="bar"><i style="width:80%"></i></span></td><td class="mono dim">Aug 2026</td></tr>
-            <tr data-region="apac"><td class="rank">4</td><td><span class="entity"><span class="flag">IN</span>India</span></td><td><span class="grade g-c">C</span></td><td class="num">Moderate</td><td class="num">27</td><td>Pressured</td><td class="num">1,204</td><td><span class="bar low"><i style="width:71%"></i></span></td><td class="mono dim">Sep 2026</td></tr>
-            <tr data-region="emea"><td class="rank">5</td><td><span class="entity"><span class="flag">TR</span>T&uuml;rkiye</span></td><td><span class="grade g-d">D</span></td><td class="num">High</td><td class="num">6</td><td>Restricted</td><td class="num">874</td><td><span class="bar low"><i style="width:74%"></i></span></td><td class="mono dim">Sep 2026</td></tr>
-            <tr data-region="emea"><td class="rank">6</td><td><span class="entity"><span class="flag">RU</span>Russia</span></td><td><span class="grade g-f">F</span></td><td class="num">Severe</td><td class="num">14</td><td>Criminalised</td><td class="num">1,690</td><td><span class="bar"><i style="width:86%"></i></span></td><td class="mono dim">Sep 2026</td></tr>
-            <tr data-region="emea"><td class="rank">7</td><td><span class="entity"><span class="flag">IR</span>Iran</span></td><td><span class="grade g-f">F</span></td><td class="num">Severe</td><td class="num">31</td><td>Criminalised</td><td class="num">2,118</td><td><span class="bar"><i style="width:90%"></i></span></td><td class="mono dim">Sep 2026</td></tr>
-            <tr data-region="apac"><td class="rank">8</td><td><span class="entity"><span class="flag">CN</span>China</span></td><td><span class="grade g-f">F</span></td><td class="num">Severe</td><td class="num">9</td><td>Criminalised</td><td class="num">2,460</td><td><span class="bar"><i style="width:93%"></i></span></td><td class="mono dim">Sep 2026</td></tr>
-            <tr data-region="emea"><td class="rank">9</td><td><span class="entity"><span class="flag">ET</span>Ethiopia</span></td><td><span class="grade g-d">D</span></td><td class="num">High</td><td class="num">18</td><td>Restricted</td><td class="num">342</td><td><span class="bar bad"><i style="width:48%"></i></span></td><td class="mono dim">Jul 2026</td></tr>
-            <tr data-region="apac"><td class="rank">10</td><td><span class="entity"><span class="flag">MM</span>Myanmar</span></td><td><span class="grade g-f">F</span></td><td class="num">Severe</td><td class="num">44</td><td>Criminalised</td><td class="num">296</td><td><span class="bar bad"><i style="width:44%"></i></span></td><td class="mono dim">Jun 2026</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="panel-foot">
-        <span>Sample rendering. Figures are illustrative and are not a published assessment.</span>
-        <span><a href="#research">Methodology &amp; scoring notes &rarr;</a></span>
+        <div class="tool-out">
+          <div class="head">
+            <div class="k mono dim">What to verify, in order</div>
+            <span class="riskpill r-md" id="riskPill">Elevated exposure</span>
+          </div>
+          <ol class="prio" id="prioList"></ol>
+          <p class="dim" style="font-size:13px;margin:20px 0 0">Guidance shape only. The published version links each item to the test that produced it.</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PROBLEM (dark) -->
+<!-- GRADE EXPLORER -->
+<section id="grades" class="rv">
+  <div class="wrap">
+    <div class="eyebrow mono">Country censorship grades</div>
+    <h2>A grade is worthless unless you can see what it was built from</h2>
+    <p class="dim" style="max-width:64ch;margin-top:18px">Each country is scored on four axes. Move the weights and every grade in the table recomputes, because a scoring choice is an argument and you should be able to test ours. Open any row for the axis detail, the shutdown history, and the evidence log behind it.</p>
+
+    <div class="panel" style="margin-top:36px">
+      <div class="panel-head">
+        <span class="title">Freedom Grade Explorer</span>
+        <div class="controls">
+          <label class="search"><span class="sicon">&#9906;</span><input id="cSearch" type="search" placeholder="Search country" aria-label="Search country"></label>
+          <button class="chip on" data-region="all">All</button>
+          <button class="chip" data-region="apac">APAC</button>
+          <button class="chip" data-region="emea">EMEA</button>
+          <button class="chip" data-region="americas">Americas</button>
+        </div>
+      </div>
+      <div class="toolbar">
+        <div class="dist" id="dist"></div>
+        <button class="chip" id="toggleWeights">Adjust weights</button>
+      </div>
+      <div class="weights" id="weights" hidden>
+        <div class="wctl"><label for="wBlock">Blocking <b id="vBlock">30</b></label><input id="wBlock" type="range" min="0" max="60" value="30"></div>
+        <div class="wctl"><label for="wShut">Shutdowns <b id="vShut">25</b></label><input id="wShut" type="range" min="0" max="60" value="25"></div>
+        <div class="wctl"><label for="wCirc">Circumvention <b id="vCirc">25</b></label><input id="wCirc" type="range" min="0" max="60" value="25"></div>
+        <div class="wctl"><label for="wExpr">Expression penalty <b id="vExpr">20</b></label><input id="wExpr" type="range" min="0" max="60" value="20"></div>
+        <div class="wnote"><span id="wSummary">Weights normalise to 100. Grades and ranking update live.</span><button id="resetWeights">Reset to published weights</button></div>
+      </div>
+      <div class="scroller">
+        <table id="cTable">
+          <thead><tr>
+            <th data-k="rank">#</th>
+            <th data-k="name">Country<span class="car">&#9662;</span></th>
+            <th data-k="score">Grade<span class="car">&#9662;</span></th>
+            <th class="num" data-k="blocking">Blocking<span class="car">&#9662;</span></th>
+            <th class="num" data-k="shutdowns12">Shutdowns 12M<span class="car">&#9662;</span></th>
+            <th data-k="trend">Trend</th>
+            <th data-k="circumvention">Circumvention<span class="car">&#9662;</span></th>
+            <th class="num" data-k="evidence">Evidence<span class="car">&#9662;</span></th>
+            <th data-k="confidence">Confidence<span class="car">&#9662;</span></th>
+          </tr></thead>
+          <tbody id="cBody"></tbody>
+        </table>
+      </div>
+      <div class="empty" id="cEmpty" hidden>No country matches that filter.</div>
+      <div class="panel-foot">
+        <span id="cCount">Showing 18 of 18</span>
+        <span>Sample rendering. Figures are illustrative and are not a published assessment.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <div class="dark">
-  <section>
+  <section class="rv">
     <div class="wrap">
       <div class="tape"><span class="t1"></span><span class="t2"></span></div>
       <h2>People choose the tools that guard their lives on the strength of a slogan</h2>
@@ -384,8 +543,7 @@ footer .vision{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4.2
   </section>
 </div>
 
-<!-- WHAT WE DO -->
-<section>
+<section id="activities" class="rv">
   <div class="wrap">
     <div class="eyebrow mono">Core activities</div>
     <h2>Three products, one rule: show the evidence or mark it unknown</h2>
@@ -394,43 +552,32 @@ footer .vision{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4.2
         <div class="num mono">01 / Measure freedom</div>
         <h3>Grades carry their dates, their coverage, and their confidence</h3>
         <p class="dim">Country scores cover blocking, shutdowns, restrictions on circumvention, and punishment for online expression. Where our coverage is thin, the confidence bar says so rather than rounding the gap into a number.</p>
-        <ul>
-          <li>Continuous network measurement</li>
-          <li>Event log with sources and timestamps</li>
-          <li>Quarterly re-grade, public changelog</li>
-        </ul>
+        <ul><li>Continuous network measurement</li><li>Event log with sources and timestamps</li><li>Quarterly re-grade, public changelog</li></ul>
       </div>
       <div class="cell">
         <div class="num mono">02 / Evaluate products</div>
         <h3>Provider claims and observed behaviour are scored separately</h3>
         <p class="dim">The Privacy Product Index compares tools inside a category on data collection, retention, provider access, tracking, privacy defaults, and user control; each cell is labelled claimed, observed, audited, or unknown.</p>
-        <ul>
-          <li>Category-relative scoring</li>
-          <li>Traffic and binary analysis</li>
-          <li>No paid placement, no affiliate links</li>
-        </ul>
+        <ul><li>Category-relative scoring</li><li>Traffic and binary analysis</li><li>No paid placement, no affiliate links</li></ul>
       </div>
       <div class="cell">
         <div class="num mono">03 / Build and advocate</div>
         <h3>Open tools let anyone repeat the measurement</h3>
         <p class="dim">We ship the diagnostics we test with, work with product teams on the fixes our testing surfaces, and turn findings into guidance people can act on and briefings regulators can use.</p>
-        <ul>
-          <li>Open-source testing harness</li>
-          <li>Coordinated disclosure to vendors</li>
-          <li>Plain-language buyer guidance</li>
-        </ul>
+        <ul><li>Open-source testing harness</li><li>Coordinated disclosure to vendors</li><li>Plain-language buyer guidance</li></ul>
       </div>
     </div>
   </div>
 </section>
 
 <!-- PRODUCT INDEX -->
-<section id="index" style="padding-top:0">
+<section id="index" class="rv" style="padding-top:0">
   <div class="wrap">
     <div class="panel">
       <div class="panel-head">
         <span class="title">Privacy Product Index</span>
         <div class="controls">
+          <label class="search"><span class="sicon">&#9906;</span><input id="pSearch" type="search" placeholder="Search entry" aria-label="Search entry"></label>
           <button class="chip on" data-cat="all">All</button>
           <button class="chip" data-cat="vpn">VPN</button>
           <button class="chip" data-cat="msg">Messaging</button>
@@ -438,75 +585,54 @@ footer .vision{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4.2
           <button class="chip" data-cat="browser">Browser</button>
         </div>
       </div>
+      <div class="toolbar">
+        <div class="controls">
+          <button class="chip" id="fVerified">Verified evidence only</button>
+          <button class="chip" id="fNoTrack">No tracking detected</button>
+        </div>
+        <span class="dim" style="font-size:12.5px">Tick up to three rows to compare them side by side</span>
+      </div>
       <div class="scroller">
-        <table id="indexTable">
-          <thead>
-            <tr>
-              <th>Entry</th>
-              <th>Category</th>
-              <th>Data collected</th>
-              <th>Retention</th>
-              <th>Provider access</th>
-              <th>Third-party tracking</th>
-              <th>Private by default</th>
-              <th>Verification</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr data-cat="vpn"><td><span class="entity"><span class="flag">01</span>Provider&nbsp;01</span></td><td class="dim">VPN</td><td>Email, payment token</td><td>Session only</td><td>None claimed</td><td>None detected</td><td>Yes</td><td><span class="stat s-aud">Audited</span></td></tr>
-            <tr data-cat="vpn"><td><span class="entity"><span class="flag">02</span>Provider&nbsp;02</span></td><td class="dim">VPN</td><td>Email, device ID, IP</td><td>30 days</td><td>Full</td><td>2 SDKs</td><td>No</td><td><span class="stat s-obs">Observed</span></td></tr>
-            <tr data-cat="vpn"><td><span class="entity"><span class="flag">03</span>Provider&nbsp;03</span></td><td class="dim">VPN</td><td>Undisclosed</td><td>Undisclosed</td><td>Undisclosed</td><td>Not testable</td><td>Unknown</td><td><span class="stat s-unk">Unknown</span></td></tr>
-            <tr data-cat="msg"><td><span class="entity"><span class="flag">04</span>Messenger&nbsp;01</span></td><td class="dim">Messaging</td><td>Phone number</td><td>Message queue only</td><td>None claimed</td><td>None detected</td><td>Yes</td><td><span class="stat s-aud">Audited</span></td></tr>
-            <tr data-cat="msg"><td><span class="entity"><span class="flag">05</span>Messenger&nbsp;02</span></td><td class="dim">Messaging</td><td>Contacts, metadata</td><td>Indefinite</td><td>Full</td><td>4 SDKs</td><td>No</td><td><span class="stat s-obs">Observed</span></td></tr>
-            <tr data-cat="mail"><td><span class="entity"><span class="flag">06</span>Mail&nbsp;01</span></td><td class="dim">Email</td><td>Recovery address</td><td>Until deletion</td><td>Metadata only</td><td>None detected</td><td>Yes</td><td><span class="stat s-obs">Observed</span></td></tr>
-            <tr data-cat="mail"><td><span class="entity"><span class="flag">07</span>Mail&nbsp;02</span></td><td class="dim">Email</td><td>Full mailbox</td><td>Indefinite</td><td>Full</td><td>Ad profiling</td><td>No</td><td><span class="stat s-claim">Claimed</span></td></tr>
-            <tr data-cat="browser"><td><span class="entity"><span class="flag">08</span>Browser&nbsp;01</span></td><td class="dim">Browser</td><td>Crash reports</td><td>90 days</td><td>None claimed</td><td>Blocked by default</td><td>Yes</td><td><span class="stat s-aud">Audited</span></td></tr>
-            <tr data-cat="browser"><td><span class="entity"><span class="flag">09</span>Browser&nbsp;02</span></td><td class="dim">Browser</td><td>Telemetry, sync data</td><td>18 months</td><td>Full</td><td>Allowed by default</td><td>No</td><td><span class="stat s-obs">Observed</span></td></tr>
-          </tbody>
+        <table id="pTable">
+          <thead><tr>
+            <th style="width:44px"></th>
+            <th data-k="name">Entry<span class="car">&#9662;</span></th>
+            <th data-k="cat">Category<span class="car">&#9662;</span></th>
+            <th class="num" data-k="score">Composite<span class="car">&#9662;</span></th>
+            <th data-k="collection">Data collected</th>
+            <th data-k="retention">Retention</th>
+            <th data-k="access">Provider access</th>
+            <th data-k="tracking">Third-party tracking</th>
+            <th data-k="state">Verification<span class="car">&#9662;</span></th>
+          </tr></thead>
+          <tbody id="pBody"></tbody>
         </table>
       </div>
+      <div class="empty" id="pEmpty" hidden>No entry matches that filter.</div>
       <div class="panel-foot">
+        <span id="pCount">Showing 12 of 12</span>
         <span>Entries are anonymised until first publication. Structure shown; scores are illustrative.</span>
-        <span><a href="#research">How an entry gets scored &rarr;</a></span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- RESEARCH -->
-<section id="research" style="padding-top:0">
+<section id="research" class="rv" style="padding-top:0">
   <div class="wrap">
     <div class="eyebrow mono">Research programme</div>
     <h2>Privacy Claims vs Reality is where we start</h2>
-    <p class="dim" style="max-width:62ch;margin-top:20px">The signature series takes the three promises the industry repeats most often, no logs, anonymous, and deleted, and tests each one against what the software and the servers actually do. Everything after it follows the same rule: publish the method, publish the failures, publish the unknowns.</p>
+    <p class="dim" style="max-width:62ch;margin-top:18px">The signature series takes the three promises the industry repeats most often, no logs, anonymous, and deleted, and tests each one against what the software and the servers actually do. Everything after it follows the same rule: publish the method, publish the failures, publish the unknowns.</p>
     <div class="rlist">
-      <a class="ritem" href="#">
-        <span class="when mono">Issue 01 &middot; Q4 2026</span>
-        <span><h3>What &ldquo;no logs&rdquo; survives a subpoena</h3><span class="dim">Twelve consumer VPNs, their written claims, their observed connection handling, and what each one has handed over when asked.</span></span>
-        <span class="arrow">&rarr;</span>
-      </a>
-      <a class="ritem" href="#">
-        <span class="when mono">Issue 02 &middot; Q1 2027</span>
-        <span><h3>Deleted accounts that are still there a year later</h3><span class="dim">We delete, we wait, we ask for our data back under access rights, and we publish who returns it.</span></span>
-        <span class="arrow">&rarr;</span>
-      </a>
-      <a class="ritem" href="#">
-        <span class="when mono">Issue 03 &middot; Q2 2027</span>
-        <span><h3>The price of choosing the private option</h3><span class="dim">What privacy actually costs a household in money, time, and broken services, measured across four income brackets and three countries.</span></span>
-        <span class="arrow">&rarr;</span>
-      </a>
-      <a class="ritem" href="#">
-        <span class="when mono">Standing</span>
-        <span><h3>State surveillance and AI, tracked as it changes</h3><span class="dim">Procurement records, vendor disclosures, and model-side data handling, updated as filings land rather than once a year.</span></span>
-        <span class="arrow">&rarr;</span>
-      </a>
+      <a class="ritem" href="#"><span class="when mono">Issue 01 &middot; Q4 2026</span><span><h3>What &ldquo;no logs&rdquo; survives a subpoena</h3><span class="dim">Twelve consumer VPNs, their written claims, their observed connection handling, and what each one has handed over when asked.</span></span><span class="arrow">&rarr;</span></a>
+      <a class="ritem" href="#"><span class="when mono">Issue 02 &middot; Q1 2027</span><span><h3>Deleted accounts that are still there a year later</h3><span class="dim">We delete, we wait, we ask for our data back under access rights, and we publish who returns it.</span></span><span class="arrow">&rarr;</span></a>
+      <a class="ritem" href="#"><span class="when mono">Issue 03 &middot; Q2 2027</span><span><h3>The price of choosing the private option</h3><span class="dim">What privacy actually costs a household in money, time, and broken services, measured across four income brackets and three countries.</span></span><span class="arrow">&rarr;</span></a>
+      <a class="ritem" href="#"><span class="when mono">Standing</span><span><h3>State surveillance and AI, tracked as it changes</h3><span class="dim">Procurement records, vendor disclosures, and model-side data handling, updated as filings land rather than once a year.</span></span><span class="arrow">&rarr;</span></a>
     </div>
   </div>
 </section>
 
-<!-- INDEPENDENCE -->
 <div class="dark" id="independence">
-  <section>
+  <section class="rv">
     <div class="wrap split">
       <div>
         <div class="eyebrow mono">Funding and credibility</div>
@@ -525,8 +651,7 @@ footer .vision{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4.2
   </section>
 </div>
 
-<!-- PRIOR ART -->
-<section>
+<section class="rv">
   <div class="wrap">
     <div class="eyebrow mono">Prior art we build on</div>
     <h2>Six organisations already solved parts of this; we are not starting from zero</h2>
@@ -545,42 +670,20 @@ footer .vision{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4.2
 
 <footer>
   <div class="wrap">
-    <svg width="64" height="64" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+    <svg width="60" height="60" viewBox="0 0 40 40" fill="none" aria-hidden="true">
       <circle cx="20" cy="20" r="19" stroke="#ffffff" stroke-width="1.2"/>
       <path d="M7 24c0-9 5.8-14 13-14s13 5 13 14" stroke="#ffffff" stroke-width="1.2"/>
       <path d="M20 6v28M9.5 13.5h21M9.5 30.5h21" stroke="#ffffff" stroke-width="1.2" opacity=".35"/>
     </svg>
     <p class="vision">People deserve to know which tools keep their promises, and which governments break theirs.</p>
     <div class="foot-grid">
-      <div>
-        <div class="k mono">Institute</div>
-        <a href="#grades">Country grades</a>
-        <a href="#index">Privacy Product Index</a>
-        <a href="#research">Research programme</a>
-        <a href="#independence">Funding and governance</a>
-      </div>
-      <div>
-        <div class="k mono">Open source</div>
-        <a href="#">Testing harness</a>
-        <a href="#">Measurement data</a>
-        <a href="#">Scoring methodology</a>
-        <a href="#">Changelog</a>
-      </div>
-      <div>
-        <div class="k mono">Contact</div>
-        <a href="#">research@freedominstitute.org</a>
-        <a href="#">media@freedominstitute.org</a>
-        <a href="#">Secure tip line</a>
-        <a href="#">Open roles</a>
-      </div>
+      <div><div class="k mono">Institute</div><a href="#grades">Country grades</a><a href="#index">Privacy Product Index</a><a href="#research">Research programme</a><a href="#independence">Funding and governance</a></div>
+      <div><div class="k mono">Open source</div><a href="#">Testing harness</a><a href="#">Measurement data</a><a href="#">Scoring methodology</a><a href="#">Changelog</a></div>
+      <div><div class="k mono">Contact</div><a href="#">research@freedominstitute.org</a><a href="#">media@freedominstitute.org</a><a href="#">Secure tip line</a><a href="#">Open roles</a></div>
       <div>
         <div class="k mono">Get the findings first</div>
         <p style="color:rgba(255,255,255,.6);font-size:14px;margin:0">One email when a grade changes or a report lands. Nothing else.</p>
-        <form class="signup" id="signup">
-          <input type="email" placeholder="you@domain.com" aria-label="Email address" required>
-          <button type="submit">Join</button>
-        </form>
-        <p class="mono" id="signupNote" style="color:var(--mint);margin-top:12px;display:none">Thanks. Concept page; no list yet.</p>
+        <form class="signup" id="signup"><input type="email" placeholder="you@domain.com" aria-label="Email address" required><button type="submit">Join</button></form>
       </div>
     </div>
     <div class="colophon mono">
@@ -590,66 +693,494 @@ footer .vision{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4.2
   </div>
 </footer>
 
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Country detail"><div id="drawerInner"></div></aside>
+
+<div class="tray" id="tray">
+  <span class="mono" style="color:rgba(255,255,255,.55)">Compare</span>
+  <div class="slots" id="slots"></div>
+  <button class="go" id="cmpGo" disabled>Open</button>
+  <button class="clr" id="cmpClear">Clear</button>
+</div>
+
+<div class="cmp" id="cmp"><div class="cmp-inner" id="cmpInner"></div></div>
+<div class="toast" id="toast"></div>
+
 <script>
 (function(){
-  // live UTC clock
-  function tick(){
-    var d=new Date();
-    var h=String(d.getUTCHours()).padStart(2,'0');
-    var m=String(d.getUTCMinutes()).padStart(2,'0');
-    var el=document.getElementById('clock');
-    if(el) el.textContent=h+':'+m+' UTC';
-  }
-  tick(); setInterval(tick,10000);
+"use strict";
+var $=function(s,r){return (r||document).querySelector(s)};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
 
-  // mobile menu
-  var burger=document.getElementById('burger'), menu=document.getElementById('menu');
-  burger.addEventListener('click',function(){menu.classList.toggle('open');});
-  menu.addEventListener('click',function(e){if(e.target.tagName==='A')menu.classList.remove('open');});
+/* ============ DATA (illustrative) ============ */
+var COUNTRIES=[
+ {c:"DE",n:"Germany",r:"emea",a:[8,4,5,12],s12:0,ev:612,cf:92,u:"Sep 2026",m:[0,0,0,0,0,0,0,0,0,0,0,0]},
+ {c:"SE",n:"Sweden",r:"emea",a:[6,2,4,9],s12:0,ev:402,cf:86,u:"Sep 2026",m:[0,0,0,0,0,0,0,0,0,0,0,0]},
+ {c:"JP",n:"Japan",r:"apac",a:[10,3,6,14],s12:0,ev:488,cf:88,u:"Sep 2026",m:[0,0,0,0,0,0,0,0,0,0,0,0]},
+ {c:"US",n:"United States",r:"americas",a:[14,4,8,18],s12:0,ev:980,cf:90,u:"Sep 2026",m:[0,0,0,0,0,0,0,0,0,0,0,0]},
+ {c:"BR",n:"Brazil",r:"americas",a:[22,12,10,26],s12:1,ev:531,cf:80,u:"Aug 2026",m:[0,0,0,1,0,0,0,0,0,0,0,0]},
+ {c:"ZA",n:"South Africa",r:"emea",a:[20,10,12,24],s12:0,ev:288,cf:72,u:"Aug 2026",m:[0,0,0,0,0,0,0,0,0,0,0,0]},
+ {c:"MX",n:"Mexico",r:"americas",a:[24,8,14,34],s12:0,ev:344,cf:70,u:"Jul 2026",m:[0,0,0,0,0,0,0,0,0,0,0,0]},
+ {c:"IN",n:"India",r:"apac",a:[46,62,44,52],s12:27,ev:1204,cf:71,u:"Sep 2026",m:[1,3,2,4,1,2,3,5,2,1,2,1]},
+ {c:"ID",n:"Indonesia",r:"apac",a:[52,32,40,48],s12:3,ev:466,cf:68,u:"Aug 2026",m:[0,0,1,0,0,1,0,0,1,0,0,0]},
+ {c:"TR",n:"Türkiye",r:"emea",a:[68,38,62,72],s12:6,ev:874,cf:74,u:"Sep 2026",m:[1,0,1,0,1,0,0,1,1,0,1,0]},
+ {c:"PK",n:"Pakistan",r:"apac",a:[64,58,60,66],s12:12,ev:512,cf:66,u:"Aug 2026",m:[1,1,2,0,1,1,2,1,1,0,1,1]},
+ {c:"EG",n:"Egypt",r:"emea",a:[70,34,66,76],s12:2,ev:398,cf:64,u:"Jul 2026",m:[0,0,0,1,0,0,0,0,1,0,0,0]},
+ {c:"VN",n:"Vietnam",r:"apac",a:[66,26,58,74],s12:1,ev:354,cf:62,u:"Jul 2026",m:[0,0,0,0,0,1,0,0,0,0,0,0]},
+ {c:"BY",n:"Belarus",r:"emea",a:[78,56,80,86],s12:5,ev:410,cf:70,u:"Sep 2026",m:[0,1,0,1,0,0,1,0,1,0,1,0]},
+ {c:"RU",n:"Russia",r:"emea",a:[82,52,86,88],s12:14,ev:1690,cf:86,u:"Sep 2026",m:[1,2,1,1,2,1,1,2,1,1,0,1]},
+ {c:"ET",n:"Ethiopia",r:"emea",a:[72,74,68,70],s12:18,ev:342,cf:48,u:"Jul 2026",m:[2,1,3,2,1,2,1,2,1,1,1,1]},
+ {c:"IR",n:"Iran",r:"emea",a:[90,78,92,90],s12:31,ev:2118,cf:90,u:"Sep 2026",m:[3,2,4,3,2,3,2,4,3,2,2,1]},
+ {c:"CN",n:"China",r:"apac",a:[94,44,95,88],s12:9,ev:2460,cf:93,u:"Sep 2026",m:[1,1,0,1,1,0,1,1,1,1,0,1]},
+ {c:"MM",n:"Myanmar",r:"apac",a:[88,86,84,92],s12:44,ev:296,cf:44,u:"Jun 2026",m:[4,3,5,4,3,4,3,5,4,3,3,3]}
+];
+var AXES=["Blocking","Shutdowns","Circumvention","Expression penalty"];
+var AXIS_NOTE=[
+ "Reachability of sites, apps, and protocols measured from in-country vantage points.",
+ "Full and partial network outages, including throttling below usable thresholds.",
+ "Legal and technical restrictions on VPNs, Tor, and other circumvention tools.",
+ "Arrests, prosecutions, and penalties recorded for online speech."
+];
+function band(v){return v<20?"Low":v<40?"Moderate":v<65?"Elevated":v<82?"High":"Severe"}
+function circBand(v){return v<20?"Unrestricted":v<45?"Monitored":v<65?"Pressured":v<82?"Restricted":"Criminalised"}
+function gradeOf(s){return s<20?"A":s<35?"B":s<52?"C":s<70?"D":"F"}
+function evidenceLog(d){
+  var out=[],i;
+  var kinds=[
+    ["Protocol reachability","Encrypted DNS blocked on "+(6+(d.a[0]%9))+" of 12 vantage points"],
+    ["Throughput","Median throughput fell "+(20+(d.a[1]%50))+"% below baseline for "+(2+(d.a[1]%9))+" hours"],
+    ["App availability","Circumvention app delisted from the local store, restored after "+(3+(d.a[2]%20))+" days"],
+    ["Legal record","New penalty provision recorded for online expression, pending review"],
+    ["Restoration","Service restored on all monitored vantage points, event closed"]
+  ];
+  var months=["Sep 2026","Aug 2026","Aug 2026","Jul 2026","Jun 2026"];
+  var count=d.a[0]>60?5:d.a[0]>30?4:3;
+  for(i=0;i<count;i++) out.push({w:months[i],k:kinds[i][0],t:kinds[i][1]});
+  return out;
+}
 
-  // filter chips
-  function wireFilters(selector, attr, tableId){
-    var btns=document.querySelectorAll(selector);
-    btns.forEach(function(b){
-      b.addEventListener('click',function(){
-        btns.forEach(function(x){x.classList.remove('on');});
-        b.classList.add('on');
-        var v=b.getAttribute(attr);
-        document.querySelectorAll('#'+tableId+' tbody tr').forEach(function(r){
-          r.style.display=(v==='all'||r.dataset[attr.replace('data-','')]===v)?'':'none';
-        });
+var PRODUCTS=[
+ {id:"v1",n:"Provider 01",cat:"vpn",catL:"VPN",f:{collection:["Email, payment token",82,"audited"],retention:["Session only",90,"audited"],access:["None claimed",80,"audited"],tracking:["None detected",95,"observed"],defaults:["Private by default",88,"observed"],control:["Full export and delete",84,"audited"]}},
+ {id:"v2",n:"Provider 02",cat:"vpn",catL:"VPN",f:{collection:["Email, device ID, IP",34,"observed"],retention:["30 days",40,"observed"],access:["Full",20,"claimed"],tracking:["2 SDKs detected",22,"observed"],defaults:["Opt-in required",30,"observed"],control:["Delete on request",44,"claimed"]}},
+ {id:"v3",n:"Provider 03",cat:"vpn",catL:"VPN",f:{collection:["Undisclosed",12,"unknown"],retention:["Undisclosed",12,"unknown"],access:["Undisclosed",12,"unknown"],tracking:["Not testable",18,"unknown"],defaults:["Unknown",15,"unknown"],control:["No stated process",14,"unknown"]}},
+ {id:"v4",n:"Provider 04",cat:"vpn",catL:"VPN",f:{collection:["Email only",70,"observed"],retention:["7 days aggregate",62,"claimed"],access:["Support staff",48,"claimed"],tracking:["1 analytics SDK",46,"observed"],defaults:["Private by default",74,"observed"],control:["Self-serve delete",68,"observed"]}},
+ {id:"m1",n:"Messenger 01",cat:"msg",catL:"Messaging",f:{collection:["Phone number",76,"audited"],retention:["Message queue only",92,"audited"],access:["None claimed",86,"audited"],tracking:["None detected",94,"observed"],defaults:["End-to-end by default",96,"audited"],control:["Full export and delete",82,"observed"]}},
+ {id:"m2",n:"Messenger 02",cat:"msg",catL:"Messaging",f:{collection:["Contacts, metadata",26,"observed"],retention:["Indefinite",18,"observed"],access:["Full",18,"observed"],tracking:["4 SDKs detected",14,"observed"],defaults:["Opt-in encryption",28,"observed"],control:["Delete on request",36,"claimed"]}},
+ {id:"m3",n:"Messenger 03",cat:"msg",catL:"Messaging",f:{collection:["Account handle",72,"observed"],retention:["90 days",58,"claimed"],access:["Metadata only",60,"claimed"],tracking:["None detected",88,"observed"],defaults:["End-to-end by default",84,"observed"],control:["Self-serve delete",70,"observed"]}},
+ {id:"e1",n:"Mail 01",cat:"mail",catL:"Email",f:{collection:["Recovery address",74,"observed"],retention:["Until deletion",66,"observed"],access:["Metadata only",62,"claimed"],tracking:["None detected",90,"observed"],defaults:["Encrypted at rest",78,"audited"],control:["Full export",80,"observed"]}},
+ {id:"e2",n:"Mail 02",cat:"mail",catL:"Email",f:{collection:["Full mailbox",16,"claimed"],retention:["Indefinite",16,"claimed"],access:["Full",14,"claimed"],tracking:["Ad profiling",10,"observed"],defaults:["Scanning enabled",12,"claimed"],control:["Delete on request",34,"claimed"]}},
+ {id:"e3",n:"Mail 03",cat:"mail",catL:"Email",f:{collection:["Recovery address",70,"observed"],retention:["12 months logs",52,"observed"],access:["Support staff",50,"claimed"],tracking:["1 analytics SDK",48,"observed"],defaults:["Encrypted at rest",72,"claimed"],control:["Self-serve delete",66,"observed"]}},
+ {id:"b1",n:"Browser 01",cat:"browser",catL:"Browser",f:{collection:["Crash reports",80,"audited"],retention:["90 days",74,"audited"],access:["None claimed",82,"audited"],tracking:["Blocked by default",96,"observed"],defaults:["Strict protection on",92,"observed"],control:["Granular controls",86,"observed"]}},
+ {id:"b2",n:"Browser 02",cat:"browser",catL:"Browser",f:{collection:["Telemetry, sync data",30,"observed"],retention:["18 months",28,"observed"],access:["Full",22,"observed"],tracking:["Allowed by default",18,"observed"],defaults:["Protection opt-in",26,"observed"],control:["Settings only",40,"observed"]}}
+];
+var PFIELDS=[["collection","Data collected"],["retention","Retention"],["access","Provider access"],["tracking","Third-party tracking"],["defaults","Private by default"],["control","User control"]];
+var STATE_RANK={audited:4,observed:3,claimed:2,unknown:1};
+var STATE_NOTE={
+  audited:"Confirmed by an independent audit we could read.",
+  observed:"Measured by us directly against the running product.",
+  claimed:"Stated by the provider and not independently confirmed.",
+  unknown:"No disclosure and no way for us to test it."
+};
+
+/* ============ helpers ============ */
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+var toastT;
+function toast(msg){var t=$("#toast");t.textContent=msg;t.classList.add("on");clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove("on")},2100)}
+function gclass(g){return "g-"+g.toLowerCase()}
+function riskColour(v){return v<35?"var(--green)":v<65?"#C6903A":"#B0563E"}
+
+/* ============ clock, menu, progress, reveal, spy ============ */
+function tick(){var d=new Date();$("#clock").textContent=String(d.getUTCHours()).padStart(2,"0")+":"+String(d.getUTCMinutes()).padStart(2,"0")+" UTC"}
+tick();setInterval(tick,10000);
+
+$("#burger").addEventListener("click",function(){$("#menu").classList.toggle("open")});
+$("#menu").addEventListener("click",function(e){if(e.target.tagName==="A")$("#menu").classList.remove("open")});
+
+window.addEventListener("scroll",function(){
+  var h=document.documentElement;
+  var p=h.scrollTop/(h.scrollHeight-h.clientHeight||1);
+  $("#progress").style.width=(p*100).toFixed(2)+"%";
+},{passive:true});
+
+if("IntersectionObserver" in window){
+  var rvObs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");rvObs.unobserve(e.target)}})},{threshold:.08});
+  $$(".rv").forEach(function(el){rvObs.observe(el)});
+  setTimeout(function(){$$(".rv").forEach(function(el){el.classList.add("in")})},2500);
+
+  var spyObs=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        $$(".rail a").forEach(function(a){a.classList.toggle("active",a.dataset.spy===e.target.id)});
+      }
+    });
+  },{rootMargin:"-140px 0px -65% 0px"});
+  ["assess","grades","activities","index","research","independence"].forEach(function(id){var el=document.getElementById(id);if(el)spyObs.observe(el)});
+
+  $$("[data-count]").forEach(function(el){el.textContent=Number(el.dataset.count).toLocaleString("en-US")+(el.dataset.suffix||"")});
+  var mObs=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting)return;
+      mObs.unobserve(e.target);
+      $$("[data-count]",e.target).forEach(function(el){
+        var end=parseFloat(el.dataset.count), sfx=el.dataset.suffix||"", t0=performance.now(), dur=1100;
+        (function step(t){
+          var k=Math.min(1,(t-t0)/dur), e2=1-Math.pow(1-k,3);
+          el.textContent=Math.round(end*e2).toLocaleString("en-US")+(k===1?sfx:"");
+          if(k<1)requestAnimationFrame(step);
+        })(t0);
       });
     });
-  }
-  wireFilters('[data-region]','data-region','gradeTable');
-  wireFilters('[data-cat]','data-cat','indexTable');
+  },{threshold:.3});
+  mObs.observe($("#metricGrid"));
+}else{ $$(".rv").forEach(function(el){el.classList.add("in")}); $$("[data-count]").forEach(function(el){el.textContent=Number(el.dataset.count).toLocaleString("en-US")+(el.dataset.suffix||"")}); }
 
-  // sortable numeric columns
-  document.querySelectorAll('#gradeTable thead th[data-sort]').forEach(function(th){
-    var asc=false;
-    th.addEventListener('click',function(){
-      var idx=Array.prototype.indexOf.call(th.parentNode.children,th);
-      var tb=document.querySelector('#gradeTable tbody');
-      var rows=Array.prototype.slice.call(tb.rows);
-      var order={'Low':1,'Moderate':2,'High':3,'Severe':4};
-      rows.sort(function(a,b){
-        var x=a.cells[idx].textContent.trim(), y=b.cells[idx].textContent.trim();
-        var nx=order[x]!==undefined?order[x]:parseFloat(x.replace(/,/g,''));
-        var ny=order[y]!==undefined?order[y]:parseFloat(y.replace(/,/g,''));
-        return asc?nx-ny:ny-nx;
-      });
-      asc=!asc;
-      rows.forEach(function(r,i){tb.appendChild(r);r.cells[0].textContent=i+1;});
+/* ============ THREAT TOOL ============ */
+var tState={profile:"journalist",tier:"pressured"};
+var PRIOS={
+  journalist:[
+    ["Where source metadata lives","Who can see that you and a source spoke, even when the words are encrypted."],
+    ["Device seizure posture","What a powered-off device gives up, and what survives a border inspection."],
+    ["Provider response to legal demand","What the provider holds and what it has actually handed over when asked."],
+    ["Account recovery paths","The recovery phone or email is usually the weakest link in the chain."],
+    ["Local network observation","What your ISP and any campus or hotel network can infer from traffic shape."]
+  ],
+  organiser:[
+    ["Group membership exposure","Who can enumerate the members of a group, including the platform itself."],
+    ["Real-time location leakage","Presence, typing, and delivery receipts place people at a time and a place."],
+    ["Circumvention legality","Whether using the tool is itself the offence in your jurisdiction."],
+    ["Backup and cloud sync","Encrypted chats routinely land unencrypted in someone else's backup."],
+    ["Provider response to legal demand","What the provider holds and what it has handed over when asked."]
+  ],
+  citizen:[
+    ["Third-party trackers","How many parties receive your activity without you choosing them."],
+    ["Default settings","Products are configured for the business model, not for you."],
+    ["Retention period","How long the record of you outlives your use of the service."],
+    ["Data export and deletion","Whether you can get your data out and have it actually removed."],
+    ["Account recovery paths","The recovery phone or email is usually the weakest link in the chain."]
+  ]
+};
+var TIER_ADD={
+  open:null,
+  pressured:["Failure behaviour under filtering","What the tool does when it cannot connect; some fall back to plaintext without telling you."],
+  closed:["Traffic that looks like circumvention","Blocking is one risk; being identified as someone evading it is the other."]
+};
+var TIER_RISK={open:["r-lo","Baseline exposure"],pressured:["r-md","Elevated exposure"],closed:["r-hi","Severe exposure"]};
+function renderTool(){
+  var list=PRIOS[tState.profile].slice(0,4);
+  var add=TIER_ADD[tState.tier];
+  if(add)list.unshift(add);
+  list=list.slice(0,5);
+  $("#prioList").innerHTML=list.map(function(i){return '<li><span><span class="t">'+esc(i[0])+'</span><span class="s">'+esc(i[1])+'</span></span></li>'}).join("");
+  var r=TIER_RISK[tState.tier];
+  var pill=$("#riskPill");pill.className="riskpill "+r[0];pill.textContent=r[1];
+}
+function wireOpts(sel,key){
+  $$(sel+" .opt").forEach(function(b){
+    b.addEventListener("click",function(){
+      $$(sel+" .opt").forEach(function(x){x.classList.remove("on")});
+      b.classList.add("on");tState[key]=b.dataset.v;renderTool();
     });
   });
+}
+wireOpts("#optProfile","profile");wireOpts("#optTier","tier");
+renderTool();
 
-  // signup
-  var f=document.getElementById('signup');
-  f.addEventListener('submit',function(e){
-    e.preventDefault();
-    document.getElementById('signupNote').style.display='block';
-    f.reset();
+/* ============ GRADE EXPLORER ============ */
+var W={blocking:30,shutdowns:25,circumvention:25,expression:20};
+var DEFAULT_W={blocking:30,shutdowns:25,circumvention:25,expression:20};
+var cState={region:"all",q:"",grade:"all",sort:"score",dir:-1};
+
+function scoreOf(d){
+  var w=[W.blocking,W.shutdowns,W.circumvention,W.expression];
+  var tot=w[0]+w[1]+w[2]+w[3];
+  if(!tot)return 0;
+  return (d.a[0]*w[0]+d.a[1]*w[1]+d.a[2]*w[2]+d.a[3]*w[3])/tot;
+}
+function rows(){
+  return COUNTRIES.filter(function(d){
+    if(cState.region!=="all"&&d.r!==cState.region)return false;
+    if(cState.grade!=="all"&&gradeOf(scoreOf(d))!==cState.grade)return false;
+    if(cState.q&&d.n.toLowerCase().indexOf(cState.q)<0&&d.c.toLowerCase().indexOf(cState.q)<0)return false;
+    return true;
   });
+}
+function sortVal(d,k){
+  switch(k){
+    case "name":return d.n.toLowerCase();
+    case "score":return scoreOf(d);
+    case "blocking":return d.a[0];
+    case "shutdowns12":return d.s12;
+    case "circumvention":return d.a[2];
+    case "evidence":return d.ev;
+    case "confidence":return d.cf;
+    default:return scoreOf(d);
+  }
+}
+function sparkline(m){
+  var max=Math.max.apply(null,m.concat([1])),w=62,h=18,step=w/(m.length-1);
+  var pts=m.map(function(v,i){return (i*step).toFixed(1)+","+(h-(v/max)*(h-2)-1).toFixed(1)}).join(" ");
+  var col=max>=3?"#B0563E":max>=1?"#C6903A":"#9FB3AE";
+  return '<svg class="spark" width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'" aria-hidden="true"><polyline points="'+pts+'" fill="none" stroke="'+col+'" stroke-width="1.4" stroke-linejoin="round"/></svg>';
+}
+function renderDist(){
+  var counts={A:0,B:0,C:0,D:0,F:0};
+  COUNTRIES.forEach(function(d){counts[gradeOf(scoreOf(d))]++});
+  var max=Math.max.apply(null,Object.keys(counts).map(function(k){return counts[k]}).concat([1]));
+  var cols={A:"#0B5F45",B:"#4A6B24",C:"#C6903A",D:"#B0563E",F:"#9B2C20"};
+  var html='<button class="chip'+(cState.grade==="all"?" on":"")+'" data-grade="all" style="border-radius:2px">All grades</button>';
+  html+=Object.keys(counts).map(function(g){
+    var hgt=Math.max(8,Math.round((counts[g]/max)*26));
+    return '<button data-grade="'+g+'"'+(cState.grade===g?' class="on"':'')+'><span class="col" style="height:'+hgt+'px;background:'+cols[g]+'"></span><span class="gl">'+g+'</span><span class="ct">'+counts[g]+'</span></button>';
+  }).join("");
+  $("#dist").innerHTML=html;
+  $$("#dist [data-grade]").forEach(function(b){
+    b.addEventListener("click",function(){
+      cState.grade=(cState.grade===b.dataset.grade)?"all":b.dataset.grade;
+      renderDist();renderCountries();
+    });
+  });
+}
+function renderCountries(){
+  var list=rows();
+  list.sort(function(a,b){
+    var x=sortVal(a,cState.sort),y=sortVal(b,cState.sort);
+    if(x<y)return -1*cState.dir; if(x>y)return 1*cState.dir; return 0;
+  });
+  $("#cBody").innerHTML=list.map(function(d,i){
+    var s=scoreOf(d),g=gradeOf(s);
+    var cbar=d.cf>=75?"":d.cf>=60?" low":" bad";
+    return '<tr data-c="'+d.c+'" tabindex="0">'+
+      '<td class="rank">'+(i+1)+'</td>'+
+      '<td><span class="entity"><span class="flag">'+d.c+'</span>'+esc(d.n)+'</span></td>'+
+      '<td><span class="grade '+gclass(g)+'">'+g+'</span></td>'+
+      '<td class="num">'+band(d.a[0])+'</td>'+
+      '<td class="num">'+d.s12+'</td>'+
+      '<td>'+sparkline(d.m)+'</td>'+
+      '<td>'+circBand(d.a[2])+'</td>'+
+      '<td class="num">'+d.ev.toLocaleString("en-US")+'</td>'+
+      '<td><span class="bar'+cbar+'"><i style="width:'+d.cf+'%"></i></span></td>'+
+    '</tr>';
+  }).join("");
+  $("#cEmpty").hidden=list.length>0;
+  $("#cCount").textContent="Showing "+list.length+" of "+COUNTRIES.length;
+  $$("#cBody tr").forEach(function(tr){
+    tr.addEventListener("click",function(){openDrawer(tr.dataset.c)});
+    tr.addEventListener("keydown",function(e){if(e.key==="Enter"){openDrawer(tr.dataset.c)}});
+  });
+}
+$$("[data-region]").forEach(function(b){
+  b.addEventListener("click",function(){
+    $$("[data-region]").forEach(function(x){x.classList.remove("on")});
+    b.classList.add("on");cState.region=b.dataset.region;renderCountries();
+  });
+});
+$("#cSearch").addEventListener("input",function(e){cState.q=e.target.value.trim().toLowerCase();renderCountries()});
+$$("#cTable thead th").forEach(function(th){
+  th.addEventListener("click",function(){
+    var k=th.dataset.k; if(!k||k==="rank"||k==="trend")return;
+    if(cState.sort===k){cState.dir*=-1}else{cState.sort=k;cState.dir=(k==="name")?1:-1}
+    $$("#cTable thead th").forEach(function(x){x.classList.remove("sorted")});
+    th.classList.add("sorted");
+    renderCountries();
+  });
+});
+$("#toggleWeights").addEventListener("click",function(){
+  var w=$("#weights"); w.hidden=!w.hidden;
+  this.classList.toggle("on",!w.hidden);
+});
+function syncWeights(){
+  W.blocking=+$("#wBlock").value;W.shutdowns=+$("#wShut").value;
+  W.circumvention=+$("#wCirc").value;W.expression=+$("#wExpr").value;
+  $("#vBlock").textContent=W.blocking;$("#vShut").textContent=W.shutdowns;
+  $("#vCirc").textContent=W.circumvention;$("#vExpr").textContent=W.expression;
+  var tot=W.blocking+W.shutdowns+W.circumvention+W.expression;
+  var changed=JSON.stringify(W)!==JSON.stringify(DEFAULT_W);
+  $("#wSummary").textContent=tot===0?"Every weight is zero; set at least one axis above zero."
+    :(changed?"Custom weighting active. Grades below are yours, not ours.":"Weights normalise to 100. Grades and ranking update live.");
+  renderDist();renderCountries();
+}
+["wBlock","wShut","wCirc","wExpr"].forEach(function(id){$("#"+id).addEventListener("input",syncWeights)});
+$("#resetWeights").addEventListener("click",function(){
+  $("#wBlock").value=30;$("#wShut").value=25;$("#wCirc").value=25;$("#wExpr").value=20;
+  syncWeights();toast("Published weights restored");
+});
+
+/* drawer */
+function openDrawer(code){
+  var d=COUNTRIES.filter(function(x){return x.c===code})[0]; if(!d)return;
+  var s=scoreOf(d),g=gradeOf(s);
+  var axes=d.a.map(function(v,i){
+    return '<div class="axis"><div class="row"><span>'+AXES[i]+'</span><b>'+Math.round(v)+' / 100</b></div>'+
+      '<div class="track"><i style="width:'+v+'%;background:'+riskColour(v)+'"></i></div>'+
+      '<div class="dim" style="font-size:12.5px;margin-top:6px">'+AXIS_NOTE[i]+'</div></div>';
+  }).join("");
+  var log=evidenceLog(d).map(function(e){
+    return '<li><span class="when">'+e.w+'</span><span><b style="font-weight:500">'+esc(e.k)+'</b><br><span class="dim">'+esc(e.t)+'</span></span></li>';
+  }).join("");
+  $("#drawerInner").innerHTML=
+    '<div class="drawer-head">'+
+      '<span class="grade '+gclass(g)+'" style="width:44px;height:38px;font-size:16px">'+g+'</span>'+
+      '<div><div style="font-family:var(--serif);font-size:24px;letter-spacing:-.015em">'+esc(d.n)+'</div>'+
+      '<div class="mono dim" style="margin-top:4px">Composite '+s.toFixed(1)+' &middot; updated '+d.u+'</div></div>'+
+      '<button class="x" id="drawerX" aria-label="Close">&times;</button>'+
+    '</div>'+
+    '<div class="drawer-body">'+
+      '<div class="dsec"><div class="k mono">Axis scores (higher is worse)</div>'+axes+'</div>'+
+      '<div class="dsec"><div class="k mono">Shutdown events, trailing 12 months</div>'+
+        '<div style="display:flex;align-items:flex-end;gap:4px;height:72px;margin-bottom:10px">'+
+        d.m.map(function(v){var max=Math.max.apply(null,d.m.concat([1]));
+          return '<div title="'+v+' events" style="flex:1;height:'+Math.max(3,(v/max)*68)+'px;background:'+(v>2?"#B0563E":v>0?"#C6903A":"var(--grey)")+';border-radius:2px 2px 0 0"></div>'}).join("")+
+        '</div><div class="mono dim">'+d.s12+' events recorded &middot; oldest month left</div></div>'+
+      '<div class="dsec"><div class="k mono">Coverage</div><dl class="kv">'+
+        '<dt>Evidence records</dt><dd>'+d.ev.toLocaleString("en-US")+'</dd>'+
+        '<dt>Confidence</dt><dd>'+d.cf+'%</dd>'+
+        '<dt>Region</dt><dd>'+d.r.toUpperCase()+'</dd>'+
+        '<dt>Last re-grade</dt><dd>'+d.u+'</dd></dl></div>'+
+      '<div class="dsec"><div class="k mono">Evidence log</div><ul class="log">'+log+'</ul></div>'+
+      '<p class="dim" style="font-size:12.5px">Illustrative record for a concept page. Published entries link to raw measurement data and the vantage points that produced it.</p>'+
+    '</div>';
+  $("#drawerX").addEventListener("click",closeDrawer);
+  $("#drawer").classList.add("on");$("#scrim").classList.add("on");document.body.classList.add("locked");
+}
+function closeDrawer(){$("#drawer").classList.remove("on");$("#scrim").classList.remove("on");document.body.classList.remove("locked")}
+$("#scrim").addEventListener("click",closeDrawer);
+
+/* ============ PRODUCT INDEX ============ */
+var pState={cat:"all",q:"",verified:false,notrack:false,sort:"score",dir:-1};
+var picks=[];
+function pScore(p){
+  var ks=Object.keys(p.f),t=0;
+  ks.forEach(function(k){t+=p.f[k][1]});
+  return Math.round(t/ks.length);
+}
+function pState_(p){
+  var ranks=Object.keys(p.f).map(function(k){return STATE_RANK[p.f[k][2]]});
+  var min=Math.min.apply(null,ranks);
+  return min>=4?"audited":min>=3?"observed":min>=2?"claimed":"unknown";
+}
+function pRows(){
+  return PRODUCTS.filter(function(p){
+    if(pState.cat!=="all"&&p.cat!==pState.cat)return false;
+    if(pState.q&&p.n.toLowerCase().indexOf(pState.q)<0&&p.catL.toLowerCase().indexOf(pState.q)<0)return false;
+    if(pState.verified&&STATE_RANK[pState_(p)]<3)return false;
+    if(pState.notrack&&p.f.tracking[1]<70)return false;
+    return true;
+  });
+}
+function renderProducts(){
+  var list=pRows();
+  list.sort(function(a,b){
+    var k=pState.sort,x,y;
+    if(k==="name"){x=a.n.toLowerCase();y=b.n.toLowerCase()}
+    else if(k==="cat"){x=a.catL;y=b.catL}
+    else if(k==="state"){x=STATE_RANK[pState_(a)];y=STATE_RANK[pState_(b)]}
+    else if(k==="score"){x=pScore(a);y=pScore(b)}
+    else{x=a.f[k]?a.f[k][1]:0;y=b.f[k]?b.f[k][1]:0}
+    if(x<y)return -1*pState.dir; if(x>y)return 1*pState.dir; return 0;
+  });
+  $("#pBody").innerHTML=list.map(function(p){
+    var st=pState_(p),sc=pScore(p);
+    return '<tr data-id="'+p.id+'">'+
+      '<td><span class="pick'+(picks.indexOf(p.id)>=0?" on":"")+'" data-pick="'+p.id+'" role="checkbox" tabindex="0" aria-checked="'+(picks.indexOf(p.id)>=0)+'">&#10003;</span></td>'+
+      '<td><span class="entity"><span class="flag">'+p.id.toUpperCase()+'</span>'+esc(p.n)+'</span></td>'+
+      '<td class="dim">'+p.catL+'</td>'+
+      '<td class="num"><span class="ring">'+ringSvg(sc)+'<b>'+sc+'</b></span></td>'+
+      '<td>'+esc(p.f.collection[0])+'</td>'+
+      '<td>'+esc(p.f.retention[0])+'</td>'+
+      '<td>'+esc(p.f.access[0])+'</td>'+
+      '<td>'+esc(p.f.tracking[0])+'</td>'+
+      '<td><span class="stat s-'+st.slice(0,3)+'" title="'+STATE_NOTE[st]+'">'+st+'</span></td>'+
+    '</tr>';
+  }).join("");
+  $("#pEmpty").hidden=list.length>0;
+  $("#pCount").textContent="Showing "+list.length+" of "+PRODUCTS.length;
+  $$("#pBody [data-pick]").forEach(function(el){
+    el.addEventListener("click",function(e){e.stopPropagation();togglePick(el.dataset.pick)});
+    el.addEventListener("keydown",function(e){if(e.key===" "||e.key==="Enter"){e.preventDefault();togglePick(el.dataset.pick)}});
+  });
+  $$("#pBody tr").forEach(function(tr){
+    tr.addEventListener("click",function(){togglePick(tr.dataset.id)});
+  });
+}
+function ringSvg(v){
+  var r=9,c=2*Math.PI*r,off=c*(1-v/100);
+  return '<svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="'+r+'" fill="none" stroke="#E5E7E5" stroke-width="3"/>'+
+    '<circle cx="12" cy="12" r="'+r+'" fill="none" stroke="'+(v>=70?"#0E7C5A":v>=45?"#C6903A":"#B0563E")+'" stroke-width="3" stroke-dasharray="'+c.toFixed(1)+'" stroke-dashoffset="'+off.toFixed(1)+'" stroke-linecap="round"/></svg>';
+}
+function togglePick(id){
+  var i=picks.indexOf(id);
+  if(i>=0){picks.splice(i,1)}
+  else{ if(picks.length>=3){toast("Three entries maximum");return} picks.push(id) }
+  renderProducts();renderTray();
+}
+function renderTray(){
+  var s=$("#slots"),html="";
+  for(var i=0;i<3;i++){
+    var p=picks[i]?PRODUCTS.filter(function(x){return x.id===picks[i]})[0]:null;
+    html+='<span class="slot'+(p?" full":"")+'">'+(p?esc(p.n):"Empty")+'</span>';
+  }
+  s.innerHTML=html;
+  $("#cmpGo").disabled=picks.length<2;
+  $("#tray").classList.toggle("on",picks.length>0);
+}
+$("#cmpClear").addEventListener("click",function(){picks=[];renderProducts();renderTray()});
+$("#cmpGo").addEventListener("click",openCompare);
+function openCompare(){
+  if(picks.length<2)return;
+  var sel=picks.map(function(id){return PRODUCTS.filter(function(x){return x.id===id})[0]});
+  var head='<tr><th>Dimension</th>'+sel.map(function(p){return '<th>'+esc(p.n)+'<br><span class="dim" style="text-transform:none;letter-spacing:0;font-family:var(--sans);font-size:12px">'+p.catL+'</span></th>'}).join("")+'</tr>';
+  var body=PFIELDS.map(function(f){
+    var vals=sel.map(function(p){return p.f[f[0]][1]});
+    var best=Math.max.apply(null,vals);
+    return '<tr><td>'+f[1]+'</td>'+sel.map(function(p,i){
+      var cell=p.f[f[0]];
+      return '<td'+(vals[i]===best&&sel.length>1?' class="best"':'')+'>'+esc(cell[0])+
+        '<br><span class="stat s-'+cell[2].slice(0,3)+'" style="margin-top:5px">'+cell[2]+'</span></td>';
+    }).join("")+'</tr>';
+  }).join("");
+  var scores='<tr><td>Composite</td>'+sel.map(function(p){var sc=pScore(p);return '<td><span class="ring">'+ringSvg(sc)+'<b>'+sc+'</b></span></td>'}).join("")+'</tr>';
+  $("#cmpInner").innerHTML=
+    '<div class="panel-head"><span class="title">Side by side</span>'+
+      '<div class="controls"><button class="chip" id="cmpClose">Close</button></div></div>'+
+    '<div class="scroller"><table>'+'<thead>'+head+'</thead><tbody>'+scores+body+'</tbody></table></div>'+
+    '<div class="panel-foot"><span>Highlighted cell is the stronger position on that dimension.</span><span>Illustrative scores.</span></div>';
+  $("#cmpClose").addEventListener("click",closeCompare);
+  $("#cmp").classList.add("on");document.body.classList.add("locked");
+}
+function closeCompare(){$("#cmp").classList.remove("on");document.body.classList.remove("locked")}
+$("#cmp").addEventListener("click",function(e){if(e.target===$("#cmp"))closeCompare()});
+
+$$("[data-cat]").forEach(function(b){
+  b.addEventListener("click",function(){
+    $$("[data-cat]").forEach(function(x){x.classList.remove("on")});
+    b.classList.add("on");pState.cat=b.dataset.cat;renderProducts();
+  });
+});
+$("#pSearch").addEventListener("input",function(e){pState.q=e.target.value.trim().toLowerCase();renderProducts()});
+$("#fVerified").addEventListener("click",function(){pState.verified=!pState.verified;this.classList.toggle("on",pState.verified);renderProducts()});
+$("#fNoTrack").addEventListener("click",function(){pState.notrack=!pState.notrack;this.classList.toggle("on",pState.notrack);renderProducts()});
+$$("#pTable thead th").forEach(function(th){
+  th.addEventListener("click",function(){
+    var k=th.dataset.k;if(!k)return;
+    if(pState.sort===k){pState.dir*=-1}else{pState.sort=k;pState.dir=(k==="name"||k==="cat")?1:-1}
+    $$("#pTable thead th").forEach(function(x){x.classList.remove("sorted")});
+    th.classList.add("sorted");
+    renderProducts();
+  });
+});
+
+/* ============ keyboard + form ============ */
+document.addEventListener("keydown",function(e){
+  var tag=(e.target.tagName||"").toLowerCase();
+  if(e.key==="Escape"){closeDrawer();closeCompare();return}
+  if(tag==="input"||tag==="textarea")return;
+  if(e.key==="/"){e.preventDefault();$("#cSearch").focus();$("#cSearch").scrollIntoView({block:"center"})}
+  if(e.key==="c"||e.key==="C"){ if(picks.length>=2){openCompare()} else {toast("Tick two entries first");$("#index").scrollIntoView()} }
+});
+$("#signup").addEventListener("submit",function(e){e.preventDefault();this.reset();toast("Concept page; no list yet")});
+
+/* ============ boot ============ */
+renderDist();renderCountries();renderProducts();renderTray();
 })();
 </script>
 </body>
