@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Research programme | Freedom Institute</title>
-<meta name="description" content="Privacy Claims vs Reality and the reports that follow it: what no logs survives, what deleted means, and what privacy costs a household.">
+<title>State surveillance and AI, tracked as it changes | Freedom Institute</title>
+<meta name="description" content="A maintained tracker of the commercial spyware market and state AI surveillance: vendors, forensic confirmations, sanctions and litigation.">
 <meta name="color-scheme" content="light dark">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Research programme | Freedom Institute">
-<meta property="og:description" content="Privacy Claims vs Reality and the reports that follow it: what no logs survives, what deleted means, and what privacy costs a household.">
-<meta property="og:url" content="https://haitzupp.github.io/freedom-institute/research.html">
+<meta property="og:title" content="State surveillance and AI, tracked as it changes | Freedom Institute">
+<meta property="og:description" content="A maintained tracker of the commercial spyware market and state AI surveillance: vendors, forensic confirmations, sanctions and litigation.">
+<meta property="og:url" content="https://haitzupp.github.io/freedom-institute/report-surveillance.html">
 <meta property="og:image" content="https://haitzupp.github.io/freedom-institute/img/patch-panel.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <script>(function(){try{var t=localStorage.getItem("fi-theme")||((window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light");if(t==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(e){}})();</script>
@@ -34,7 +34,7 @@
       <a class="mono" href="grades.html">Grades</a>
       <a class="mono" href="products.html">Index</a>
       <a class="mono" href="history.html">History</a>
-      <a class="mono on" href="research.html" aria-current="page">Research</a>
+      <a class="mono" href="research.html">Research</a>
       <a class="mono" href="about.html">About</a>
     </nav>
     <div class="nav-meta mono">
@@ -48,16 +48,61 @@
   </div>
 </header>
 <main id="top">
-<section id="research" class="rv">
+<div class="rep-head">
+  <div class="wrap" id="repHead"></div>
+</div>
+
+<section class="rv" style="padding-top:clamp(32px,4vw,52px);padding-bottom:0">
   <div class="wrap">
-    <div class="eyebrow mono">Research programme</div>
-    <h2>Privacy Claims vs Reality is where we start</h2>
-    <p class="dim" style="max-width:62ch;margin-top:18px">The signature series takes the three promises the industry repeats most often, no logs, anonymous, and deleted, and tests each one against what the software and the servers actually do.</p>
-    <div class="rlist">
-      <a class="ritem" href="report-nologs.html"><div class="thumb"><figure class="shot r32"><img width="380" height="507" src="img/routers.jpg" alt="Router and switch racks with patch cabling" loading="lazy" decoding="async"><figcaption class="cred">Jemimus &middot; CC BY 2.0</figcaption></figure><span class="when mono" style="display:block;margin-top:8px">Issue 01 &middot; Q4 2026</span></div><div class="rbody"><h3>What &ldquo;no logs&rdquo; survives a subpoena</h3><span class="dim">Twelve consumer VPNs, their written claims, their observed connection handling, and what each one has handed over when asked.</span></div><span class="arrow">&rarr;</span></a>
-      <a class="ritem" href="report-deletion.html"><div class="thumb"><figure class="shot r32"><img width="380" height="214" src="img/archive.jpg" alt="Archival photograph of records storage" loading="lazy" decoding="async"><figcaption class="cred">General Services Administration. N &middot; Public domain</figcaption></figure><span class="when mono" style="display:block;margin-top:8px">Issue 02 &middot; Q1 2027</span></div><div class="rbody"><h3>Deleted accounts that are still there a year later</h3><span class="dim">We delete, we wait, we ask for our data back under access rights, and we publish who returns it.</span></div><span class="arrow">&rarr;</span></a>
-      <a class="ritem" href="report-price.html"><div class="thumb"><figure class="shot r32"><img width="380" height="507" src="img/checkout.jpg" alt="Supermarket self-checkout terminals" loading="lazy" decoding="async"><figcaption class="cred">Bdx &middot; CC0</figcaption></figure><span class="when mono" style="display:block;margin-top:8px">Issue 03 &middot; Q2 2027</span></div><div class="rbody"><h3>The price of choosing the private option</h3><span class="dim">What privacy actually costs a household in money, time, and broken services, measured across four income brackets and three countries.</span></div><span class="arrow">&rarr;</span></a>
-      <a class="ritem" href="report-surveillance.html"><div class="thumb"><figure class="shot r32"><img width="460" height="202" src="img/utah.jpg" alt="Large government data centre seen from a distance" loading="lazy" decoding="async"><figcaption class="cred">Swilsonmc &middot; CC BY-SA 3.0</figcaption></figure><span class="when mono" style="display:block;margin-top:8px">Standing</span></div><div class="rbody"><h3>State surveillance and AI, tracked as it changes</h3><span class="dim">Procurement records, vendor disclosures, and model-side data handling, updated as filings land rather than once a year.</span></div><span class="arrow">&rarr;</span></a>
+    <div class="hstat" id="repStats"></div>
+    <div class="tocbox" id="repToc"></div>
+  </div>
+</section>
+
+<section class="rv">
+  <div class="wrap">
+    <div class="eyebrow mono">What we found</div>
+    <h2>Five findings, each one arguable</h2>
+    <div class="finds" id="repFindings"></div>
+  </div>
+</section>
+
+<div id="repSections"></div>
+
+<div class="dark">
+  <section class="rv">
+    <div class="wrap">
+      <div class="eyebrow mono">What this report cannot establish</div>
+      <h2>The gaps are part of the finding</h2>
+      <p class="dim" style="max-width:64ch;margin-top:18px">A report that only prints what it can prove is incomplete in a way the reader cannot see. These are the questions the public record does not answer, and the reasons it does not.</p>
+      <div class="gaps" id="repGaps"></div>
+    </div>
+  </section>
+</div>
+
+<section class="rv">
+  <div class="wrap">
+    <div class="eyebrow mono">Method</div>
+    <h2>How this was assembled, and what would change it</h2>
+    <div id="repMethod"></div>
+  </div>
+</section>
+
+<section class="rv" style="padding-top:0">
+  <div class="wrap">
+    <div class="eyebrow mono">Sources</div>
+    <h2>Every claim above traces to one of these <span id="repSrcCount"></span> sources</h2>
+    <div id="repSources"></div>
+    <p class="dim" style="font-size:13px;margin-top:26px">Links open the original. Where a source is a company statement about its own conduct, the entry says so.</p>
+  </div>
+</section>
+
+<section class="rv" style="padding-top:0">
+  <div class="wrap">
+    <div class="navcards">
+      <a class="navcard" href="research.html"><span class="navcard__n mono">Programme</span><span class="navcard__t">The rest of the research programme</span><span class="navcard__d">What we are testing next, and on what timetable.</span><span class="navcard__a mono">Back to research &rarr;</span></a>
+      <a class="navcard" href="products.html"><span class="navcard__n mono">Index</span><span class="navcard__t">The Privacy Product Index</span><span class="navcard__d">Claims and observed behaviour, scored separately, with the unknowns printed.</span><span class="navcard__a mono">Open the index &rarr;</span></a>
+      <a class="navcard" href="history.html"><span class="navcard__n mono">History</span><span class="navcard__t">Eighty years of information control</span><span class="navcard__d">Fifty-nine sourced events, 1945 to now.</span><span class="navcard__a mono">Open the timeline &rarr;</span></a>
     </div>
   </div>
 </section>
@@ -85,5 +130,6 @@
 </footer>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script src="shared.js"></script>
-</body>
+<script src="report-surveillance.js"></script>
+<script src="report.js"></script></body>
 </html>

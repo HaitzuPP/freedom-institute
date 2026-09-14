@@ -92,6 +92,82 @@ HISTORY_TOP = """<div class="hero">
 """
 
 
+REPORT_BODY = """<div class="rep-head">
+  <div class="wrap" id="repHead"></div>
+</div>
+
+<section class="rv" style="padding-top:clamp(32px,4vw,52px);padding-bottom:0">
+  <div class="wrap">
+    <div class="hstat" id="repStats"></div>
+    <div class="tocbox" id="repToc"></div>
+  </div>
+</section>
+
+<section class="rv">
+  <div class="wrap">
+    <div class="eyebrow mono">What we found</div>
+    <h2>Five findings, each one arguable</h2>
+    <div class="finds" id="repFindings"></div>
+  </div>
+</section>
+
+<div id="repSections"></div>
+
+<div class="dark">
+  <section class="rv">
+    <div class="wrap">
+      <div class="eyebrow mono">What this report cannot establish</div>
+      <h2>The gaps are part of the finding</h2>
+      <p class="dim" style="max-width:64ch;margin-top:18px">A report that only prints what it can prove is incomplete in a way the reader cannot see. These are the questions the public record does not answer, and the reasons it does not.</p>
+      <div class="gaps" id="repGaps"></div>
+    </div>
+  </section>
+</div>
+
+<section class="rv">
+  <div class="wrap">
+    <div class="eyebrow mono">Method</div>
+    <h2>How this was assembled, and what would change it</h2>
+    <div id="repMethod"></div>
+  </div>
+</section>
+
+<section class="rv" style="padding-top:0">
+  <div class="wrap">
+    <div class="eyebrow mono">Sources</div>
+    <h2>Every claim above traces to one of these <span id="repSrcCount"></span> sources</h2>
+    <div id="repSources"></div>
+    <p class="dim" style="font-size:13px;margin-top:26px">Links open the original. Where a source is a company statement about its own conduct, the entry says so.</p>
+  </div>
+</section>
+
+<section class="rv" style="padding-top:0">
+  <div class="wrap">
+    <div class="navcards">
+      <a class="navcard" href="research.html"><span class="navcard__n mono">Programme</span><span class="navcard__t">The rest of the research programme</span><span class="navcard__d">What we are testing next, and on what timetable.</span><span class="navcard__a mono">Back to research &rarr;</span></a>
+      <a class="navcard" href="products.html"><span class="navcard__n mono">Index</span><span class="navcard__t">The Privacy Product Index</span><span class="navcard__d">Claims and observed behaviour, scored separately, with the unknowns printed.</span><span class="navcard__a mono">Open the index &rarr;</span></a>
+      <a class="navcard" href="history.html"><span class="navcard__n mono">History</span><span class="navcard__t">Eighty years of information control</span><span class="navcard__d">Fifty-nine sourced events, 1945 to now.</span><span class="navcard__a mono">Open the timeline &rarr;</span></a>
+    </div>
+  </div>
+</section>
+"""
+
+REPORTS = [
+    ("report-nologs.html",      "report-nologs.js",
+     "What no logs survives a subpoena | Freedom Institute",
+     "Every documented occasion a consumer VPN's no-logs claim met a subpoena, a server seizure or a breach, and what each one actually produced."),
+    ("report-deletion.html",    "report-deletion.js",
+     "Deleted accounts that are still there a year later | Freedom Institute",
+     "What happens to data after you delete it: sixteen documented failures, what the law actually reaches, and why backups are exempt in practice."),
+    ("report-price.html",       "report-price.js",
+     "The price of choosing the private option | Freedom Institute",
+     "What the privacy-preserving alternative costs in money, in time and in features that stop working, with every price dated."),
+    ("report-surveillance.html","report-surveillance.js",
+     "State surveillance and AI, tracked as it changes | Freedom Institute",
+     "A maintained tracker of the commercial spyware market and state AI surveillance: vendors, forensic confirmations, sanctions and litigation."),
+]
+
+
 def run(build):
     home = (frag("hero") + frag("mission") + frag("readers") + frag("metrics")
             + frag("tool") + frag("problem") + frag("activities") + TEASERS)
@@ -140,6 +216,10 @@ def run(build):
           "Fifty-nine sourced events in the control of information, from the radio jamming of 1948 to the national internet blackouts running now.",
           HISTORY_TOP,
           scripts='<script src="history-data.js"></script>\n<script src="history.js"></script>')
+
+    for page, data, title, desc in REPORTS:
+        build(page, title, desc, REPORT_BODY,
+              scripts='<script src="%s"></script>\n<script src="report.js"></script>' % data)
 
     research = frag("research").replace('<section id="research" class="rv" style="padding-top:0">',
                                         '<section id="research" class="rv">')
