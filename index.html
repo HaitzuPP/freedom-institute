@@ -253,7 +253,27 @@ tbody tr.sel{background:#EEF6F3}
 .riskpill{display:inline-flex;align-items:center;gap:8px;border-radius:100px;padding:6px 13px;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase}
 .r-hi{background:#F7DAD6;color:#9B2C20}.r-md{background:#FBF0D6;color:#8A6412}.r-lo{background:#DFF4EA;color:#0B5F45}
 
-/* placeholder imagery */
+/* photography */
+.shot{position:relative;overflow:hidden;border-radius:2px;background:var(--grey);margin:0;display:block}
+.shot img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.78) contrast(1.03)}
+.shot::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(1,22,20,.05),rgba(23,69,63,.16));pointer-events:none;mix-blend-mode:multiply}
+.shot.r45{aspect-ratio:4/5}
+.shot.r32{aspect-ratio:3/2}
+.shot.sq{aspect-ratio:1/1}
+.shot.band{height:clamp(200px,26vw,360px)}
+.shot .cred{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:20px 10px 7px;background:linear-gradient(transparent,rgba(1,22,20,.78));color:rgba(255,255,255,.82);font-family:var(--mono);font-size:9px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;opacity:0;transition:opacity .2s}
+.shot:hover .cred{opacity:1}
+.ritem .thumb .shot .cred{display:none}
+
+/* credits */
+.credits{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:38px}
+.credit{background:var(--white);padding:18px 20px;font-size:13.5px}
+.credit .n{font-weight:500;margin-bottom:5px}
+.credit .m{color:var(--muted);font-size:12.5px}
+.credit a{color:var(--green);text-decoration:none;border-bottom:1px solid var(--line)}
+.credit a:hover{border-color:var(--green)}
+
+/* placeholder imagery (retained) */
 .ph{position:relative;overflow:hidden;border-radius:2px;background:var(--green);display:grid;place-items:center;isolation:isolate}
 .ph::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 1px 1px, rgba(151,252,228,.20) 1px, transparent 0) 0 0/7px 7px;z-index:1}
 .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(150deg,rgba(1,22,20,.66),rgba(23,69,63,.08) 62%,rgba(151,252,228,.10));z-index:2}
@@ -277,7 +297,7 @@ tbody tr.sel{background:#EEF6F3}
 /* UR block */
 .ur{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:0;background:var(--white);border:1px solid var(--line);border-radius:3px;overflow:hidden;margin-top:44px}
 .ur-txt{padding:clamp(24px,3vw,36px);display:flex;flex-direction:column}
-.ur .ph.r11{aspect-ratio:auto;min-height:340px}
+.ur .shot{aspect-ratio:auto;min-height:340px}
 .ur-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line);margin-top:auto;padding-top:0}
 .ur-stat{background:var(--white);padding:16px 0 0}
 .ur-stat .v{font-family:var(--serif);font-weight:300;font-size:clamp(22px,2.4vw,30px);line-height:1;letter-spacing:-.02em}
@@ -352,7 +372,7 @@ footer .vision{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4vw
 }
 @media(max-width:1000px){
   .ur{grid-template-columns:1fr}
-  .ur .ph.r11{aspect-ratio:16/9;min-height:0}
+  .ur .shot{aspect-ratio:16/9;min-height:0}
 }
 @media(max-width:900px){
   .split{grid-template-columns:1fr}
@@ -457,17 +477,17 @@ footer .vision{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4vw
     <p class="dim" style="max-width:62ch;margin-top:18px">Research that nobody can act on is a publication, not a public good. Every grade and every index entry is written so that these three can make a decision with it.</p>
     <div class="readers">
       <div class="reader">
-        <div class="ph r45"><span class="cap"><span class="tagl mono">Image 4:5</span><span class="brief">Reporter reviewing a handset before crossing a border, shot close and unposed</span></span></div>
+        <figure class="shot r45"><img src="img/newsroom.jpg" alt="Television newsroom floor seen from above" loading="lazy" decoding="async"><figcaption class="cred">James Cridland &middot; CC BY 2.0</figcaption></figure>
         <h3>Journalists and researchers</h3>
         <p>They need to know what a device gives up when it is inspected and what a provider hands over when it is asked, before the trip rather than after it.</p>
       </div>
       <div class="reader">
-        <div class="ph r45"><span class="cap"><span class="tagl mono">Image 4:5</span><span class="brief">Organiser coordinating a group over a patchy connection, screen light on the face</span></span></div>
+        <figure class="shot r45"><img src="img/reading-room.jpg" alt="Public library reading room under a glass dome" loading="lazy" decoding="async"><figcaption class="cred">Ridiculopathy &middot; CC0</figcaption></figure>
         <h3>Organisers and civil society</h3>
         <p>They coordinate in real time under conditions where group membership is the sensitive fact and the connection itself may be the evidence against them.</p>
       </div>
       <div class="reader">
-        <div class="ph r45"><span class="cap"><span class="tagl mono">Image 4:5</span><span class="brief">Household at a kitchen table choosing between two services on a laptop</span></span></div>
+        <figure class="shot r45"><img src="img/cafe.jpg" alt="People using terminals at a public internet cafe" loading="lazy" decoding="async"><figcaption class="cred">ARipstra (WMF) &middot; CC BY-SA 4.0</figcaption></figure>
         <h3>Households making an ordinary choice</h3>
         <p>They are picking between two services on a Sunday afternoon and deserve a straight answer on which one collects less, keeps it for a shorter time, and lets them take it back.</p>
       </div>
@@ -588,7 +608,7 @@ footer .vision{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4vw
     <div class="wrap">
       <div class="tape"><span class="t1"></span><span class="t2"></span></div>
       <h2>People choose the tools that guard their lives on the strength of a slogan</h2>
-      <div class="ph band pale" style="margin-top:38px"><span class="cap"><span class="tagl mono">Image 16:9</span><span class="brief">Measurement vantage point during a national shutdown: laptops, a router, a wall of dropped connections</span></span></div>
+      <figure class="shot band" style="margin-top:38px"><img src="img/patch-panel.jpg" alt="Optical fibre patch panel at an internet exchange" loading="lazy" decoding="async"><figcaption class="cred">Fabienne Serriere &middot; CC BY-SA 3.0</figcaption></figure>
       <div class="cards">
         <div class="card">
           <h3>No-logs is a marketing line until someone runs the test</h3>
@@ -687,10 +707,10 @@ footer .vision{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4vw
     <h2>Privacy Claims vs Reality is where we start</h2>
     <p class="dim" style="max-width:62ch;margin-top:18px">The signature series takes the three promises the industry repeats most often, no logs, anonymous, and deleted, and tests each one against what the software and the servers actually do. Everything after it follows the same rule: publish the method, publish the failures, publish the unknowns.</p>
     <div class="rlist">
-      <a class="ritem" href="#"><span class="thumb"><span class="ph r32" title="Twelve routers on a bench, each one a provider under test"><span class="cap"><span class="tagl mono" style="font-size:9px;margin-bottom:0">Image</span></span></span><span class="when mono" style="display:block;margin-top:8px">Issue 01 &middot; Q4 2026</span></span><span><h3>What &ldquo;no logs&rdquo; survives a subpoena</h3><span class="dim">Twelve consumer VPNs, their written claims, their observed connection handling, and what each one has handed over when asked.</span></span><span class="arrow">&rarr;</span></a>
-      <a class="ritem" href="#"><span class="thumb"><span class="ph r32" title="A deletion request printed and annotated, a year of correspondence beside it"><span class="cap"><span class="tagl mono" style="font-size:9px;margin-bottom:0">Image</span></span></span><span class="when mono" style="display:block;margin-top:8px">Issue 02 &middot; Q1 2027</span></span><span><h3>Deleted accounts that are still there a year later</h3><span class="dim">We delete, we wait, we ask for our data back under access rights, and we publish who returns it.</span></span><span class="arrow">&rarr;</span></a>
-      <a class="ritem" href="#"><span class="thumb"><span class="ph r32" title="Receipts and subscription invoices laid out, the cost of the private option"><span class="cap"><span class="tagl mono" style="font-size:9px;margin-bottom:0">Image</span></span></span><span class="when mono" style="display:block;margin-top:8px">Issue 03 &middot; Q2 2027</span></span><span><h3>The price of choosing the private option</h3><span class="dim">What privacy actually costs a household in money, time, and broken services, measured across four income brackets and three countries.</span></span><span class="arrow">&rarr;</span></a>
-      <a class="ritem" href="#"><span class="thumb"><span class="ph r32" title="A procurement filing on screen, redactions visible"><span class="cap"><span class="tagl mono" style="font-size:9px;margin-bottom:0">Image</span></span></span><span class="when mono" style="display:block;margin-top:8px">Standing</span></span><span><h3>State surveillance and AI, tracked as it changes</h3><span class="dim">Procurement records, vendor disclosures, and model-side data handling, updated as filings land rather than once a year.</span></span><span class="arrow">&rarr;</span></a>
+      <a class="ritem" href="#"><span class="thumb"><figure class="shot r32"><img src="img/routers.jpg" alt="Router and switch racks with patch cabling" loading="lazy" decoding="async"><figcaption class="cred">Jemimus &middot; CC BY 2.0</figcaption></figure><span class="when mono" style="display:block;margin-top:8px">Issue 01 &middot; Q4 2026</span></span><span><h3>What &ldquo;no logs&rdquo; survives a subpoena</h3><span class="dim">Twelve consumer VPNs, their written claims, their observed connection handling, and what each one has handed over when asked.</span></span><span class="arrow">&rarr;</span></a>
+      <a class="ritem" href="#"><span class="thumb"><figure class="shot r32"><img src="img/archive.jpg" alt="Archival photograph of records storage" loading="lazy" decoding="async"><figcaption class="cred">General Services Administration. N &middot; Public domain</figcaption></figure><span class="when mono" style="display:block;margin-top:8px">Issue 02 &middot; Q1 2027</span></span><span><h3>Deleted accounts that are still there a year later</h3><span class="dim">We delete, we wait, we ask for our data back under access rights, and we publish who returns it.</span></span><span class="arrow">&rarr;</span></a>
+      <a class="ritem" href="#"><span class="thumb"><figure class="shot r32"><img src="img/checkout.jpg" alt="Supermarket self-checkout terminals" loading="lazy" decoding="async"><figcaption class="cred">Bdx &middot; CC0</figcaption></figure><span class="when mono" style="display:block;margin-top:8px">Issue 03 &middot; Q2 2027</span></span><span><h3>The price of choosing the private option</h3><span class="dim">What privacy actually costs a household in money, time, and broken services, measured across four income brackets and three countries.</span></span><span class="arrow">&rarr;</span></a>
+      <a class="ritem" href="#"><span class="thumb"><figure class="shot r32"><img src="img/utah.jpg" alt="Large government data centre seen from a distance" loading="lazy" decoding="async"><figcaption class="cred">Swilsonmc &middot; CC BY-SA 3.0</figcaption></figure><span class="when mono" style="display:block;margin-top:8px">Standing</span></span><span><h3>State surveillance and AI, tracked as it changes</h3><span class="dim">Procurement records, vendor disclosures, and model-side data handling, updated as filings land rather than once a year.</span></span><span class="arrow">&rarr;</span></a>
     </div>
   </div>
 </section>
@@ -721,7 +741,7 @@ footer .vision{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4vw
     <h2>UR builds the products; the Institute is the check on them</h2>
     <p class="dim" style="max-width:62ch;margin-top:18px"><a href="https://ur.xyz" target="_blank" rel="noopener" class="link-q">UR</a> is a global institute for privacy and encryption products. Its network is contributed rather than rented: more than 80,000 members supply bandwidth that anonymises traffic for people who cannot route around their own government. UR would organise and fund the Freedom Institute, and would also sit inside its scope of assessment.</p>
     <div class="ur">
-      <div class="ph r11 pale"><span class="cap"><span class="tagl mono">Image 1:1</span><span class="brief">UR wordmark on the operations wall, contributed nodes lit across a world map behind it</span></span></div>
+      <figure class="shot sq"><img src="img/earth.jpg" alt="Satellite composite of the Earth" loading="lazy" decoding="async"><figcaption class="cred">NASA images by Reto Stöckli &middot; Public domain</figcaption></figure>
       <div class="ur-txt">
         <h3>A contributed network changes who holds the risk</h3>
         <p class="dim" style="font-size:15px">Commercial privacy infrastructure concentrates trust in one operator and one jurisdiction; a member-contributed network spreads it across the people using it. That design is the reason UR can serve places where a single corporate exit node would be blocked or seized within a week, and it is also the reason UR's own claims need testing by someone who does not report to UR.</p>
@@ -748,6 +768,15 @@ footer .vision{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4vw
       <div class="prior"><div class="k mono">Mozilla</div><p>Consumer-facing warnings on connected products and apps.</p><a href="https://wiki.mozilla.org/Foundation/Privacy_not_included" target="_blank" rel="noopener">Privacy Not Included</a></div>
       <div class="prior"><div class="k mono">Privacy Guides</div><p>Criteria-based recommendations with rules against provider influence.</p><a href="https://www.privacyguides.org/" target="_blank" rel="noopener">privacyguides.org</a></div>
     </div>
+  </div>
+</section>
+
+<section class="rv" style="padding-top:0">
+  <div class="wrap">
+    <div class="eyebrow mono">Photography</div>
+    <h2>Every image here is licensed, and the licence is printed</h2>
+    <p class="dim" style="max-width:62ch;margin-top:18px">An organisation that asks providers to show their evidence should show its own. All photography is sourced from Wikimedia Commons under public domain, CC0, or Creative Commons Attribution terms, resized but not otherwise altered, and credited below and on hover.</p>
+    <div class="credits"><div class="credit"><div class="n">The newsroom at DR</div><div class="m">James Cridland &middot; CC BY 2.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:The_newsroom_at_DR.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></div></div><div class="credit"><div class="n">People studying in the Wolfson Reading Room of Manchester Cent</div><div class="m">Ridiculopathy &middot; CC0 &middot; <a href="https://commons.wikimedia.org/wiki/File:People_studying_in_the_Wolfson_Reading_Room_of_Manchester_Central_Library_01.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></div></div><div class="credit"><div class="n">AMS-IX optical patch panel</div><div class="m">Fabienne Serriere &middot; CC BY-SA 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:AMS-IX_optical_patch_panel.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></div></div><div class="credit"><div class="n">Blue Marble Western Hemisphere</div><div class="m">NASA / Reto Stöckli, based on data from NASA and NOAA &middot; Public domain &middot; <a href="https://commons.wikimedia.org/wiki/File:Blue_Marble_Western_Hemisphere.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></div></div><div class="credit"><div class="n">Routers and switch racks - IMG 1678</div><div class="m">Jemimus &middot; CC BY 2.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Routers_and_switch_racks_-_IMG_1678.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></div></div><div class="credit"><div class="n">Photograph of Storage Boxes, Used in National Archives Stack A</div><div class="m">General Services Administration. National Archives and Records Service &middot; Public domain &middot; <a href="https://commons.wikimedia.org/wiki/File:Photograph_of_Storage_Boxes,_Used_in_National_Archives_Stack_Area_-_DPLA_-_b2200ed66f97530c2610fe2621cadad4.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></div></div><div class="credit"><div class="n">Utah Data Center Panorama (cropped)</div><div class="m">Swilsonmc &middot; CC BY-SA 3.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Utah_Data_Center_Panorama_(cropped).jpg" target="_blank" rel="noopener">Wikimedia Commons</a></div></div><div class="credit"><div class="n">Internet Cafe, Apizaco, Mexico</div><div class="m">ARipstra (WMF) &middot; CC BY-SA 4.0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Internet_Cafe,_Apizaco,_Mexico.JPG" target="_blank" rel="noopener">Wikimedia Commons</a></div></div><div class="credit"><div class="n">Billa supermarket, Blagoevgrad centre, self-checkout, 2026</div><div class="m">Bdx &middot; CC0 &middot; <a href="https://commons.wikimedia.org/wiki/File:Billa_supermarket,_Blagoevgrad_centre,_self-checkout,_2026.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></div></div></div>
   </div>
 </section>
 
