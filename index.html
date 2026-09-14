@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Freedom Institute — Grades for censorship, tests for privacy products</title>
+<title>Freedom Institute: grades for censorship, tests for privacy products</title>
 <meta name="description" content="The Freedom Institute grades country censorship, tests what privacy products actually do, and builds open tools so anyone can repeat the measurement.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -253,6 +253,39 @@ tbody tr.sel{background:#EEF6F3}
 .riskpill{display:inline-flex;align-items:center;gap:8px;border-radius:100px;padding:6px 13px;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase}
 .r-hi{background:#F7DAD6;color:#9B2C20}.r-md{background:#FBF0D6;color:#8A6412}.r-lo{background:#DFF4EA;color:#0B5F45}
 
+/* placeholder imagery */
+.ph{position:relative;overflow:hidden;border-radius:2px;background:var(--green);display:grid;place-items:center;isolation:isolate}
+.ph::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 1px 1px, rgba(151,252,228,.20) 1px, transparent 0) 0 0/7px 7px;z-index:1}
+.ph::after{content:"";position:absolute;inset:0;background:linear-gradient(150deg,rgba(1,22,20,.66),rgba(23,69,63,.08) 62%,rgba(151,252,228,.10));z-index:2}
+.ph .cap{position:relative;z-index:3;text-align:center;padding:20px;max-width:30ch}
+.ph .cap .tagl{display:block;width:max-content;margin:0 auto 14px;border:1px solid rgba(151,252,228,.42);color:var(--mint);padding:4px 9px;border-radius:2px}
+.ph .cap .brief{font-family:var(--serif);font-style:italic;font-weight:300;color:rgba(255,255,255,.82);line-height:1.35;font-size:clamp(14px,1.2vw,17px)}
+.ph.band{aspect-ratio:auto;height:clamp(190px,25vw,340px)}
+.ph.r45{aspect-ratio:4/5}.ph.r32{aspect-ratio:3/2}.ph.r169{aspect-ratio:16/9}.ph.r11{aspect-ratio:1/1}
+.ph.pale{background:var(--grey)}
+.ph.pale::before{background:radial-gradient(circle at 1px 1px, rgba(1,22,20,.16) 1px, transparent 0) 0 0/7px 7px}
+.ph.pale::after{background:linear-gradient(150deg,rgba(243,245,244,.72),rgba(213,221,219,.35))}
+.ph.pale .cap .tagl{border-color:var(--line);color:var(--muted);background:rgba(255,255,255,.7)}
+.ph.pale .cap .brief{color:var(--green)}
+
+/* readers */
+.readers{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:clamp(18px,2.4vw,30px);margin-top:46px}
+.reader h3{margin:22px 0 10px}
+.reader p{font-size:14.5px;color:var(--muted);margin:0}
+.reader .who{color:var(--muted);margin-bottom:0}
+
+/* UR block */
+.ur{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:0;background:var(--white);border:1px solid var(--line);border-radius:3px;overflow:hidden;margin-top:44px}
+.ur-txt{padding:clamp(24px,3vw,36px);display:flex;flex-direction:column}
+.ur .ph.r11{aspect-ratio:auto;min-height:340px}
+.ur-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line);margin-top:auto;padding-top:0}
+.ur-stat{background:var(--white);padding:16px 0 0}
+.ur-stat .v{font-family:var(--serif);font-weight:300;font-size:clamp(22px,2.4vw,30px);line-height:1;letter-spacing:-.02em}
+.ur-stat .k{color:var(--muted);margin-top:8px}
+
+/* research thumbs */
+.ritem .thumb{width:118px}
+
 /* dark */
 .dark{background:var(--deep);color:var(--white)}
 .dark h2,.dark .p-lg{color:var(--white)}
@@ -276,7 +309,7 @@ tbody tr.sel{background:#EEF6F3}
 
 /* research */
 .rlist{border-top:1px solid var(--line);margin-top:42px}
-.ritem{display:grid;grid-template-columns:158px 1fr auto;gap:24px;align-items:baseline;padding:24px 0;border-bottom:1px solid var(--line);text-decoration:none;transition:.15s}
+.ritem{display:grid;grid-template-columns:130px 1fr auto;gap:24px;align-items:baseline;padding:24px 0;border-bottom:1px solid var(--line);text-decoration:none;transition:.15s}
 .ritem:hover{background:var(--white);padding-inline:16px;margin-inline:-16px}
 .ritem .when{color:var(--muted)}
 .ritem h3{margin:0 0 6px}
@@ -317,10 +350,15 @@ footer .vision{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4vw
   .tool-grid{grid-template-columns:1fr}
   .tool-q{border-right:0;border-bottom:1px solid var(--line)}
 }
+@media(max-width:1000px){
+  .ur{grid-template-columns:1fr}
+  .ur .ph.r11{aspect-ratio:16/9;min-height:0}
+}
 @media(max-width:900px){
   .split{grid-template-columns:1fr}
-  .ritem{grid-template-columns:1fr;gap:8px}
+  .ritem{grid-template-columns:1fr;gap:10px}
   .ritem .arrow{display:none}
+  .ritem .thumb{width:100%;max-width:240px}
 }
 @media(max-width:760px){
   html{scroll-padding-top:118px}
@@ -401,13 +439,38 @@ footer .vision{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4vw
       <p class="p-lg">If you can be identified, you can be targeted; most people have no way to find out which tools actually stop that.</p>
     </div>
     <div>
-      <p class="dim">A VPN says no logs. A messenger says anonymous. A cloud service says deleted. Every one of those is a claim, and almost none of them arrive with evidence a reader can check. Meanwhile a government blocks a protocol on a Tuesday, restores it on a Friday, and the record of what happened is gone by the time anyone writes it up.</p>
+      <p class="dim">A VPN provider represents that it retains no logs, a messaging platform represents that its users cannot be identified, and a cloud service represents that deleted data has been deleted. Each of these is a representation made by the party holding the commercial interest in it being believed, and almost none of them arrive with evidence that a reader can verify independently. The same gap runs through state conduct: a government restricts a protocol on a Tuesday and restores it on a Friday, and the record of what happened has usually disappeared before anyone documents it.</p>
       <p class="dim">We publish country censorship grades and a Privacy Product Index that separate what a provider says from what we observed, what an auditor confirmed, and what nobody knows yet. The unknowns get printed too.</p>
       <ul class="mission-list">
         <li><span class="n mono">01</span><span>Advance privacy, freedom of expression, and access to information through evidence, technology, and advocacy.</span></li>
         <li><span class="n mono">02</span><span>Serve the people choosing privacy tools, the journalists who depend on them, and the civil-society groups working under pressure.</span></li>
         <li><span class="n mono">03</span><span>Hand policymakers and product teams recommendations specific enough to act on.</span></li>
       </ul>
+    </div>
+  </div>
+</section>
+
+<section class="rv" style="padding-bottom:0">
+  <div class="wrap">
+    <div class="eyebrow mono">Who this is for</div>
+    <h2>Three readers decide whether this work was worth doing</h2>
+    <p class="dim" style="max-width:62ch;margin-top:18px">Research that nobody can act on is a publication, not a public good. Every grade and every index entry is written so that these three can make a decision with it.</p>
+    <div class="readers">
+      <div class="reader">
+        <div class="ph r45"><span class="cap"><span class="tagl mono">Image 4:5</span><span class="brief">Reporter reviewing a handset before crossing a border, shot close and unposed</span></span></div>
+        <h3>Journalists and researchers</h3>
+        <p>They need to know what a device gives up when it is inspected and what a provider hands over when it is asked, before the trip rather than after it.</p>
+      </div>
+      <div class="reader">
+        <div class="ph r45"><span class="cap"><span class="tagl mono">Image 4:5</span><span class="brief">Organiser coordinating a group over a patchy connection, screen light on the face</span></span></div>
+        <h3>Organisers and civil society</h3>
+        <p>They coordinate in real time under conditions where group membership is the sensitive fact and the connection itself may be the evidence against them.</p>
+      </div>
+      <div class="reader">
+        <div class="ph r45"><span class="cap"><span class="tagl mono">Image 4:5</span><span class="brief">Household at a kitchen table choosing between two services on a laptop</span></span></div>
+        <h3>Households making an ordinary choice</h3>
+        <p>They are picking between two services on a Sunday afternoon and deserve a straight answer on which one collects less, keeps it for a shorter time, and lets them take it back.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -525,6 +588,7 @@ footer .vision{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4vw
     <div class="wrap">
       <div class="tape"><span class="t1"></span><span class="t2"></span></div>
       <h2>People choose the tools that guard their lives on the strength of a slogan</h2>
+      <div class="ph band pale" style="margin-top:38px"><span class="cap"><span class="tagl mono">Image 16:9</span><span class="brief">Measurement vantage point during a national shutdown: laptops, a router, a wall of dropped connections</span></span></div>
       <div class="cards">
         <div class="card">
           <h3>No-logs is a marketing line until someone runs the test</h3>
@@ -623,10 +687,10 @@ footer .vision{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4vw
     <h2>Privacy Claims vs Reality is where we start</h2>
     <p class="dim" style="max-width:62ch;margin-top:18px">The signature series takes the three promises the industry repeats most often, no logs, anonymous, and deleted, and tests each one against what the software and the servers actually do. Everything after it follows the same rule: publish the method, publish the failures, publish the unknowns.</p>
     <div class="rlist">
-      <a class="ritem" href="#"><span class="when mono">Issue 01 &middot; Q4 2026</span><span><h3>What &ldquo;no logs&rdquo; survives a subpoena</h3><span class="dim">Twelve consumer VPNs, their written claims, their observed connection handling, and what each one has handed over when asked.</span></span><span class="arrow">&rarr;</span></a>
-      <a class="ritem" href="#"><span class="when mono">Issue 02 &middot; Q1 2027</span><span><h3>Deleted accounts that are still there a year later</h3><span class="dim">We delete, we wait, we ask for our data back under access rights, and we publish who returns it.</span></span><span class="arrow">&rarr;</span></a>
-      <a class="ritem" href="#"><span class="when mono">Issue 03 &middot; Q2 2027</span><span><h3>The price of choosing the private option</h3><span class="dim">What privacy actually costs a household in money, time, and broken services, measured across four income brackets and three countries.</span></span><span class="arrow">&rarr;</span></a>
-      <a class="ritem" href="#"><span class="when mono">Standing</span><span><h3>State surveillance and AI, tracked as it changes</h3><span class="dim">Procurement records, vendor disclosures, and model-side data handling, updated as filings land rather than once a year.</span></span><span class="arrow">&rarr;</span></a>
+      <a class="ritem" href="#"><span class="thumb"><span class="ph r32" title="Twelve routers on a bench, each one a provider under test"><span class="cap"><span class="tagl mono" style="font-size:9px;margin-bottom:0">Image</span></span></span><span class="when mono" style="display:block;margin-top:8px">Issue 01 &middot; Q4 2026</span></span><span><h3>What &ldquo;no logs&rdquo; survives a subpoena</h3><span class="dim">Twelve consumer VPNs, their written claims, their observed connection handling, and what each one has handed over when asked.</span></span><span class="arrow">&rarr;</span></a>
+      <a class="ritem" href="#"><span class="thumb"><span class="ph r32" title="A deletion request printed and annotated, a year of correspondence beside it"><span class="cap"><span class="tagl mono" style="font-size:9px;margin-bottom:0">Image</span></span></span><span class="when mono" style="display:block;margin-top:8px">Issue 02 &middot; Q1 2027</span></span><span><h3>Deleted accounts that are still there a year later</h3><span class="dim">We delete, we wait, we ask for our data back under access rights, and we publish who returns it.</span></span><span class="arrow">&rarr;</span></a>
+      <a class="ritem" href="#"><span class="thumb"><span class="ph r32" title="Receipts and subscription invoices laid out, the cost of the private option"><span class="cap"><span class="tagl mono" style="font-size:9px;margin-bottom:0">Image</span></span></span><span class="when mono" style="display:block;margin-top:8px">Issue 03 &middot; Q2 2027</span></span><span><h3>The price of choosing the private option</h3><span class="dim">What privacy actually costs a household in money, time, and broken services, measured across four income brackets and three countries.</span></span><span class="arrow">&rarr;</span></a>
+      <a class="ritem" href="#"><span class="thumb"><span class="ph r32" title="A procurement filing on screen, redactions visible"><span class="cap"><span class="tagl mono" style="font-size:9px;margin-bottom:0">Image</span></span></span><span class="when mono" style="display:block;margin-top:8px">Standing</span></span><span><h3>State surveillance and AI, tracked as it changes</h3><span class="dim">Procurement records, vendor disclosures, and model-side data handling, updated as filings land rather than once a year.</span></span><span class="arrow">&rarr;</span></a>
     </div>
   </div>
 </section>
@@ -639,7 +703,7 @@ footer .vision{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4vw
         <p class="p-lg">Our largest funder does not get a soft review; we wrote that into the structure before we wrote a word of research.</p>
       </div>
       <div>
-        <p class="dim">ur.io would be the Institute's primary supporter, with funding and in-kind contributions disclosed in full. Independence that depends on goodwill is not independence, so control of methodology and publication sits with a majority-independent board and autonomous research leadership, and assessments of ur.io and of anything the Institute builds are led by external reviewers.</p>
+        <p class="dim">UR would be the Institute's primary supporter and its founding organiser, with funding and in-kind contributions disclosed in full. That relationship creates the obvious conflict, because UR builds the category of product the Institute exists to assess. Independence that depends on goodwill is not independence, so control of methodology and publication sits with a majority-independent board and autonomous research leadership, and any assessment touching UR or anything the Institute builds is led by external reviewers.</p>
         <div class="rules">
           <div class="rule"><div class="k mono">Disclosure</div><p>Every funder, grant, and in-kind contribution published with amounts and dates.</p></div>
           <div class="rule"><div class="k mono">Control</div><p>Majority-independent board; research leadership holds final say on what publishes.</p></div>
@@ -650,6 +714,27 @@ footer .vision{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4vw
     </div>
   </section>
 </div>
+
+<section class="rv">
+  <div class="wrap">
+    <div class="eyebrow mono">The organiser</div>
+    <h2>UR builds the products; the Institute is the check on them</h2>
+    <p class="dim" style="max-width:62ch;margin-top:18px"><a href="https://ur.xyz" target="_blank" rel="noopener" class="link-q">UR</a> is a global institute for privacy and encryption products. Its network is contributed rather than rented: more than 80,000 members supply bandwidth that anonymises traffic for people who cannot route around their own government. UR would organise and fund the Freedom Institute, and would also sit inside its scope of assessment.</p>
+    <div class="ur">
+      <div class="ph r11 pale"><span class="cap"><span class="tagl mono">Image 1:1</span><span class="brief">UR wordmark on the operations wall, contributed nodes lit across a world map behind it</span></span></div>
+      <div class="ur-txt">
+        <h3>A contributed network changes who holds the risk</h3>
+        <p class="dim" style="font-size:15px">Commercial privacy infrastructure concentrates trust in one operator and one jurisdiction; a member-contributed network spreads it across the people using it. That design is the reason UR can serve places where a single corporate exit node would be blocked or seized within a week, and it is also the reason UR's own claims need testing by someone who does not report to UR.</p>
+        <p class="dim" style="font-size:15px;margin-bottom:0">The Institute publishes the test results either way. A finding against UR is the proof that the structure works.</p>
+        <div class="ur-stats">
+          <div class="ur-stat"><div class="v">80k+</div><div class="k mono">Contributing members</div></div>
+          <div class="ur-stat"><div class="v">Contributed</div><div class="k mono">Bandwidth model</div></div>
+          <div class="ur-stat"><div class="v">Full</div><div class="k mono">Funding disclosure</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="rv">
   <div class="wrap">
@@ -688,7 +773,7 @@ footer .vision{font-family:var(--serif);font-weight:300;font-size:clamp(26px,4vw
     </div>
     <div class="colophon mono">
       <span>&copy; 2026 Freedom Institute &middot; Concept</span>
-      <span>Supported by ur.io &middot; Independence policy published in full</span>
+      <span>Organised by <a href="https://ur.xyz" target="_blank" rel="noopener" style="color:rgba(255,255,255,.72)">UR</a> &middot; Independence policy published in full</span>
     </div>
   </div>
 </footer>
